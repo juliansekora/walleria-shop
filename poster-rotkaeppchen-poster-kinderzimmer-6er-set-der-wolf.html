@@ -395,6 +395,14 @@ a[data-go],a[data-scroll],a[data-noop]{cursor:pointer}
 .live .farben{gap:8px;row-gap:8px;margin-top:14px}
 .live .farben>:first-child{width:100%;margin-bottom:-2px;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600}
 
+/* Kopfzeile am Desktop: Wortmarke links, Menü daneben, Werkzeuge rechts */
+@media(min-width:961px){
+  .head{grid-template-columns:auto 1fr auto;gap:34px}
+  .head>.brand{order:-1;justify-self:start}
+  .head>div:first-of-type{justify-content:flex-start}
+  .menu{gap:24px}
+}
+
 /* Galerie „So sieht es bei euch aus“ – gleiche Proportion */
 .galerie img{aspect-ratio:4/5;object-fit:cover}
 </style><script>window.STRIPE_CHECKOUT_URL="http://localhost:8151/";</script></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
