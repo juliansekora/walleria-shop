@@ -383,6 +383,7 @@ a[data-go],a[data-scroll],a[data-noop]{cursor:pointer}
 .bar-satz{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
   opacity:0;transform:translateY(60%);transition:opacity .5s ease,transform .5s ease;
   white-space:nowrap;padding:0 12px}
+.bar-satz>span{display:block}
 .bar-satz.an{opacity:1;transform:none}
 .bar-satz.weg{opacity:0;transform:translateY(-60%)}
 .bar-satz b{font-weight:700}
@@ -526,7 +527,8 @@ img,video,svg,table{max-width:100%}
   .pdp{gap:22px}
   .gal .thumbs{gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none}
   .gal .thumbs::-webkit-scrollbar{display:none}
-  .gal .thumbs img{width:62px;height:78px;flex:0 0 auto}
+  .gal .thumbs button{width:62px;flex:0 0 auto}
+  .gal .thumbs img{width:100%;height:100%}
   .art{grid-template-columns:1fr}
   .sizes{grid-template-columns:repeat(2,1fr)}
   .sizes button{min-height:52px}
@@ -788,11 +790,7 @@ html.nav-offen,html.nav-offen body{overflow:hidden}
   <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6z"/><circle cx="12" cy="12" r="2.6"/></symbol>
   <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
 </svg><div class="bar" id="bar" aria-live="off"><div class="bar-lauf">
-  <span class="bar-satz an">Kostenloser Versand ab 60 € · Gedruckt in Deutschland</span>
-  <span class="bar-satz"><b>30 %</b> Rabatt ab 3 digitalen Dateien, <b>50 %</b> ab 5 – ohne Code</span>
-  <span class="bar-satz">Live-Vorschau vor dem Kauf – was du siehst, drucken wir</span>
-  <span class="bar-satz">Gedruckt in unserer eigenen Druckerei · 3–5 Werktage</span>
-</div></div>
+  <span class="bar-satz an"><span>Kostenloser Versand ab 60 € · Gedruckt in Deutschland</span></span>  <span class="bar-satz"><span><b>30 %</b> Rabatt ab 3 digitalen Dateien, <b>50 %</b> ab 5 – ohne Code</span></span>  <span class="bar-satz"><span>Live-Vorschau vor dem Kauf – was du siehst, drucken wir</span></span>  <span class="bar-satz"><span>Gedruckt in unserer eigenen Druckerei · 3–5 Werktage</span></span></div></div>
 <header class="top"><div class="wrap head">
   <div style="display:flex;align-items:center;gap:8px">
     <button class="burger tools" aria-label="Menü" style="background:none;border:0;padding:8px"><svg class="ico"><use href="#i-burger"/></svg></button>
