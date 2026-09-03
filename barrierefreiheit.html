@@ -549,6 +549,30 @@ img,video,svg,table{max-width:100%}
 .tools a.ic{display:inline-flex;align-items:center;justify-content:center;color:inherit;background:none;border:0;padding:8px;cursor:pointer;text-decoration:none}
 .tools a.ic:hover{color:var(--ink)}
 
+/* Kundenstimmen aus dem Etsy-Shop */
+.stimmen{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.stimme{margin:0;background:var(--bg);border:1px solid var(--line);padding:20px;display:grid;gap:10px;align-content:start}
+.stimme .sterne{color:#B4894A;letter-spacing:.08em;font-size:.95rem}
+.stimme blockquote{margin:0;font-size:.98rem;line-height:1.5}
+.stimme figcaption{color:var(--ink2);font-size:.8rem}
+.stimmen-quelle{color:var(--ink2);margin-top:16px;max-width:52rem;line-height:1.5}
+@media(max-width:900px){.stimmen{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.stimmen{grid-template-columns:1fr}}
+
+/* Filtergruppen zum Auf- und Zuklappen */
+.fgrp{border-bottom:1px solid var(--line)}
+.fgrp:last-of-type{border-bottom:0}
+.fgrp>summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;
+  padding:12px 0;min-height:44px;gap:12px}
+.fgrp>summary::-webkit-details-marker{display:none}
+.fgrp>summary::after{content:"";width:9px;height:9px;border-right:1.6px solid var(--ink2);border-bottom:1.6px solid var(--ink2);
+  transform:rotate(45deg);margin-top:-4px;transition:transform .2s ease;flex:0 0 auto}
+.fgrp[open]>summary::after{transform:rotate(-135deg);margin-top:2px}
+.fgrp>summary h3{margin:0}
+.fgrp-inhalt{padding-bottom:12px;display:grid}
+.fgrp-inhalt label:last-child{border-bottom:0}
+@media (prefers-reduced-motion:reduce){.fgrp>summary::after{transition:none}}
+
 /* Preiszeile: digitaler Preis zuerst, gedruckter darunter */
 .card .price{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px}
 .card .price b{font-size:1.02rem}
@@ -934,8 +958,27 @@ function bestellStatus(){
   if(p) q("#bestNr").value=p;
 }
 
+
+/* Filtergruppen: auf dem Handy zu, am Rechner offen. Merkt sich die Wahl. */
+function filterGruppen(){
+  const grp=[...document.querySelectorAll(".fgrp")]; if(!grp.length) return;
+  const schmal=matchMedia("(max-width:900px)").matches;
+  let gemerkt=null;
+  try{ gemerkt=JSON.parse(localStorage.getItem("walleria_filter")||"null"); }catch(e){}
+  grp.forEach(d=>{
+    const k=d.dataset.grp;
+    if(gemerkt && k in gemerkt) d.open=!!gemerkt[k];
+    else d.open=!schmal;                       /* Voreinstellung nach Bildschirmbreite */
+    d.addEventListener("toggle",()=>{
+      const stand={}; grp.forEach(x=>stand[x.dataset.grp]=x.open);
+      try{ localStorage.setItem("walleria_filter",JSON.stringify(stand)); }catch(e){}
+    });
+  });
+}
+
 function initSeite(){
   bilderSetzen();
+  filterGruppen();
   bestellStatus();
   raumKnoepfe();
   kaufbalken();

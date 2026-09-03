@@ -549,6 +549,30 @@ img,video,svg,table{max-width:100%}
 .tools a.ic{display:inline-flex;align-items:center;justify-content:center;color:inherit;background:none;border:0;padding:8px;cursor:pointer;text-decoration:none}
 .tools a.ic:hover{color:var(--ink)}
 
+/* Kundenstimmen aus dem Etsy-Shop */
+.stimmen{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.stimme{margin:0;background:var(--bg);border:1px solid var(--line);padding:20px;display:grid;gap:10px;align-content:start}
+.stimme .sterne{color:#B4894A;letter-spacing:.08em;font-size:.95rem}
+.stimme blockquote{margin:0;font-size:.98rem;line-height:1.5}
+.stimme figcaption{color:var(--ink2);font-size:.8rem}
+.stimmen-quelle{color:var(--ink2);margin-top:16px;max-width:52rem;line-height:1.5}
+@media(max-width:900px){.stimmen{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.stimmen{grid-template-columns:1fr}}
+
+/* Filtergruppen zum Auf- und Zuklappen */
+.fgrp{border-bottom:1px solid var(--line)}
+.fgrp:last-of-type{border-bottom:0}
+.fgrp>summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;
+  padding:12px 0;min-height:44px;gap:12px}
+.fgrp>summary::-webkit-details-marker{display:none}
+.fgrp>summary::after{content:"";width:9px;height:9px;border-right:1.6px solid var(--ink2);border-bottom:1.6px solid var(--ink2);
+  transform:rotate(45deg);margin-top:-4px;transition:transform .2s ease;flex:0 0 auto}
+.fgrp[open]>summary::after{transform:rotate(-135deg);margin-top:2px}
+.fgrp>summary h3{margin:0}
+.fgrp-inhalt{padding-bottom:12px;display:grid}
+.fgrp-inhalt label:last-child{border-bottom:0}
+@media (prefers-reduced-motion:reduce){.fgrp>summary::after{transition:none}}
+
 /* Preiszeile: digitaler Preis zuerst, gedruckter darunter */
 .card .price{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px}
 .card .price b{font-size:1.02rem}
@@ -691,6 +715,14 @@ html.nav-offen,html.nav-offen body{overflow:hidden}
 </div></section>
 <section class="alt"><div class="wrap"><div class="row-head"><h2>So sieht es bei euch aus</h2><a href="namensposter.html">Poster entdecken</a></div>
   <div class="galerie"><img src="img/wm_01.jpg" alt="Poster von Walleria im Kinderzimmer, Ansicht 1" width="900" height="1157" style="object-position:41% 36%" loading="lazy" decoding="async"><img src="img/wm_02.jpg" alt="Poster von Walleria im Kinderzimmer, Ansicht 2" width="900" height="1157" style="object-position:43% 33%" loading="lazy" decoding="async"><img src="img/wm_03.jpg" alt="Poster von Walleria im Kinderzimmer, Ansicht 3" width="900" height="1157" style="object-position:49% 28%" loading="lazy" decoding="async"><img src="img/wm_04.jpg" alt="Poster von Walleria im Kinderzimmer, Ansicht 4" width="860" height="860" style="object-position:47% 37%" loading="lazy" decoding="async"><img src="img/wm_05.jpg" alt="Poster von Walleria im Kinderzimmer, Ansicht 5" width="900" height="657" style="object-position:47% 35%" loading="lazy" decoding="async"><img src="img/wm_06.jpg" alt="Poster von Walleria im Kinderzimmer, Ansicht 6" width="900" height="657" style="object-position:56% 34%" loading="lazy" decoding="async"><img src="img/wm_07.jpg" alt="Poster von Walleria im Kinderzimmer, Ansicht 7" width="900" height="1157" style="object-position:52% 36%" loading="lazy" decoding="async"><img src="img/wm_08.jpg" alt="Poster von Walleria im Kinderzimmer, Ansicht 8" width="900" height="1157" style="object-position:60% 35%" loading="lazy" decoding="async"><img src="img/wm_09.jpg" alt="Poster von Walleria im Kinderzimmer, Ansicht 9" width="900" height="1157" style="object-position:52% 33%" loading="lazy" decoding="async"><img src="img/wm_10.jpg" alt="Poster von Walleria im Kinderzimmer, Ansicht 10" width="900" height="657" style="object-position:46% 32%" loading="lazy" decoding="async"><img src="img/wm_11.jpg" alt="Poster von Walleria im Kinderzimmer, Ansicht 11" width="900" height="1157" style="object-position:50% 27%" loading="lazy" decoding="async"><img src="img/wm_12.jpg" alt="Poster von Walleria im Kinderzimmer, Ansicht 12" width="900" height="656" style="object-position:48% 32%" loading="lazy" decoding="async"><img src="img/wm_13.jpg" alt="Poster von Walleria im Kinderzimmer, Ansicht 13" width="700" height="900" style="object-position:64% 27%" loading="lazy" decoding="async"></div></div></section>
+<section class="alt" id="stimmen"><div class="wrap">
+  <div class="row-head"><h2>Was Kundinnen und Kunden sagen</h2>
+    <span class="small">4.88 von 5 · 26 Bewertungen</span></div>
+  <div class="stimmen"><figure class="stimme"><div class="sterne" aria-label="5 von 5 Sternen"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span></div><blockquote>Das Drucken hat super geklappt</blockquote><figcaption>Verifizierter Kauf · 08/2026</figcaption></figure><figure class="stimme"><div class="sterne" aria-label="4 von 5 Sternen"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">☆</span></div><blockquote>Schöne Idee und kann mehrfach genutzt werden</blockquote><figcaption>Verifizierter Kauf · 04/2026</figcaption></figure><figure class="stimme"><div class="sterne" aria-label="5 von 5 Sternen"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span></div><blockquote>Es hat alles super funktioniert.</blockquote><figcaption>Verifizierter Kauf · 02/2026</figcaption></figure><figure class="stimme"><div class="sterne" aria-label="4 von 5 Sternen"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">☆</span></div><blockquote>Es ist alles prima gewesen. Danke</blockquote><figcaption>Verifizierter Kauf · 02/2026</figcaption></figure><figure class="stimme"><div class="sterne" aria-label="5 von 5 Sternen"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span></div><blockquote>Sehr schönes und süßes Design.</blockquote><figcaption>Verifizierter Kauf · 10/2025</figcaption></figure><figure class="stimme"><div class="sterne" aria-label="5 von 5 Sternen"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span></div><blockquote>Sehr schön. Macht sich gut im Bilderrahmen</blockquote><figcaption>Verifizierter Kauf · 10/2025</figcaption></figure></div>
+  <p class="small stimmen-quelle">Diese Bewertungen stammen aus unserem Etsy-Shop und wurden dort von Etsy als
+  Käufe verifiziert – jede Bewertung ist einer echten Bestellung zugeordnet. Wir übernehmen sie unverändert
+  und ohne Auswahl nach Note. <a href="haeufige-fragen.html">Mehr dazu</a></p>
+</div></section>
 <section><div class="wrap"><div class="tiles">
   <a class="tile" href="geburt-baby.html"><img src="img/wm_13.jpg" alt="Namensposter-Set über dem Babybett" width="700" height="900" style="object-position:64% 27%" loading="lazy" decoding="async"><span class="cap"><b>Zur Geburt</b><span>Namensposter-Sets & Ultraschall-Aquarell <svg class="ico"><use href="#i-arrow"/></svg></span></span></a>
   <a class="tile" href="kinderzimmer.html"><img src="img/wm_07.jpg" alt="Kinderzimmer mit Pippi-Langstrumpf-Poster" width="900" height="1157" style="object-position:52% 36%" loading="lazy" decoding="async"><span class="cap"><b>Fürs Kinderzimmer</b><span>Pippi, Michel & Co. <svg class="ico"><use href="#i-arrow"/></svg></span></span></a>
@@ -966,8 +998,27 @@ function bestellStatus(){
   if(p) q("#bestNr").value=p;
 }
 
+
+/* Filtergruppen: auf dem Handy zu, am Rechner offen. Merkt sich die Wahl. */
+function filterGruppen(){
+  const grp=[...document.querySelectorAll(".fgrp")]; if(!grp.length) return;
+  const schmal=matchMedia("(max-width:900px)").matches;
+  let gemerkt=null;
+  try{ gemerkt=JSON.parse(localStorage.getItem("walleria_filter")||"null"); }catch(e){}
+  grp.forEach(d=>{
+    const k=d.dataset.grp;
+    if(gemerkt && k in gemerkt) d.open=!!gemerkt[k];
+    else d.open=!schmal;                       /* Voreinstellung nach Bildschirmbreite */
+    d.addEventListener("toggle",()=>{
+      const stand={}; grp.forEach(x=>stand[x.dataset.grp]=x.open);
+      try{ localStorage.setItem("walleria_filter",JSON.stringify(stand)); }catch(e){}
+    });
+  });
+}
+
 function initSeite(){
   bilderSetzen();
+  filterGruppen();
   bestellStatus();
   raumKnoepfe();
   kaufbalken();
