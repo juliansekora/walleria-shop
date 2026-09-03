@@ -414,7 +414,7 @@ a[data-go],a[data-scroll],a[data-noop]{cursor:pointer}
 
 /* Galerie „So sieht es bei euch aus“ – gleiche Proportion */
 .galerie img{aspect-ratio:4/5;object-fit:cover}
-</style><script>window.STRIPE_CHECKOUT_URL="http://localhost:8151/";</script></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
+</style><script>window.STRIPE_CHECKOUT_URL="http://localhost:8151/";window.SUPABASE_URL="https://lbypqkpuyfljeegljvbl.supabase.co";window.SUPABASE_KEY="sb_publishable_B63DzW3v0kRFCaoTbpTD0g_KtML4ERa";</script></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></symbol>
   <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
   <symbol id="i-chevd" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
@@ -619,41 +619,52 @@ const kf=q("#kForm"); if(kf){
   });
 }
 
-/* Bewertungen */
+/* Bewertungen – Supabase */
+function bewKopf(){ return {"apikey":window.SUPABASE_KEY,"Authorization":"Bearer "+window.SUPABASE_KEY,"Content-Type":"application/json"}; }
 window.bewSenden=function(e){
   e.preventDefault();
   var f=e.target, d={};
-  new FormData(f).forEach(function(v,k){d[k]=v;});
-  d.produkt=f.dataset.produkt;
-  var ziel=window.BEWERTUNG_URL;
-  if(!ziel){ toast("Bewertungen werden bald freigeschaltet – danke für deine Geduld."); return false; }
-  fetch(ziel,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(d)})
-    .then(function(r){ return r.ok?r.json():Promise.reject(); })
-    .then(function(){ f.reset(); toast("Danke! Wir prüfen deine Bewertung und schalten sie frei."); })
-    .catch(function(){ toast("Das hat nicht geklappt. Versuch es später noch einmal."); });
+  new FormData(f).forEach(function(v,k){ d[k]=(""+v).trim(); });
+  if(!window.SUPABASE_URL){ toast("Bewertungen werden bald freigeschaltet."); return false; }
+  var nr=(d.bestellung||"").replace(/[^0-9]/g,"");
+  if(nr.length<6){ toast("Bitte die Bestellnummer aus deiner Etsy-Bestellung eintragen."); return false; }
+  var satz={p_bestellnummer:Number(nr),p_produkt:f.dataset.produkt,p_name:d.name,p_sterne:Number(d.sterne),p_text:d.text};
+  var btn=f.querySelector("button"); btn.disabled=true;
+  fetch(window.SUPABASE_URL+"/rest/v1/rpc/walleria_bewertung_abgeben",{method:"POST",headers:bewKopf(),body:JSON.stringify(satz)})
+    .then(function(r){ return r.json(); })
+    .then(function(a){
+      btn.disabled=false;
+      if(a==="ok"){ f.reset(); toast("Danke! Wir prüfen deine Bewertung und schalten sie frei."); }
+      else if(a==="schon_bewertet"){ toast("Für diese Bestellung liegt schon eine Bewertung vor."); }
+      else if(a==="bestellung_unbekannt"){ toast("Diese Bestellnummer finden wir nicht. Bitte prüfe sie noch einmal."); }
+      else { toast("Bitte fülle alle Felder aus."); }
+    })
+    .catch(function(){ btn.disabled=false; toast("Das hat nicht geklappt. Versuch es später noch einmal."); });
   return false;
 };
 function bewLaden(){
-  var liste=q("#bewListe"); if(!liste||!window.BEWERTUNG_URL) return;
-  fetch(window.BEWERTUNG_URL+"?produkt="+encodeURIComponent(liste.dataset.produkt))
-    .then(function(r){return r.json();})
-    .then(function(rows){
-      if(!rows||!rows.length) return;
-      liste.innerHTML=rows.map(function(r){
-        var s="★★★★★".slice(0,r.sterne)+"☆☆☆☆☆".slice(0,5-r.sterne);
-        return '<div class="review"><span class="stars">'+s+'</span><p></p><span class="who"></span></div>';
-      }).join("");
-      [].forEach.call(liste.querySelectorAll(".review"),function(el,i){
-        el.querySelector("p").textContent=rows[i].text;
-        el.querySelector(".who").textContent=rows[i].name+" · geprüfter Kauf";
-      });
-      var kopf=q("#ratingKopf");
-      if(kopf){ var m=rows.reduce(function(a,b){return a+b.sterne;},0)/rows.length;
-        kopf.innerHTML='<span>'+"★★★★★".slice(0,Math.round(m))+'</span> '+m.toFixed(1)+' · '+rows.length+' Bewertungen'; }
-    }).catch(function(){});
+  var liste=q("#bewListe"); if(!liste||!window.SUPABASE_URL) return;
+  var u=window.SUPABASE_URL+"/rest/v1/walleria_bewertungen?produkt=eq."+encodeURIComponent(liste.dataset.produkt)
+        +"&freigegeben=is.true&select=name,sterne,text,erstellt_am&order=erstellt_am.desc&limit=12";
+  fetch(u,{headers:bewKopf()}).then(function(r){ return r.json(); }).then(function(rows){
+    if(!rows||!rows.length) return;
+    liste.innerHTML="";
+    var summe=0;
+    rows.forEach(function(r){
+      summe+=r.sterne;
+      var el=document.createElement("div"); el.className="review";
+      var st=document.createElement("span"); st.className="stars";
+      st.textContent="★★★★★".slice(0,r.sterne)+"☆☆☆☆☆".slice(0,5-r.sterne);
+      var p=document.createElement("p"); p.textContent=r.text;
+      var w=document.createElement("span"); w.className="who"; w.textContent=r.name+" · geprüfter Kauf";
+      el.appendChild(st); el.appendChild(p); el.appendChild(w); liste.appendChild(el);
+    });
+    var kopf=q("#ratingKopf");
+    if(kopf){ var m=summe/rows.length;
+      kopf.innerHTML='<span>'+"★★★★★".slice(0,Math.round(m))+'</span> '+m.toFixed(1).replace(".",",")+' · '+rows.length+(rows.length===1?" Bewertung":" Bewertungen"); }
+  }).catch(function(){});
 }
 bewLaden();
-
 /* Cookie-Consent */
 const CK_KEY="jmp_consent_v1", CK_TAGE=182; let consent=null;
 try{ const roh=JSON.parse(localStorage.getItem(CK_KEY)||"null");
