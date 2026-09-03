@@ -770,14 +770,14 @@ html.nav-offen,html.nav-offen body{overflow:hidden}
 <div class="pay"><div class="cards"><span>VISA</span><span>Mastercard</span><span>PayPal</span><span>Klarna</span><span>Apple Pay</span><span>Google Pay</span><span>SEPA</span></div><small>© 2026 Walleria · Prototyp</small></div>
 </div></footer><div class="cookie" id="cookie" hidden role="dialog" aria-modal="true" aria-labelledby="ckTitel">
   <div class="ck-box"><h3 id="ckTitel">Cookies & Datenschutz</h3>
-  <p>Wir verwenden notwendige Cookies für Warenkorb und Zahlungssicherheit. Statistik- und Marketing-Cookies (z. B. ChatGPT-Ads-Pixel, Meta-Pixel, Pinterest-Tag) setzen wir nur mit deiner Einwilligung. Details in der <a href="{L('datenschutz.html')}" class="ck-link">Datenschutzerklärung</a>. Du kannst deine Auswahl jederzeit über „Cookie-Einstellungen" im Footer ändern.</p>
+  <p>Wir verwenden notwendige Cookies für Warenkorb und Zahlungssicherheit. Statistik- und Marketing-Cookies (z. B. ChatGPT-Ads-Pixel, Meta-Pixel, Pinterest-Tag) setzen wir nur mit deiner Einwilligung. Details in der <a href="datenschutz.html" class="ck-link">Datenschutzerklärung</a>. Du kannst deine Auswahl jederzeit über „Cookie-Einstellungen" im Footer ändern.</p>
   <div class="ck-opts" id="ckOpts" hidden>
     <label><input type="checkbox" checked disabled> <b>Notwendig</b> – Warenkorb, Cookie-Auswahl, Zahlungsabwicklung (immer aktiv)</label>
     <label><input type="checkbox" id="ckStat"> <b>Statistik</b> – anonyme Reichweitenmessung</label>
     <label><input type="checkbox" id="ckMark"> <b>Marketing</b> – ChatGPT-Ads-Pixel, Meta-Pixel und Pinterest-Tag zur Erfolgsmessung von Anzeigen</label>
   </div>
   <div class="ck-btns"><button class="btn" id="ckAlle">Alle akzeptieren</button><button class="btn line" id="ckNur">Nur notwendige</button><button class="btn line" id="ckEinst">Einstellungen</button><button class="btn line" id="ckSpeichern" hidden>Auswahl speichern</button></div>
-  <p class="small">Deine Auswahl gilt 6 Monate, danach fragen wir erneut. · <a href="{L('impressum.html')}" class="ck-link">Impressum</a> · <a href="{L('datenschutz.html')}" class="ck-link">Datenschutz</a></p></div>
+  <p class="small">Deine Auswahl gilt 6 Monate, danach fragen wir erneut. · <a href="impressum.html" class="ck-link">Impressum</a> · <a href="datenschutz.html" class="ck-link">Datenschutz</a></p></div>
 </div><aside class="drawer" id="drawer" aria-label="Warenkorb"><div class="hd"><h3>Warenkorb</h3><button class="btn line" id="drawerClose" style="padding:8px 14px;min-height:40px">Schließen</button></div><ul id="korbListe"></ul><div class="total"><span>Zwischensumme</span><b id="korbSumme">0,00 €</b></div><button class="btn" id="kasse" style="margin-top:12px">Zur Kasse</button><p class="small" style="margin-top:8px">Im echten Shop: Stripe Checkout; der letzte Schritt heißt „Zahlungspflichtig bestellen" mit Bestellübersicht, AGB- und Widerrufshinweis.</p></aside><div class="toast" id="toast"></div><script>
 const eur=n=>n.toFixed(2).replace(".",",")+" €"; const q=s=>document.querySelector(s); const esc=s=>(s||"").replace(/[<>&]/g,"");
 const RABATT=0.30;
@@ -808,7 +808,11 @@ function buntBlock(text,yMitte,hoehe,seed,B){
   if(!text.includes(" ")||text.length<14) return buntZeile(text,yMitte,hoehe,seed,B);
   const bw=(s,g)=>[...s].reduce((a,c)=>a+tw(c,"Lilita One",g),0)+g*0.02*(s.length-1);
   const w=text.split(" "); let best=null;
-  for(let i=1;i<w.length;i++){ const a=w.slice(0,i).join(" "), b=w.slice(i).join(" "); const d=Math.abs(bw(a,100)-bw(b,100)); if(!best||d<best[0]) best=[d,a,b]; }
+  /* Doppelnamen brechen immer hinter dem Und-Zeichen um - "Julian &" / "Johanna"
+     liest sich richtig, "Julian" / "& Johanna" nicht. */
+  const amp=w.indexOf("&");
+  if(amp>0 && amp<w.length-1) best=[0, w.slice(0,amp+1).join(" "), w.slice(amp+1).join(" ")];
+  else for(let i=1;i<w.length;i++){ const a=w.slice(0,i).join(" "), b=w.slice(i).join(" "); const d=Math.abs(bw(a,100)-bw(b,100)); if(!best||d<best[0]) best=[d,a,b]; }
   const grenze=B*(1-2*NP.S-0.04); let gr=hoehe*0.40; const l=Math.max(bw(best[1],gr),bw(best[2],gr)); if(l>grenze) gr*=grenze/l;
   const v=gr*0.72; return buntZeile(best[1],yMitte-v,gr,seed,B)+buntZeile(best[2],yMitte+v,gr,seed+1,B); }
 function rosieSVG(name){ const B=NP.B,H=NP.H,seed=1; const zeichen=initiale(name)||"M"; const teile=zeichen.split(" "); let s="";
@@ -1201,20 +1205,19 @@ function initSeite(){
     pdp.querySelectorAll(".farben button").forEach(b=>b.addEventListener("click",()=>{pdp.querySelectorAll(".farben button").forEach(x=>x.setAttribute("aria-pressed","false")); b.setAttribute("aria-pressed","true"); farbe=b.dataset.farbe;}));
     const kn=q("#kName"), kd=q("#kDatum"), lm=q("#liveMain");
     const kn2=q("#kName2"), feld2=kn2?kn2.closest(".field"):null;
-    const papier2=q("#paper2"), poster2=q("#poster2");
     let anzahlNamen=1;
 
-    const vorschau=()=>{ if(!lm) return;
+    /* Zwei Geschwister teilen sich ein Poster: "J & J" oben, "Julian & Johanna" darunter. */
+    const namenText=()=>{
       const n=(kn&&kn.value.trim())||"";
       const n2=(kn2&&kn2.value.trim())||"";
-      if(!n && !(anzahlNamen===2 && n2)) return;
+      return (anzahlNamen===2 && n && n2) ? n+" & "+n2 : (n||n2);
+    };
+
+    const vorschau=()=>{ if(!lm) return;
+      const t=namenText(); if(!t) return;
       lm.hidden=false; q("#galMain").hidden=true;
-      npRender(q("#liveMain .poster"), n);
-      if(papier2){
-        const zweiZeigen = anzahlNamen===2;
-        papier2.hidden = !zweiZeigen;
-        if(zweiZeigen) npRender(poster2, n2 || "Ole");
-      }
+      npRender(q("#liveMain .poster"), t);
     };
 
     /* Ein oder zwei Namen umschalten */
@@ -1243,10 +1246,16 @@ function initSeite(){
     }
     /* Alle Personalisierungsfelder des Produkts einsammeln - Name, Datum, Gewicht ... */
     const persFelder=()=>{
-      const l=[...pdp.querySelectorAll("[data-pers-feld]")]
-        .map(e=>({feld:e.dataset.persFeld, wert:e.value.trim()})).filter(x=>x.wert);
+      let l=[...pdp.querySelectorAll("[data-pers-feld]")]
+        .map(e=>({feld:e.dataset.persFeld, wert:e.value.trim(), id:e.id})).filter(x=>x.wert);
+      /* Was auf einem Poster steht, gehoert auch als eine Zeile in die Bestellung -
+         sonst druckt die Produktion aus zwei Feldern zwei Poster. */
+      if(anzahlNamen===2 && kn && kn2 && kn.value.trim() && kn2.value.trim()){
+        l=l.filter(x=>x.id!=="kName" && x.id!=="kName2");
+        l.unshift({feld:"Namen", wert:kn.value.trim()+" & "+kn2.value.trim()});
+      }
       if(design) l.unshift({feld:"Design", wert:design});
-      return l; };
+      return l.map(x=>({feld:x.feld, wert:x.wert})); };
     const persText=()=>persFelder().map(x=>x.feld+": "+x.wert).join(" · ");
     q("#inKorb").addEventListener("click",()=>{ if(pdp.dataset.pers==="1" && !(kn&&kn.value.trim())){if(kn)kn.focus(); toast("Bitte zuerst den Namen eintragen"); return;}
       if(art==="digital" && !q("#einwBox").checked){ toast("Bitte der sofortigen Bereitstellung zustimmen"); q("#einwBox").focus(); return; }
