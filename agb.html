@@ -816,12 +816,11 @@ function buntZeile(text,yMitte,hoehe,seed,B){ const R=rnd(seed); const les=PAL.b
 function buntBlock(text,yMitte,hoehe,seed,B){
   if(!text.includes(" ")||text.length<14) return buntZeile(text,yMitte,hoehe,seed,B);
   const bw=(s,g)=>[...s].reduce((a,c)=>a+tw(c,"Lilita One",g),0)+g*0.02*(s.length-1);
+  /* Umbruch wie in namensposter.py (Etsy-Produktion): an der Stelle, an der
+     beide Zeilen am aehnlichsten breit werden. Was hier steht, muss dort genauso
+     herauskommen - sonst zeigt die Vorschau etwas anderes, als gedruckt wird. */
   const w=text.split(" "); let best=null;
-  /* Doppelnamen brechen immer hinter dem Und-Zeichen um - "Julian &" / "Johanna"
-     liest sich richtig, "Julian" / "& Johanna" nicht. */
-  const amp=w.indexOf("&");
-  if(amp>0 && amp<w.length-1) best=[0, w.slice(0,amp+1).join(" "), w.slice(amp+1).join(" ")];
-  else for(let i=1;i<w.length;i++){ const a=w.slice(0,i).join(" "), b=w.slice(i).join(" "); const d=Math.abs(bw(a,100)-bw(b,100)); if(!best||d<best[0]) best=[d,a,b]; }
+  for(let i=1;i<w.length;i++){ const a=w.slice(0,i).join(" "), b=w.slice(i).join(" "); const d=Math.abs(bw(a,100)-bw(b,100)); if(!best||d<best[0]) best=[d,a,b]; }
   const grenze=B*(1-2*NP.S-0.04); let gr=hoehe*0.40; const l=Math.max(bw(best[1],gr),bw(best[2],gr)); if(l>grenze) gr*=grenze/l;
   const v=gr*0.72; return buntZeile(best[1],yMitte-v,gr,seed,B)+buntZeile(best[2],yMitte+v,gr,seed+1,B); }
 function rosieSVG(name){ const B=NP.B,H=NP.H,seed=1; const zeichen=initiale(name)||"M"; const teile=zeichen.split(" "); let s="";
