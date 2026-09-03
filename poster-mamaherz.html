@@ -226,7 +226,9 @@ footer a:hover{color:var(--ink)}
 .gal .thumbs button[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
 .gal .thumbs img{width:100%;height:100%;object-fit:cover}
 .gal .main{aspect-ratio:1;background:var(--alt);overflow:hidden}
-.gal .main img{width:100%;height:100%;object-fit:cover}
+/* contain statt cover: Uebersichtsbilder mit mehreren Designs wurden sonst
+   unten abgeschnitten, weil sie hochformatig sind und der Rahmen quadratisch ist. */
+.gal .main img{width:100%;height:100%;object-fit:contain;background:var(--alt)}
 .buy h1{font-size:clamp(1.5rem,2.4vw,2rem);font-weight:600;margin:6px 0 8px}
 .buy .kat{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2);font-weight:600}
 .buy .rating{display:flex;gap:8px;align-items:center;font-size:.88rem;color:var(--ink2);margin-bottom:14px}
@@ -573,6 +575,13 @@ img,video,svg,table{max-width:100%}
 .fgrp-inhalt label:last-child{border-bottom:0}
 @media (prefers-reduced-motion:reduce){.fgrp>summary::after{transition:none}}
 
+/* Designwahl auf der Produktseite */
+.designs{display:flex;flex-wrap:wrap;gap:8px}
+.designs button{font:inherit;font-size:.9rem;padding:9px 14px;min-height:44px;border:1px solid var(--line);
+  border-radius:4px;background:var(--bg);color:var(--ink);cursor:pointer;transition:border-color .15s,box-shadow .15s}
+.designs button:hover{border-color:var(--ink2)}
+.designs button[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink);font-weight:600}
+
 /* Preiszeile: digitaler Preis zuerst, gedruckter darunter */
 .card .price{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px}
 .card .price b{font-size:1.02rem}
@@ -701,7 +710,7 @@ html.nav-offen,html.nav-offen body{overflow:hidden}
     <div class="rating" id="ratingKopf" data-produkt="mamaherz"><span class="muted small">Noch keine Bewertungen</span></div>
     <p class="muted">Definition mit den Namen der Kinder – 6 Designs zur Wahl.</p>
     <div class="preis" data-digital="6.99" data-digital-alt="9.99"><b id="preis">6,99 €</b><s id="preisAlt">9,99 €</s><em id="preisTag">−30 %</em></div>
-    <div class="block"><div class="field"><label>Ausführung</label><div class="art" id="art"><label><input type="radio" name="art" value="digital" checked><b>Digitale Datei</b><small>Sofort-Download, PDF + JPG · <s>9,99 €</s> 6,99 €</small></label><label><input type="radio" name="art" value="physisch"><b>Gedruckt & geliefert</b><small>Premium-Papier, 8 Größen, 3–5 Werktage</small></label></div></div><div class="pers-felder"><div class="field"><label for="kName">Namen der Kinder</label><input id="kName" data-pers-feld="Namen der Kinder" maxlength="40" placeholder="z. B. Lina &amp; Ole"></div></div><div class="field" id="feldGroesse"><label>Größe <span class="small">(ohne Rahmen)</span></label><div class="sizes" id="groessen"><button type="button" data-i="0" data-preis="27.99" aria-pressed="true">13×18<small>19,59 €</small></button><button type="button" data-i="1" data-preis="33.99" aria-pressed="false">20×25<small>23,79 €</small></button><button type="button" data-i="2" data-preis="36.99" aria-pressed="false">21×30<small>25,89 €</small></button><button type="button" data-i="3" data-preis="39.99" aria-pressed="false">30×40<small>27,99 €</small></button><button type="button" data-i="4" data-preis="46.99" aria-pressed="false">40×50<small>32,89 €</small></button><button type="button" data-i="5" data-preis="55.99" aria-pressed="false">50×70<small>39,19 €</small></button><button type="button" data-i="6" data-preis="69.99" aria-pressed="false">61×91<small>48,99 €</small></button><button type="button" data-i="7" data-preis="81.99" aria-pressed="false">70×100<small>57,39 €</small></button></div></div><label class="einw" id="einw" hidden><input type="checkbox" id="einwBox"> Ich stimme zu, dass mit der Bereitstellung der digitalen Datei vor Ablauf der Widerrufsfrist begonnen wird, und weiß, dass mein Widerrufsrecht damit erlischt (§ 356 Abs. 5 BGB).</label></div>
+    <div class="block"><div class="field"><label>Ausführung</label><div class="art" id="art"><label><input type="radio" name="art" value="digital" checked><b>Digitale Datei</b><small>Sofort-Download, PDF + JPG · <s>9,99 €</s> 6,99 €</small></label><label><input type="radio" name="art" value="physisch"><b>Gedruckt & geliefert</b><small>Premium-Papier, 8 Größen, 3–5 Werktage</small></label></div></div><div class="field"><label>Design <span class="small">(6 zur Wahl)</span></label><div class="designs" id="designs"><button type="button" data-design="Schlicht" aria-pressed="true">Schlicht</button><button type="button" data-design="Klassisch" aria-pressed="false">Klassisch</button><button type="button" data-design="Herz" aria-pressed="false">Herz</button><button type="button" data-design="Zweig" aria-pressed="false">Zweig</button><button type="button" data-design="Nachtgrün" aria-pressed="false">Nachtgrün</button><button type="button" data-design="Puderrose" aria-pressed="false">Puderrose</button></div></div><div class="pers-felder"><div class="field"><label for="kName">Namen der Kinder</label><input id="kName" data-pers-feld="Namen der Kinder" maxlength="40" placeholder="z. B. Lina &amp; Ole"></div></div><div class="field" id="feldGroesse"><label>Größe <span class="small">(ohne Rahmen)</span></label><div class="sizes" id="groessen"><button type="button" data-i="0" data-preis="27.99" aria-pressed="true">13×18<small>19,59 €</small></button><button type="button" data-i="1" data-preis="33.99" aria-pressed="false">20×25<small>23,79 €</small></button><button type="button" data-i="2" data-preis="36.99" aria-pressed="false">21×30<small>25,89 €</small></button><button type="button" data-i="3" data-preis="39.99" aria-pressed="false">30×40<small>27,99 €</small></button><button type="button" data-i="4" data-preis="46.99" aria-pressed="false">40×50<small>32,89 €</small></button><button type="button" data-i="5" data-preis="55.99" aria-pressed="false">50×70<small>39,19 €</small></button><button type="button" data-i="6" data-preis="69.99" aria-pressed="false">61×91<small>48,99 €</small></button><button type="button" data-i="7" data-preis="81.99" aria-pressed="false">70×100<small>57,39 €</small></button></div></div><label class="einw" id="einw" hidden><input type="checkbox" id="einwBox"> Ich stimme zu, dass mit der Bereitstellung der digitalen Datei vor Ablauf der Widerrufsfrist begonnen wird, und weiß, dass mein Widerrufsrecht damit erlischt (§ 356 Abs. 5 BGB).</label></div>
     <div class="block"><button class="btn" id="inKorb">In den Warenkorb</button>
       <div class="usp-l"><div><svg class="ico"><use href="#i-check"/></svg>Lieferung in 3–5 Werktagen · ab 60 € versandkostenfrei</div><div><svg class="ico"><use href="#i-check"/></svg>Gedruckt in unserer eigenen Druckerei in Deutschland</div><div><svg class="ico"><use href="#i-check"/></svg>Die Vorschau ist die Druckvorlage</div></div></div>
     <div class="acc">
@@ -1091,9 +1100,21 @@ function initSeite(){
     const kn=q("#kName"), kd=q("#kDatum"), lm=q("#liveMain");
     const vorschau=()=>{ if(!lm) return; const n=(kn&&kn.value.trim())||""; if(n){lm.hidden=false; q("#galMain").hidden=true; npRender(q("#liveMain .poster"),n);} };
     if(kn){ let vor=""; try{vor=new URLSearchParams(location.search).get("name")||sessionStorage.getItem("jmp_name")||"";}catch(e){} if(vor){kn.value=vor;} kn.addEventListener("input",vorschau); if(kd) kd.addEventListener("input",vorschau); vorschau(); try{sessionStorage.removeItem("jmp_name");}catch(e){} }
+    /* Designwahl */
+    let design="";
+    const dsgKnoepfe=[...pdp.querySelectorAll("#designs button")];
+    if(dsgKnoepfe.length){
+      design=dsgKnoepfe[0].dataset.design;
+      dsgKnoepfe.forEach(b=>b.addEventListener("click",()=>{
+        dsgKnoepfe.forEach(x=>x.setAttribute("aria-pressed","false"));
+        b.setAttribute("aria-pressed","true"); design=b.dataset.design; }));
+    }
     /* Alle Personalisierungsfelder des Produkts einsammeln - Name, Datum, Gewicht ... */
-    const persFelder=()=>[...pdp.querySelectorAll("[data-pers-feld]")]
-      .map(e=>({feld:e.dataset.persFeld, wert:e.value.trim()})).filter(x=>x.wert);
+    const persFelder=()=>{
+      const l=[...pdp.querySelectorAll("[data-pers-feld]")]
+        .map(e=>({feld:e.dataset.persFeld, wert:e.value.trim()})).filter(x=>x.wert);
+      if(design) l.unshift({feld:"Design", wert:design});
+      return l; };
     const persText=()=>persFelder().map(x=>x.feld+": "+x.wert).join(" · ");
     q("#inKorb").addEventListener("click",()=>{ if(pdp.dataset.pers==="1" && !(kn&&kn.value.trim())){if(kn)kn.focus(); toast("Bitte zuerst den Namen eintragen"); return;}
       if(art==="digital" && !q("#einwBox").checked){ toast("Bitte der sofortigen Bereitstellung zustimmen"); q("#einwBox").focus(); return; }

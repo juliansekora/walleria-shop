@@ -226,7 +226,9 @@ footer a:hover{color:var(--ink)}
 .gal .thumbs button[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
 .gal .thumbs img{width:100%;height:100%;object-fit:cover}
 .gal .main{aspect-ratio:1;background:var(--alt);overflow:hidden}
-.gal .main img{width:100%;height:100%;object-fit:cover}
+/* contain statt cover: Uebersichtsbilder mit mehreren Designs wurden sonst
+   unten abgeschnitten, weil sie hochformatig sind und der Rahmen quadratisch ist. */
+.gal .main img{width:100%;height:100%;object-fit:contain;background:var(--alt)}
 .buy h1{font-size:clamp(1.5rem,2.4vw,2rem);font-weight:600;margin:6px 0 8px}
 .buy .kat{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2);font-weight:600}
 .buy .rating{display:flex;gap:8px;align-items:center;font-size:.88rem;color:var(--ink2);margin-bottom:14px}
@@ -572,6 +574,13 @@ img,video,svg,table{max-width:100%}
 .fgrp-inhalt{padding-bottom:12px;display:grid}
 .fgrp-inhalt label:last-child{border-bottom:0}
 @media (prefers-reduced-motion:reduce){.fgrp>summary::after{transition:none}}
+
+/* Designwahl auf der Produktseite */
+.designs{display:flex;flex-wrap:wrap;gap:8px}
+.designs button{font:inherit;font-size:.9rem;padding:9px 14px;min-height:44px;border:1px solid var(--line);
+  border-radius:4px;background:var(--bg);color:var(--ink);cursor:pointer;transition:border-color .15s,box-shadow .15s}
+.designs button:hover{border-color:var(--ink2)}
+.designs button[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink);font-weight:600}
 
 /* Preiszeile: digitaler Preis zuerst, gedruckter darunter */
 .card .price{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px}
@@ -1091,9 +1100,21 @@ function initSeite(){
     const kn=q("#kName"), kd=q("#kDatum"), lm=q("#liveMain");
     const vorschau=()=>{ if(!lm) return; const n=(kn&&kn.value.trim())||""; if(n){lm.hidden=false; q("#galMain").hidden=true; npRender(q("#liveMain .poster"),n);} };
     if(kn){ let vor=""; try{vor=new URLSearchParams(location.search).get("name")||sessionStorage.getItem("jmp_name")||"";}catch(e){} if(vor){kn.value=vor;} kn.addEventListener("input",vorschau); if(kd) kd.addEventListener("input",vorschau); vorschau(); try{sessionStorage.removeItem("jmp_name");}catch(e){} }
+    /* Designwahl */
+    let design="";
+    const dsgKnoepfe=[...pdp.querySelectorAll("#designs button")];
+    if(dsgKnoepfe.length){
+      design=dsgKnoepfe[0].dataset.design;
+      dsgKnoepfe.forEach(b=>b.addEventListener("click",()=>{
+        dsgKnoepfe.forEach(x=>x.setAttribute("aria-pressed","false"));
+        b.setAttribute("aria-pressed","true"); design=b.dataset.design; }));
+    }
     /* Alle Personalisierungsfelder des Produkts einsammeln - Name, Datum, Gewicht ... */
-    const persFelder=()=>[...pdp.querySelectorAll("[data-pers-feld]")]
-      .map(e=>({feld:e.dataset.persFeld, wert:e.value.trim()})).filter(x=>x.wert);
+    const persFelder=()=>{
+      const l=[...pdp.querySelectorAll("[data-pers-feld]")]
+        .map(e=>({feld:e.dataset.persFeld, wert:e.value.trim()})).filter(x=>x.wert);
+      if(design) l.unshift({feld:"Design", wert:design});
+      return l; };
     const persText=()=>persFelder().map(x=>x.feld+": "+x.wert).join(" · ");
     q("#inKorb").addEventListener("click",()=>{ if(pdp.dataset.pers==="1" && !(kn&&kn.value.trim())){if(kn)kn.focus(); toast("Bitte zuerst den Namen eintragen"); return;}
       if(art==="digital" && !q("#einwBox").checked){ toast("Bitte der sofortigen Bereitstellung zustimmen"); q("#einwBox").focus(); return; }
