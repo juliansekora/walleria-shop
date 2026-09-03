@@ -485,6 +485,11 @@ img,video,svg,table{max-width:100%}
   .ck-btns .btn:first-child{grid-column:1/-1}
   .ck-box>p:last-of-type{font-size:.76rem}
 
+  /* Kopfzeile: Burger + Wortmarke + Werkzeuge passten zusammen mit den
+     Abstaenden nicht in 375 px und schoben die Seite 1 px nach rechts */
+  .head{column-gap:12px}
+  .tools{gap:2px}
+
   /* Mehr Luft zum Bildschirmrand */
   .wrap{padding-left:20px;padding-right:20px}
 
@@ -520,6 +525,19 @@ img,video,svg,table{max-width:100%}
   .bar{font-size:.74rem;padding:7px 10px}
   form{flex-wrap:wrap}
   form>.btn,form>button[type=submit]{width:100%;flex:1 1 100%}
+}
+
+/* FAQ-Seite */
+.faq-seite{gap:34px}
+.faq-block h2{font-size:1.25rem;margin-bottom:2px}
+.faq-seite .faq details{border-top:1px solid var(--line);padding:15px 0}
+.faq-seite .faq details:last-child{border-bottom:1px solid var(--line)}
+.faq-seite .faq summary{min-height:44px;gap:16px}
+.faq-seite .faq p{color:var(--ink2);line-height:1.6;max-width:52rem;padding-bottom:4px}
+@media(max-width:760px){
+  .faq-seite{gap:26px}
+  .faq-block h2{font-size:1.12rem}
+  .faq-seite .faq summary{font-size:.98rem;line-height:1.35;padding:2px 0}
 }
 
 /* Menue-Schublade hinter dem Burger (Handy und Tablet) */
@@ -618,7 +636,7 @@ html.nav-offen,html.nav-offen body{overflow:hidden}
 <footer><div class="wrap"><div class="cols">
   <div><span class="brand">Wall<span>eria</span></span><p class="muted" style="margin-top:12px;max-width:22rem">Personalisierte Poster fürs Kinderzimmer. Gedruckt und verschickt aus Deutschland.</p></div>
   <div><b>Poster</b><a href="namensposter.html">Namensposter-Sets</a><a href="geburt-baby.html">Geburt & Baby</a><a href="definitionen.html">Definitionen</a><a href="kinderzimmer.html">Kinderzimmer</a><a href="6er-sets.html">Klassiker-Sets</a></div>
-  <div><b>Hilfe & Information</b><a href="so-gehts.html">So funktioniert's</a><a href="versand.html">Versand & Lieferzeit</a><a href="versand.html">Größen & Rahmen</a><a href="widerruf.html">Widerruf & Rückgabe</a><a href="#">Kontakt</a></div>
+  <div><b>Hilfe & Information</b><a href="so-gehts.html">So funktioniert's</a><a href="versand.html">Versand & Lieferzeit</a><a href="versand.html">Größen & Rahmen</a><a href="widerruf.html">Widerruf & Rückgabe</a><a href="haeufige-fragen.html">Häufige Fragen</a><a href="mailto:info.deinkonzept@gmail.com">Kontakt</a></div>
   <div><b>Über uns</b><a href="ueber-uns.html">Unsere Druckerei</a><a href="#">Etsy-Shop</a><a href="#">Instagram</a><a href="#">Pinterest</a><b style="margin-top:14px">Rechtliches</b><a href="impressum.html">Impressum</a><a href="agb.html">AGB</a><a href="widerruf.html">Widerrufsbelehrung</a><a href="datenschutz.html">Datenschutz</a><a href="barrierefreiheit.html">Barrierefreiheit</a><a href="zahlung-versand.html">Zahlung & Versand</a><a data-cookie="1" role="button" tabindex="0">Cookie-Einstellungen</a></div>
 </div>
 <div class="pay"><div class="cards"><span>VISA</span><span>Mastercard</span><span>PayPal</span><span>Klarna</span><span>Apple Pay</span><span>Google Pay</span><span>SEPA</span></div><small>© 2026 Walleria · Prototyp</small></div>
@@ -767,7 +785,7 @@ function handyMenue(){
   quelle.querySelectorAll("a").forEach(a=>{const k=a.cloneNode(true); liste.appendChild(k);});
   p.appendChild(liste);
   const fuss=document.createElement("div"); fuss.className="np-fuss";
-  const dazu=[["So geht's","so-gehts.html"],["Versand & Rückgabe","versand.html"],["Über uns","ueber-uns.html"]];
+  const dazu=[["So geht's","so-gehts.html"],["Häufige Fragen","haeufige-fragen.html"],["Versand & Rückgabe","versand.html"],["Über uns","ueber-uns.html"]];
   const vorhanden=new Set([...document.querySelectorAll("footer a")].map(a=>a.getAttribute("href")));
   const basis=(quelle.querySelector("a")||{}).getAttribute? (quelle.querySelector("a").getAttribute("href")||"").replace(/[^/]*$/,"") : "";
   dazu.forEach(([t,ziel])=>{ const href=basis+ziel; if(!vorhanden.has(href)) return;
