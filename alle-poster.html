@@ -412,8 +412,11 @@ a[data-go],a[data-scroll],a[data-noop]{cursor:pointer}
   .menu{gap:24px}
 }
 
-/* Galerie „So sieht es bei euch aus“ – gleiche Proportion */
-.galerie img{aspect-ratio:4/5;object-fit:cover}
+/* Galerie „So sieht es bei euch aus“ – gleiche Proportion.
+   height:auto ist noetig, sonst gewinnt das height-Attribut aus dem HTML
+   und das Bild wird auf Originalhoehe gestreckt (extremer Zuschnitt). */
+.galerie{align-items:flex-start}
+.galerie img{aspect-ratio:4/5;height:auto;object-fit:cover}
 
 /* ============ HANDY-PASS ============ */
 img,video,svg,table{max-width:100%}
@@ -507,6 +510,27 @@ img,video,svg,table{max-width:100%}
   form{flex-wrap:wrap}
   form>.btn,form>button[type=submit]{width:100%;flex:1 1 100%}
 }
+
+/* Menue-Schublade hinter dem Burger (Handy und Tablet) */
+.nav-hg{position:fixed;inset:0;background:rgba(28,25,23,.42);z-index:70;opacity:0;visibility:hidden;transition:opacity .26s ease,visibility 0s linear .26s}
+.nav-hg.an{opacity:1;visibility:visible;transition:opacity .26s ease,visibility 0s}
+html.nav-offen,html.nav-offen body{overflow:hidden}
+.nav-panel{position:fixed;left:0;top:0;bottom:0;width:min(320px,86vw);z-index:71;background:var(--bg);color:var(--ink);
+  box-shadow:10px 0 40px rgba(0,0,0,.18);display:flex;flex-direction:column;
+  transform:translateX(-102%);visibility:hidden;transition:transform .28s ease,visibility 0s linear .28s;overscroll-behavior:contain}
+.nav-panel.an{transform:none;visibility:visible;transition:transform .28s ease,visibility 0s}
+.np-kopf{display:flex;align-items:center;justify-content:space-between;padding:16px 12px 12px 20px;border-bottom:1px solid var(--line)}
+.np-titel{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--ink2)}
+.np-zu{background:none;border:0;padding:0;width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink)}
+.np-zu .ico{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.6}
+.np-liste{display:flex;flex-direction:column;padding:6px 0;overflow-y:auto;flex:1}
+.np-liste a{padding:15px 20px;font-size:1.02rem;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line)}
+.np-liste a:last-child{border-bottom:0}
+.np-liste a:active{background:var(--alt,rgba(0,0,0,.04))}
+.np-fuss{padding:14px 20px calc(20px + env(safe-area-inset-bottom));border-top:1px solid var(--line);display:flex;flex-direction:column;gap:2px}
+.np-fuss a{padding:9px 0;font-size:.88rem;color:var(--ink2);text-decoration:none}
+@media(min-width:961px){.nav-panel,.nav-hg{display:none!important}}
+@media (prefers-reduced-motion:reduce){.nav-panel,.nav-hg{transition:none}}
 
 /* Raumszene auf Touch-Geraeten per Knopf sichtbar machen */
 .card .img{position:relative}
@@ -717,10 +741,53 @@ function kaufbalken(){
   pruefen();
 }
 
+
+/* ---------- Handy: Menue hinter dem Burger ---------- */
+function handyMenue(){
+  const b=q(".burger"), quelle=q(".menu"); if(!b||!quelle) return;
+  if(q("#navPanel")) return;
+  const hg=document.createElement("div"); hg.className="nav-hg"; hg.id="navHg";
+  const p=document.createElement("nav"); p.className="nav-panel"; p.id="navPanel";
+  p.setAttribute("aria-label","Hauptmenü"); p.setAttribute("aria-hidden","true");
+  const kopf=document.createElement("div"); kopf.className="np-kopf";
+  kopf.innerHTML='<span class="np-titel">Menü</span><button class="np-zu" type="button" aria-label="Menü schließen"><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg></button>';
+  p.appendChild(kopf);
+  const liste=document.createElement("div"); liste.className="np-liste";
+  quelle.querySelectorAll("a").forEach(a=>{const k=a.cloneNode(true); liste.appendChild(k);});
+  p.appendChild(liste);
+  const fuss=document.createElement("div"); fuss.className="np-fuss";
+  const dazu=[["So geht's","so-gehts.html"],["Versand & Rückgabe","versand.html"],["Über uns","ueber-uns.html"]];
+  const vorhanden=new Set([...document.querySelectorAll("footer a")].map(a=>a.getAttribute("href")));
+  const basis=(quelle.querySelector("a")||{}).getAttribute? (quelle.querySelector("a").getAttribute("href")||"").replace(/[^/]*$/,"") : "";
+  dazu.forEach(([t,ziel])=>{ const href=basis+ziel; if(!vorhanden.has(href)) return;
+    const a=document.createElement("a"); a.href=href; a.textContent=t; fuss.appendChild(a); });
+  if(fuss.children.length) p.appendChild(fuss);
+  document.body.appendChild(hg); document.body.appendChild(p);
+
+  let offen=false, zuletzt=null;
+  const auf=()=>{ zuletzt=document.activeElement; offen=true;
+    hg.classList.add("an"); p.classList.add("an");
+    p.setAttribute("aria-hidden","false"); b.setAttribute("aria-expanded","true");
+    document.documentElement.classList.add("nav-offen");
+    const e=p.querySelector("a,button"); if(e)e.focus(); };
+  const zu=()=>{ if(!offen)return; offen=false;
+    hg.classList.remove("an"); p.classList.remove("an");
+    p.setAttribute("aria-hidden","true"); b.setAttribute("aria-expanded","false");
+    document.documentElement.classList.remove("nav-offen");
+    if(zuletzt&&zuletzt.focus)zuletzt.focus(); };
+  b.setAttribute("aria-expanded","false"); b.setAttribute("aria-controls","navPanel");
+  b.addEventListener("click",e=>{e.preventDefault(); offen?zu():auf();});
+  kopf.querySelector(".np-zu").addEventListener("click",zu);
+  hg.addEventListener("click",zu);
+  addEventListener("keydown",e=>{if(e.key==="Escape")zu();});
+  p.querySelectorAll("a").forEach(a=>a.addEventListener("click",zu));
+}
+
 function initSeite(){
   bilderSetzen();
   raumKnoepfe();
   kaufbalken();
+  handyMenue();
   const cb=q("#cartBtn"); if(cb) cb.onclick=()=>q("#drawer").classList.toggle("open");
   const dc=q("#drawerClose"); if(dc) dc.onclick=()=>q("#drawer").classList.remove("open");
   const ka=q("#kasse"); if(ka) ka.onclick=()=>toast("Prototyp: hier startet Stripe Checkout");
