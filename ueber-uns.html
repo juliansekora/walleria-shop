@@ -599,6 +599,15 @@ img,video,svg,table{max-width:100%}
 .stimmen-klein .stimme{padding:16px}
 .stimmen-klein .stimme blockquote{font-size:.94rem}
 
+/* Ein oder zwei Namen */
+.anzahl{display:flex;gap:8px;flex-wrap:wrap}
+.anzahl button{font:inherit;font-size:.92rem;padding:10px 16px;min-height:44px;border:1px solid var(--line);
+  border-radius:4px;background:var(--bg);color:var(--ink);cursor:pointer}
+.anzahl button[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink);font-weight:600}
+.np-paare{display:flex;gap:14px;justify-content:center;align-items:flex-start;width:100%}
+.np-paare .paper{flex:1 1 0;max-width:320px}
+.field[hidden]{display:none!important}
+
 /* Designwahl auf der Produktseite */
 .designs{display:flex;flex-wrap:wrap;gap:8px}
 .designs button{font:inherit;font-size:.9rem;padding:9px 14px;min-height:44px;border:1px solid var(--line);
@@ -1160,7 +1169,37 @@ function initSeite(){
     pdp.querySelectorAll(".thumbs button").forEach(b=>b.addEventListener("click",()=>{pdp.querySelectorAll(".thumbs button").forEach(x=>x.setAttribute("aria-pressed","false")); b.setAttribute("aria-pressed","true"); const im=q("#galMain img"); const k=b.dataset.k; im.removeAttribute("src"); im.dataset.k=k; bilderSetzen(); if(!window.IMGMAP) im.src="img/"+k+".jpg"; const lm=q("#liveMain"); if(lm){lm.hidden=true; q("#galMain").hidden=false;}}));
     pdp.querySelectorAll(".farben button").forEach(b=>b.addEventListener("click",()=>{pdp.querySelectorAll(".farben button").forEach(x=>x.setAttribute("aria-pressed","false")); b.setAttribute("aria-pressed","true"); farbe=b.dataset.farbe;}));
     const kn=q("#kName"), kd=q("#kDatum"), lm=q("#liveMain");
-    const vorschau=()=>{ if(!lm) return; const n=(kn&&kn.value.trim())||""; if(n){lm.hidden=false; q("#galMain").hidden=true; npRender(q("#liveMain .poster"),n);} };
+    const kn2=q("#kName2"), feld2=kn2?kn2.closest(".field"):null;
+    const papier2=q("#paper2"), poster2=q("#poster2");
+    let anzahlNamen=1;
+
+    const vorschau=()=>{ if(!lm) return;
+      const n=(kn&&kn.value.trim())||"";
+      const n2=(kn2&&kn2.value.trim())||"";
+      if(!n && !(anzahlNamen===2 && n2)) return;
+      lm.hidden=false; q("#galMain").hidden=true;
+      npRender(q("#liveMain .poster"), n);
+      if(papier2){
+        const zweiZeigen = anzahlNamen===2;
+        papier2.hidden = !zweiZeigen;
+        if(zweiZeigen) npRender(poster2, n2 || "Ole");
+      }
+    };
+
+    /* Ein oder zwei Namen umschalten */
+    const anzKnoepfe=[...pdp.querySelectorAll("#namenAnzahl button")];
+    if(anzKnoepfe.length){
+      if(feld2) feld2.hidden=true;                 /* zweites Feld erst bei Bedarf */
+      anzKnoepfe.forEach(b=>b.addEventListener("click",()=>{
+        anzahlNamen=parseInt(b.dataset.anzahl,10)||1;
+        anzKnoepfe.forEach(x=>x.setAttribute("aria-pressed", x===b ? "true":"false"));
+        if(feld2) feld2.hidden = anzahlNamen!==2;
+        if(anzahlNamen!==2 && kn2) kn2.value="";
+        if(anzahlNamen===2 && kn2) kn2.focus();
+        vorschau();
+      }));
+    }
+    if(kn2) kn2.addEventListener("input",vorschau);
     if(kn){ let vor=""; try{vor=new URLSearchParams(location.search).get("name")||sessionStorage.getItem("jmp_name")||"";}catch(e){} if(vor){kn.value=vor;} kn.addEventListener("input",vorschau); if(kd) kd.addEventListener("input",vorschau); vorschau(); try{sessionStorage.removeItem("jmp_name");}catch(e){} }
     /* Designwahl */
     let design="";
