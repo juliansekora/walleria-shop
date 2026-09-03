@@ -363,6 +363,11 @@ a[data-go],a[data-scroll],a[data-noop]{cursor:pointer}
 .bew-form input,.bew-form select,.bew-form textarea{border:1px solid var(--line);border-radius:4px;padding:11px 12px;font:inherit;font-weight:400;background:var(--bg);color:var(--ink)}
 .bew-form textarea{resize:vertical}
 .bew-form .btn{justify-self:start}
+/* Mengenrabatt im Warenkorb: eine ruhige Zeile ueber der Summe */
+.korb-rabatt{display:flex;justify-content:space-between;align-items:baseline;gap:12px;
+  padding:10px 0;border-top:1px solid var(--line);font-size:.9rem}
+.korb-rabatt b{color:#A6402F;font-weight:700}
+.korb-rabatt .muted{color:var(--ink2)}
 /* Gesamtnote aus dem Etsy-Shop - eine ruhige Zeile, kein Werbebanner */
 .bew-zeile{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:.95rem}
 .bew-zeile .sterne{color:#C8A24A;letter-spacing:.06em;font-size:1.05rem}
@@ -798,7 +803,7 @@ html.nav-offen,html.nav-offen body{overflow:hidden}
   </div>
   <div class="ck-btns"><button class="btn" id="ckAlle">Alle akzeptieren</button><button class="btn line" id="ckNur">Nur notwendige</button><button class="btn line" id="ckEinst">Einstellungen</button><button class="btn line" id="ckSpeichern" hidden>Auswahl speichern</button></div>
   <p class="small">Deine Auswahl gilt 6 Monate, danach fragen wir erneut. · <a href="impressum.html" class="ck-link">Impressum</a> · <a href="datenschutz.html" class="ck-link">Datenschutz</a></p></div>
-</div><aside class="drawer" id="drawer" aria-label="Warenkorb"><div class="hd"><h3>Warenkorb</h3><button class="btn line" id="drawerClose" style="padding:8px 14px;min-height:40px">Schließen</button></div><ul id="korbListe"></ul><div class="total"><span>Zwischensumme</span><b id="korbSumme">0,00 €</b></div><button class="btn" id="kasse" style="margin-top:12px">Zur Kasse</button><p class="small" style="margin-top:8px">Im echten Shop: Stripe Checkout; der letzte Schritt heißt „Zahlungspflichtig bestellen" mit Bestellübersicht, AGB- und Widerrufshinweis.</p></aside><div class="toast" id="toast"></div><script>
+</div><aside class="drawer" id="drawer" aria-label="Warenkorb"><div class="hd"><h3>Warenkorb</h3><button class="btn line" id="drawerClose" style="padding:8px 14px;min-height:40px">Schließen</button></div><ul id="korbListe"></ul><div class="korb-rabatt" id="korbRabatt" hidden></div><div class="total"><span>Zwischensumme</span><b id="korbSumme">0,00 €</b></div><button class="btn" id="kasse" style="margin-top:12px">Zur Kasse</button><p class="small" style="margin-top:8px">Im echten Shop: Stripe Checkout; der letzte Schritt heißt „Zahlungspflichtig bestellen" mit Bestellübersicht, AGB- und Widerrufshinweis.</p></aside><div class="toast" id="toast"></div><script>
 const eur=n=>n.toFixed(2).replace(".",",")+" €"; const q=s=>document.querySelector(s); const esc=s=>(s||"").replace(/[<>&]/g,"");
 const RABATT=0.30;
 /* Namensposter live rendern – 1:1-Port von namensposter.py (Rosie/kirschgarten) und namensdesigns.d04 (Sophie) */
@@ -881,10 +886,37 @@ function npRender(el,name){ if(!el) return; el.dataset.name=name||""; el.innerHT
 function toast(t){const el=q("#toast"); el.textContent=t; el.classList.add("show"); setTimeout(()=>el.classList.remove("show"),2200);} window.toast=toast;
 let korb=[]; try{korb=JSON.parse(localStorage.getItem("jmp_korb")||"[]");}catch(e){}
 function korbSpeichern(){try{localStorage.setItem("jmp_korb",JSON.stringify(korb));}catch(e){}}
+/* Mengenrabatt auf digitale Dateien - dieselben Stufen wie im Etsy-Shop
+   (dort per Code JMP30/JMP50, hier ohne Eingabe direkt im Warenkorb). */
+const DIGI_STUFEN=[{ab:5,anteil:0.50},{ab:3,anteil:0.30}];
+function istDigital(k){ return /Digitale Datei/i.test(k.groesse||""); }
+function digiRabatt(korb){
+  const n=korb.filter(istDigital).length;
+  const stufe=DIGI_STUFEN.find(x=>n>=x.ab);
+  if(!stufe) return {anteil:0,anzahl:n,betrag:0,naechste:DIGI_STUFEN[1]};
+  const summe=korb.filter(istDigital).reduce((a,k)=>a+k.preis,0);
+  return {anteil:stufe.anteil,anzahl:n,betrag:summe*stufe.anteil,naechste:null};
+}
+window.digiRabatt=digiRabatt;
+
 function korbZeigen(){const ul=q("#korbListe"); if(!ul) return; ul.innerHTML=""; let s=0;
   if(!korb.length) ul.innerHTML='<li class="empty">Dein Warenkorb ist leer.</li>';
   korb.forEach((k,i)=>{s+=k.preis; const li=document.createElement("li"); li.innerHTML=`<img data-k="${k.img}" alt="${k.titel}"><div class="t"><b>${esc(k.titel)}</b><small>${esc(k.groesse)}${k.beschriftung?" · "+esc(k.beschriftung):(k.name?" · "+esc(k.name):"")}${k.farbe?" · "+esc(k.farbe):""}</small></div><b>${eur(k.preis)}</b><button class="btn line" style="padding:4px 8px;min-height:32px" data-del="${i}">✕</button>`; ul.appendChild(li);});
-  q("#korbSumme").textContent=eur(s); q("#cartN").textContent=korb.length; bilderSetzen(ul);
+  const r=digiRabatt(korb);
+  const zeile=q("#korbRabatt");
+  if(zeile){
+    if(r.anteil){
+      zeile.hidden=false;
+      zeile.innerHTML='<span>Mengenrabatt auf '+r.anzahl+' digitale Dateien '
+        +'<b>&minus;'+Math.round(r.anteil*100)+'&nbsp;%</b></span><b>&minus;'+eur(r.betrag)+'</b>';
+    } else if(r.anzahl>0 && r.naechste){
+      zeile.hidden=false;
+      const fehlt=r.naechste.ab-r.anzahl;
+      zeile.innerHTML='<span class="muted">Noch '+fehlt+' digitale '+(fehlt===1?"Datei":"Dateien")
+        +' bis '+Math.round(r.naechste.anteil*100)+'&nbsp;% Rabatt</span>';
+    } else zeile.hidden=true;
+  }
+  q("#korbSumme").textContent=eur(s-r.betrag); q("#cartN").textContent=korb.length; bilderSetzen(ul);
   ul.querySelectorAll("[data-del]").forEach(b=>b.addEventListener("click",()=>{korb.splice(+b.dataset.del,1);korbSpeichern();korbZeigen();}));}
 function bilderSetzen(root){
   /* Ohne IMGMAP (lokale Auslieferung) liegen die Bilder als Dateien unter img/ -

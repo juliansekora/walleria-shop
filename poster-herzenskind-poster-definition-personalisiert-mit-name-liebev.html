@@ -363,6 +363,11 @@ a[data-go],a[data-scroll],a[data-noop]{cursor:pointer}
 .bew-form input,.bew-form select,.bew-form textarea{border:1px solid var(--line);border-radius:4px;padding:11px 12px;font:inherit;font-weight:400;background:var(--bg);color:var(--ink)}
 .bew-form textarea{resize:vertical}
 .bew-form .btn{justify-self:start}
+/* Mengenrabatt im Warenkorb: eine ruhige Zeile ueber der Summe */
+.korb-rabatt{display:flex;justify-content:space-between;align-items:baseline;gap:12px;
+  padding:10px 0;border-top:1px solid var(--line);font-size:.9rem}
+.korb-rabatt b{color:#A6402F;font-weight:700}
+.korb-rabatt .muted{color:var(--ink2)}
 /* Gesamtnote aus dem Etsy-Shop - eine ruhige Zeile, kein Werbebanner */
 .bew-zeile{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:.95rem}
 .bew-zeile .sterne{color:#C8A24A;letter-spacing:.06em;font-size:1.05rem}
@@ -765,7 +770,7 @@ html.nav-offen,html.nav-offen body{overflow:hidden}
     <div class="rating" id="ratingKopf" data-produkt="e4558984773"><span class="sterne-klein" aria-hidden="true">★★★★★</span><a href="#bewertungen" class="small">4.88 von 5 · 26 Bewertungen im Shop</a></div>
     <p class="muted">Herzenskind Poster Definition personalisiert mit Name – liebevoller Text</p>
     <div class="preis" data-digital="6.99" data-digital-alt="9.99"><b id="preis">6,99 €</b><s id="preisAlt">9,99 €</s><em id="preisTag">−30 %</em></div>
-    <div class="block"><div class="field"><label>Ausführung</label><div class="art" id="art"><label><input type="radio" name="art" value="digital" checked><b>Digitale Datei</b><small>Sofort-Download, PDF + JPG · <s>9,99 €</s> 6,99 €</small></label><label><input type="radio" name="art" value="physisch"><b>Gedruckt & geliefert</b><small>Premium-Papier, 8 Größen, 3–5 Werktage</small></label></div></div><div class="pers-felder"><div class="field"><label for="kName">Name</label><input id="kName" data-pers-feld="Name" maxlength="40" placeholder="z. B. Mila"></div></div><div class="field" id="feldGroesse"><label>Größe <span class="small">(ohne Rahmen)</span></label><div class="sizes" id="groessen"><button type="button" data-i="0" data-preis="27.99" aria-pressed="true">13×18<small>19,59 €</small></button><button type="button" data-i="1" data-preis="33.99" aria-pressed="false">20×25<small>23,79 €</small></button><button type="button" data-i="2" data-preis="36.99" aria-pressed="false">21×30<small>25,89 €</small></button><button type="button" data-i="3" data-preis="39.99" aria-pressed="false">30×40<small>27,99 €</small></button><button type="button" data-i="4" data-preis="46.99" aria-pressed="false">40×50<small>32,89 €</small></button><button type="button" data-i="5" data-preis="55.99" aria-pressed="false">50×70<small>39,19 €</small></button><button type="button" data-i="6" data-preis="69.99" aria-pressed="false">61×91<small>48,99 €</small></button><button type="button" data-i="7" data-preis="81.99" aria-pressed="false">70×100<small>57,39 €</small></button></div></div><label class="einw" id="einw" hidden><input type="checkbox" id="einwBox"> Ich stimme zu, dass mit der Bereitstellung der digitalen Datei vor Ablauf der Widerrufsfrist begonnen wird, und weiß, dass mein Widerrufsrecht damit erlischt (§ 356 Abs. 5 BGB).</label></div>
+    <div class="block"><div class="field"><label>Ausführung</label><div class="art" id="art"><label><input type="radio" name="art" value="digital" checked><b>Digitale Datei</b><small>Sofort-Download, PDF + JPG · <s>9,99 €</s> 6,99 €</small></label><label><input type="radio" name="art" value="physisch"><b>Gedruckt & geliefert</b><small>Premium-Papier, 8 Größen, 3–5 Werktage</small></label></div></div><div class="field"><label>Design <span class="small">(6 zur Wahl)</span></label><div class="designs" id="designs"><button type="button" data-design="Schlicht" aria-pressed="true">Schlicht</button><button type="button" data-design="Klassisch" aria-pressed="false">Klassisch</button><button type="button" data-design="Herz" aria-pressed="false">Herz</button><button type="button" data-design="Zweig" aria-pressed="false">Zweig</button><button type="button" data-design="Nachtgrün" aria-pressed="false">Nachtgrün</button><button type="button" data-design="Puderrose" aria-pressed="false">Puderrose</button></div></div><div class="pers-felder"><div class="field"><label for="kName">Name</label><input id="kName" data-pers-feld="Name" maxlength="40" placeholder="z. B. Mila"></div></div><div class="field" id="feldGroesse"><label>Größe <span class="small">(ohne Rahmen)</span></label><div class="sizes" id="groessen"><button type="button" data-i="0" data-preis="27.99" aria-pressed="true">13×18<small>19,59 €</small></button><button type="button" data-i="1" data-preis="33.99" aria-pressed="false">20×25<small>23,79 €</small></button><button type="button" data-i="2" data-preis="36.99" aria-pressed="false">21×30<small>25,89 €</small></button><button type="button" data-i="3" data-preis="39.99" aria-pressed="false">30×40<small>27,99 €</small></button><button type="button" data-i="4" data-preis="46.99" aria-pressed="false">40×50<small>32,89 €</small></button><button type="button" data-i="5" data-preis="55.99" aria-pressed="false">50×70<small>39,19 €</small></button><button type="button" data-i="6" data-preis="69.99" aria-pressed="false">61×91<small>48,99 €</small></button><button type="button" data-i="7" data-preis="81.99" aria-pressed="false">70×100<small>57,39 €</small></button></div></div><label class="einw" id="einw" hidden><input type="checkbox" id="einwBox"> Ich stimme zu, dass mit der Bereitstellung der digitalen Datei vor Ablauf der Widerrufsfrist begonnen wird, und weiß, dass mein Widerrufsrecht damit erlischt (§ 356 Abs. 5 BGB).</label></div>
     <div class="block"><button class="btn" id="inKorb">In den Warenkorb</button>
       <div class="usp-l"><div><svg class="ico"><use href="#i-check"/></svg>Lieferung in 3–5 Werktagen · ab 60 € versandkostenfrei</div><div><svg class="ico"><use href="#i-check"/></svg>Gedruckt in unserer eigenen Druckerei in Deutschland</div><div><svg class="ico"><use href="#i-check"/></svg>Die Vorschau ist die Druckvorlage</div></div></div>
     <div class="acc">
@@ -829,7 +834,7 @@ html.nav-offen,html.nav-offen body{overflow:hidden}
   </div>
   <div class="ck-btns"><button class="btn" id="ckAlle">Alle akzeptieren</button><button class="btn line" id="ckNur">Nur notwendige</button><button class="btn line" id="ckEinst">Einstellungen</button><button class="btn line" id="ckSpeichern" hidden>Auswahl speichern</button></div>
   <p class="small">Deine Auswahl gilt 6 Monate, danach fragen wir erneut. · <a href="impressum.html" class="ck-link">Impressum</a> · <a href="datenschutz.html" class="ck-link">Datenschutz</a></p></div>
-</div><aside class="drawer" id="drawer" aria-label="Warenkorb"><div class="hd"><h3>Warenkorb</h3><button class="btn line" id="drawerClose" style="padding:8px 14px;min-height:40px">Schließen</button></div><ul id="korbListe"></ul><div class="total"><span>Zwischensumme</span><b id="korbSumme">0,00 €</b></div><button class="btn" id="kasse" style="margin-top:12px">Zur Kasse</button><p class="small" style="margin-top:8px">Im echten Shop: Stripe Checkout; der letzte Schritt heißt „Zahlungspflichtig bestellen" mit Bestellübersicht, AGB- und Widerrufshinweis.</p></aside><div class="toast" id="toast"></div><script>
+</div><aside class="drawer" id="drawer" aria-label="Warenkorb"><div class="hd"><h3>Warenkorb</h3><button class="btn line" id="drawerClose" style="padding:8px 14px;min-height:40px">Schließen</button></div><ul id="korbListe"></ul><div class="korb-rabatt" id="korbRabatt" hidden></div><div class="total"><span>Zwischensumme</span><b id="korbSumme">0,00 €</b></div><button class="btn" id="kasse" style="margin-top:12px">Zur Kasse</button><p class="small" style="margin-top:8px">Im echten Shop: Stripe Checkout; der letzte Schritt heißt „Zahlungspflichtig bestellen" mit Bestellübersicht, AGB- und Widerrufshinweis.</p></aside><div class="toast" id="toast"></div><script>
 const eur=n=>n.toFixed(2).replace(".",",")+" €"; const q=s=>document.querySelector(s); const esc=s=>(s||"").replace(/[<>&]/g,"");
 const RABATT=0.30;
 /* Namensposter live rendern – 1:1-Port von namensposter.py (Rosie/kirschgarten) und namensdesigns.d04 (Sophie) */
@@ -912,10 +917,37 @@ function npRender(el,name){ if(!el) return; el.dataset.name=name||""; el.innerHT
 function toast(t){const el=q("#toast"); el.textContent=t; el.classList.add("show"); setTimeout(()=>el.classList.remove("show"),2200);} window.toast=toast;
 let korb=[]; try{korb=JSON.parse(localStorage.getItem("jmp_korb")||"[]");}catch(e){}
 function korbSpeichern(){try{localStorage.setItem("jmp_korb",JSON.stringify(korb));}catch(e){}}
+/* Mengenrabatt auf digitale Dateien - dieselben Stufen wie im Etsy-Shop
+   (dort per Code JMP30/JMP50, hier ohne Eingabe direkt im Warenkorb). */
+const DIGI_STUFEN=[{ab:5,anteil:0.50},{ab:3,anteil:0.30}];
+function istDigital(k){ return /Digitale Datei/i.test(k.groesse||""); }
+function digiRabatt(korb){
+  const n=korb.filter(istDigital).length;
+  const stufe=DIGI_STUFEN.find(x=>n>=x.ab);
+  if(!stufe) return {anteil:0,anzahl:n,betrag:0,naechste:DIGI_STUFEN[1]};
+  const summe=korb.filter(istDigital).reduce((a,k)=>a+k.preis,0);
+  return {anteil:stufe.anteil,anzahl:n,betrag:summe*stufe.anteil,naechste:null};
+}
+window.digiRabatt=digiRabatt;
+
 function korbZeigen(){const ul=q("#korbListe"); if(!ul) return; ul.innerHTML=""; let s=0;
   if(!korb.length) ul.innerHTML='<li class="empty">Dein Warenkorb ist leer.</li>';
   korb.forEach((k,i)=>{s+=k.preis; const li=document.createElement("li"); li.innerHTML=`<img data-k="${k.img}" alt="${k.titel}"><div class="t"><b>${esc(k.titel)}</b><small>${esc(k.groesse)}${k.beschriftung?" · "+esc(k.beschriftung):(k.name?" · "+esc(k.name):"")}${k.farbe?" · "+esc(k.farbe):""}</small></div><b>${eur(k.preis)}</b><button class="btn line" style="padding:4px 8px;min-height:32px" data-del="${i}">✕</button>`; ul.appendChild(li);});
-  q("#korbSumme").textContent=eur(s); q("#cartN").textContent=korb.length; bilderSetzen(ul);
+  const r=digiRabatt(korb);
+  const zeile=q("#korbRabatt");
+  if(zeile){
+    if(r.anteil){
+      zeile.hidden=false;
+      zeile.innerHTML='<span>Mengenrabatt auf '+r.anzahl+' digitale Dateien '
+        +'<b>&minus;'+Math.round(r.anteil*100)+'&nbsp;%</b></span><b>&minus;'+eur(r.betrag)+'</b>';
+    } else if(r.anzahl>0 && r.naechste){
+      zeile.hidden=false;
+      const fehlt=r.naechste.ab-r.anzahl;
+      zeile.innerHTML='<span class="muted">Noch '+fehlt+' digitale '+(fehlt===1?"Datei":"Dateien")
+        +' bis '+Math.round(r.naechste.anteil*100)+'&nbsp;% Rabatt</span>';
+    } else zeile.hidden=true;
+  }
+  q("#korbSumme").textContent=eur(s-r.betrag); q("#cartN").textContent=korb.length; bilderSetzen(ul);
   ul.querySelectorAll("[data-del]").forEach(b=>b.addEventListener("click",()=>{korb.splice(+b.dataset.del,1);korbSpeichern();korbZeigen();}));}
 function bilderSetzen(root){
   /* Ohne IMGMAP (lokale Auslieferung) liegen die Bilder als Dateien unter img/ -
