@@ -575,6 +575,14 @@ img,video,svg,table{max-width:100%}
 .fgrp-inhalt label:last-child{border-bottom:0}
 @media (prefers-reduced-motion:reduce){.fgrp>summary::after{transition:none}}
 
+/* Bewertungen auf der Produktseite */
+.rating{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.sterne-klein{color:#B4894A;letter-spacing:.06em;font-size:.9rem}
+.stimmen-klein{margin-top:26px;padding-top:22px;border-top:1px solid var(--line)}
+.stimmen-klein h3{font-size:1.05rem;margin:0}
+.stimmen-klein .stimme{padding:16px}
+.stimmen-klein .stimme blockquote{font-size:.94rem}
+
 /* Designwahl auf der Produktseite */
 .designs{display:flex;flex-wrap:wrap;gap:8px}
 .designs button{font:inherit;font-size:.9rem;padding:9px 14px;min-height:44px;border:1px solid var(--line);
@@ -666,7 +674,7 @@ html.nav-offen,html.nav-offen body{overflow:hidden}
 .kaufbar .btn{flex:1;min-height:50px;margin:0}
 @media(max-width:760px){body.pdp-seite .kaufbar{display:flex}}
 @media (prefers-reduced-motion:reduce){.kaufbar{transition:none}}
-</style><script>window.STRIPE_CHECKOUT_URL="https://lbypqkpuyfljeegljvbl.supabase.co/functions/v1/walleria-kasse";window.SUPABASE_URL="https://lbypqkpuyfljeegljvbl.supabase.co";window.SUPABASE_KEY="sb_publishable_B63DzW3v0kRFCaoTbpTD0g_KtML4ERa";window.WALLERIA_MAIL="info.deinkonzept@gmail.com";window.OPENAI_PIXEL_ID="5NXniKNNaSF2mPRiB3GJx8";window.WALLERIA_ZAEHLER="https://lbypqkpuyfljeegljvbl.supabase.co/functions/v1/walleria-zaehler";</script></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
+</style><script>window.STRIPE_CHECKOUT_URL="https://lbypqkpuyfljeegljvbl.supabase.co/functions/v1/walleria-kasse";window.SUPABASE_URL="https://lbypqkpuyfljeegljvbl.supabase.co";window.SUPABASE_KEY="sb_publishable_B63DzW3v0kRFCaoTbpTD0g_KtML4ERa";window.WALLERIA_MAIL="info.deinkonzept@gmail.com";window.OPENAI_PIXEL_ID="5NXniKNNaSF2mPRiB3GJx8";window.WALLERIA_ZAEHLER="https://lbypqkpuyfljeegljvbl.supabase.co/functions/v1/walleria-zaehler";window.META_PIXEL_ID="1608461564116599";</script></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></symbol>
   <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
   <symbol id="i-chevd" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
@@ -707,7 +715,7 @@ html.nav-offen,html.nav-offen body{overflow:hidden}
   <div class="buy">
     <span class="kat">Klassiker-Sets</span>
     <h1>Alle meine Entchen 6er-Set</h1>
-    <div class="rating" id="ratingKopf" data-produkt="e4553518998"><span class="muted small">Noch keine Bewertungen</span></div>
+    <div class="rating" id="ratingKopf" data-produkt="e4553518998"><span class="sterne-klein" aria-hidden="true">★★★★★</span><a href="#bewertungen" class="small">4.88 von 5 · 26 Bewertungen im Shop</a></div>
     <p class="muted">Alle meine Entchen Poster Kinderzimmer 6er Set</p>
     <div class="preis" data-digital="14.99" data-digital-alt="21.99"><b id="preis">14,99 €</b><s id="preisAlt">21,99 €</s><em id="preisTag">−32 %</em></div>
     <div class="block"><div class="field"><label>Ausführung</label><div class="art" id="art"><label><input type="radio" name="art" value="digital" checked><b>Digitale Datei</b><small>Sofort-Download, PDF + JPG · <s>21,99 €</s> 14,99 €</small></label><label><input type="radio" name="art" value="physisch"><b>Gedruckt & geliefert</b><small>Premium-Papier, 8 Größen, 3–5 Werktage</small></label></div></div><div class="field" id="feldGroesse"><label>Größe <span class="small">(ohne Rahmen)</span></label><div class="sizes" id="groessen"><button type="button" data-i="0" data-preis="41.99" aria-pressed="true">6× 13×18<small>29,39 €</small></button><button type="button" data-i="1" data-preis="48.99" aria-pressed="false">6× 20×25<small>34,29 €</small></button><button type="button" data-i="2" data-preis="55.99" aria-pressed="false">6× 21×30<small>39,19 €</small></button><button type="button" data-i="3" data-preis="76.99" aria-pressed="false">6× 30×40<small>53,89 €</small></button><button type="button" data-i="4" data-preis="97.99" aria-pressed="false">6× 40×50<small>68,59 €</small></button><button type="button" data-i="5" data-preis="125.99" aria-pressed="false">6× 50×70<small>88,19 €</small></button><button type="button" data-i="6" data-preis="153.99" aria-pressed="false">6× 61×91<small>107,79 €</small></button><button type="button" data-i="7" data-preis="181.99" aria-pressed="false">6× 70×100<small>127,39 €</small></button></div></div><label class="einw" id="einw" hidden><input type="checkbox" id="einwBox"> Ich stimme zu, dass mit der Bereitstellung der digitalen Datei vor Ablauf der Widerrufsfrist begonnen wird, und weiß, dass mein Widerrufsrecht damit erlischt (§ 356 Abs. 5 BGB).</label></div>
@@ -724,8 +732,15 @@ html.nav-offen,html.nav-offen body{overflow:hidden}
   </div>
 </div>
 <section class="alt" id="bewertungen"><div class="wrap"><div class="row-head"><h2>Bewertungen</h2></div>
-<div class="reviews" id="bewListe" data-produkt="e4553518998"><p class="muted">Für dieses Poster gibt es noch keine Bewertung. Wenn du es gekauft hast, schreib gern die erste.</p></div>
-<div class="bew-form"><h3>Bewertung schreiben</h3>
+<div class="reviews" id="bewListe" data-produkt="e4553518998"><p class="muted">Zu diesem Poster gibt es noch keine eigene Bewertung – <a href="#bewForm">teil deine Erfahrung</a> und sei die erste Stimme.</p></div>
+<div class="stimmen-klein">
+  <div class="row-head"><h3>Aus unserem Etsy-Shop</h3>
+    <span class="small">4.88 von 5 · 26 Bewertungen</span></div>
+  <div class="stimmen"><figure class="stimme"><div class="sterne" aria-label="5 von 5 Sternen"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span></div><blockquote>Das Drucken hat super geklappt</blockquote><figcaption>Verifizierter Kauf · 08/2026</figcaption></figure><figure class="stimme"><div class="sterne" aria-label="4 von 5 Sternen"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">☆</span></div><blockquote>Schöne Idee und kann mehrfach genutzt werden</blockquote><figcaption>Verifizierter Kauf · 04/2026</figcaption></figure><figure class="stimme"><div class="sterne" aria-label="5 von 5 Sternen"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span></div><blockquote>Es hat alles super funktioniert.</blockquote><figcaption>Verifizierter Kauf · 02/2026</figcaption></figure></div>
+  <p class="small stimmen-quelle">Bewertungen unseres Etsy-Shops, dort von Etsy als Käufe verifiziert.
+  Sie gelten für unsere Poster allgemein, nicht für dieses einzelne Motiv.</p>
+</div>
+<div class="bew-form" id="bewForm"><h3>Teil deine Erfahrung</h3>
 <p class="small muted">Nur mit bestätigter Bestellnummer. Wir prüfen jede Bewertung vor der Veröffentlichung.</p>
 <form id="bewForm" data-produkt="e4553518998" onsubmit="return bewSenden(event)">
   <label>Bestellnummer<input name="bestellung" required placeholder="z. B. WAL-10432" autocomplete="off"></label>
@@ -1206,6 +1221,40 @@ function ckSetzen(o){ consent={notwendig:true,statistik:!!o.statistik,marketing:
 function ladeDienste(){
   if(!consentAllows("marketing")) return;
   ladeChatGptPixel();
+  ladeMetaPixel();
+}
+
+/* Meta-Pixel - laedt ausschliesslich nach Marketing-Einwilligung */
+function ladeMetaPixel(){
+  const id=window.META_PIXEL_ID;
+  if(!id || window.fbq) return;
+  (function(f,b,e,v,n,t,s){
+    n=f.fbq=function(){ n.callMethod ? n.callMethod.apply(n,arguments) : n.queue.push(arguments) };
+    if(!f._fbq) f._fbq=n; n.push=n; n.loaded=true; n.version="2.0"; n.queue=[];
+    t=b.createElement(e); t.async=true; t.src=v;
+    s=b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t,s);
+  })(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");
+  fbq("init",id);
+  fbq("track","PageView");
+  metaSeitenEreignis();
+}
+
+function metaSeitenEreignis(){
+  if(!window.fbq) return;
+  const pdp=q(".pdp");
+  if(pdp){
+    const preis=parseFloat((q("#preis")||{textContent:""}).textContent.replace(/[^\d,]/g,"").replace(",","."));
+    fbq("track","ViewContent",{content_name:pdp.dataset.titel||"",content_ids:[pdp.dataset.id||""],
+      content_type:"product",value:isFinite(preis)?preis:undefined,currency:"EUR"});
+  }
+  if(location.pathname.indexOf("kasse")>-1 && korb.length){
+    fbq("track","InitiateCheckout",{num_items:korb.length,value:korbSumme(),currency:"EUR"});
+  }
+  const p=new URLSearchParams(location.search);
+  if(location.pathname.indexOf("danke")>-1 && p.get("bestellung")){
+    const betrag=parseInt(p.get("betrag")||"0",10);
+    fbq("track","Purchase",{value:betrag>0?betrag/100:undefined,currency:"EUR"},{eventID:p.get("bestellung")});
+  }
 }
 
 /* ChatGPT-Ads-Messpixel - laedt ausschliesslich nach Marketing-Einwilligung */

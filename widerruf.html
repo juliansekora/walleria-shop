@@ -575,6 +575,14 @@ img,video,svg,table{max-width:100%}
 .fgrp-inhalt label:last-child{border-bottom:0}
 @media (prefers-reduced-motion:reduce){.fgrp>summary::after{transition:none}}
 
+/* Bewertungen auf der Produktseite */
+.rating{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.sterne-klein{color:#B4894A;letter-spacing:.06em;font-size:.9rem}
+.stimmen-klein{margin-top:26px;padding-top:22px;border-top:1px solid var(--line)}
+.stimmen-klein h3{font-size:1.05rem;margin:0}
+.stimmen-klein .stimme{padding:16px}
+.stimmen-klein .stimme blockquote{font-size:.94rem}
+
 /* Designwahl auf der Produktseite */
 .designs{display:flex;flex-wrap:wrap;gap:8px}
 .designs button{font:inherit;font-size:.9rem;padding:9px 14px;min-height:44px;border:1px solid var(--line);
@@ -666,7 +674,7 @@ html.nav-offen,html.nav-offen body{overflow:hidden}
 .kaufbar .btn{flex:1;min-height:50px;margin:0}
 @media(max-width:760px){body.pdp-seite .kaufbar{display:flex}}
 @media (prefers-reduced-motion:reduce){.kaufbar{transition:none}}
-</style><script>window.STRIPE_CHECKOUT_URL="https://lbypqkpuyfljeegljvbl.supabase.co/functions/v1/walleria-kasse";window.SUPABASE_URL="https://lbypqkpuyfljeegljvbl.supabase.co";window.SUPABASE_KEY="sb_publishable_B63DzW3v0kRFCaoTbpTD0g_KtML4ERa";window.WALLERIA_MAIL="info.deinkonzept@gmail.com";window.OPENAI_PIXEL_ID="5NXniKNNaSF2mPRiB3GJx8";window.WALLERIA_ZAEHLER="https://lbypqkpuyfljeegljvbl.supabase.co/functions/v1/walleria-zaehler";</script></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
+</style><script>window.STRIPE_CHECKOUT_URL="https://lbypqkpuyfljeegljvbl.supabase.co/functions/v1/walleria-kasse";window.SUPABASE_URL="https://lbypqkpuyfljeegljvbl.supabase.co";window.SUPABASE_KEY="sb_publishable_B63DzW3v0kRFCaoTbpTD0g_KtML4ERa";window.WALLERIA_MAIL="info.deinkonzept@gmail.com";window.OPENAI_PIXEL_ID="5NXniKNNaSF2mPRiB3GJx8";window.WALLERIA_ZAEHLER="https://lbypqkpuyfljeegljvbl.supabase.co/functions/v1/walleria-zaehler";window.META_PIXEL_ID="1608461564116599";</script></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></symbol>
   <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
   <symbol id="i-chevd" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
@@ -1179,6 +1187,40 @@ function ckSetzen(o){ consent={notwendig:true,statistik:!!o.statistik,marketing:
 function ladeDienste(){
   if(!consentAllows("marketing")) return;
   ladeChatGptPixel();
+  ladeMetaPixel();
+}
+
+/* Meta-Pixel - laedt ausschliesslich nach Marketing-Einwilligung */
+function ladeMetaPixel(){
+  const id=window.META_PIXEL_ID;
+  if(!id || window.fbq) return;
+  (function(f,b,e,v,n,t,s){
+    n=f.fbq=function(){ n.callMethod ? n.callMethod.apply(n,arguments) : n.queue.push(arguments) };
+    if(!f._fbq) f._fbq=n; n.push=n; n.loaded=true; n.version="2.0"; n.queue=[];
+    t=b.createElement(e); t.async=true; t.src=v;
+    s=b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t,s);
+  })(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");
+  fbq("init",id);
+  fbq("track","PageView");
+  metaSeitenEreignis();
+}
+
+function metaSeitenEreignis(){
+  if(!window.fbq) return;
+  const pdp=q(".pdp");
+  if(pdp){
+    const preis=parseFloat((q("#preis")||{textContent:""}).textContent.replace(/[^\d,]/g,"").replace(",","."));
+    fbq("track","ViewContent",{content_name:pdp.dataset.titel||"",content_ids:[pdp.dataset.id||""],
+      content_type:"product",value:isFinite(preis)?preis:undefined,currency:"EUR"});
+  }
+  if(location.pathname.indexOf("kasse")>-1 && korb.length){
+    fbq("track","InitiateCheckout",{num_items:korb.length,value:korbSumme(),currency:"EUR"});
+  }
+  const p=new URLSearchParams(location.search);
+  if(location.pathname.indexOf("danke")>-1 && p.get("bestellung")){
+    const betrag=parseInt(p.get("betrag")||"0",10);
+    fbq("track","Purchase",{value:betrag>0?betrag/100:undefined,currency:"EUR"},{eventID:p.get("bestellung")});
+  }
 }
 
 /* ChatGPT-Ads-Messpixel - laedt ausschliesslich nach Marketing-Einwilligung */
