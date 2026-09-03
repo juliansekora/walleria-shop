@@ -1028,14 +1028,29 @@ function filterGruppen(){
 
 
 /* ---------- Besucherzählung: kein Cookie, keine Wiedererkennung ---------- */
+function werbeKennung(){
+  /* Woher kam der Klick? Nur die vier utm-Felder, nur harmlose Zeichen.
+     Wird ausschliesslich bei der Landeseite mitgeschickt - kein Merken ueber
+     Seiten hinweg, also kein Speicher auf dem Geraet des Besuchers. */
+  try{
+    const q=new URLSearchParams(location.search);
+    const teile=["utm_source","utm_medium","utm_campaign","utm_content"]
+      .map(k=>(q.get(k)||"").replace(/[^A-Za-z0-9_.-]/g,"").slice(0,40));
+    if(!teile[0]) return null;
+    return teile.join("/").replace(/\/+$/,"");
+  }catch(e){ return null; }
+}
+
 function zaehlen(){
   const ziel=window.WALLERIA_ZAEHLER; if(!ziel) return;
   if(navigator.doNotTrack==="1"||navigator.globalPrivacyControl===true) return;
+  const kampagne=werbeKennung();
   const senden=(daten)=>{
     const rumpf=JSON.stringify(Object.assign({
       pfad:location.pathname.replace(/^\/|\.html$/g,"")||"start",
       quelle:document.referrer||"",
-      breite:window.innerWidth||0
+      breite:window.innerWidth||0,
+      kampagne:kampagne||undefined
     },daten));
     /* sendBeacon geht auch noch beim Verlassen der Seite durch */
     if(navigator.sendBeacon){
