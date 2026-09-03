@@ -490,6 +490,11 @@ img,video,svg,table{max-width:100%}
   .head{column-gap:12px}
   .tools{gap:2px}
 
+  /* Filterspalte darf auf dem Handy nicht mitkleben - sie lag sonst
+     als sticky Block ueber den Produktkacheln */
+  .filter{position:static;top:auto;gap:12px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+  .katalog{gap:20px}
+
   /* Mehr Luft zum Bildschirmrand */
   .wrap{padding-left:20px;padding-right:20px}
 
@@ -543,6 +548,12 @@ img,video,svg,table{max-width:100%}
 /* Konto-Symbol ist jetzt ein Link zur Bestellabfrage und muss aussehen wie die Nachbarn */
 .tools a.ic{display:inline-flex;align-items:center;justify-content:center;color:inherit;background:none;border:0;padding:8px;cursor:pointer;text-decoration:none}
 .tools a.ic:hover{color:var(--ink)}
+
+/* Preiszeile: digitaler Preis zuerst, gedruckter darunter */
+.card .price{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px}
+.card .price b{font-size:1.02rem}
+.card .price small{color:var(--ink2);font-size:.78rem}
+.card .price .gedruckt{flex:1 1 100%;color:var(--ink2);font-size:.8rem}
 
 /* Bestellung verfolgen */
 .best-seite{gap:30px}
@@ -690,7 +701,7 @@ html.nav-offen,html.nav-offen body{overflow:hidden}
   <label>Deine Bewertung<textarea name="text" required rows="4" maxlength="700" placeholder="Was hat dir gefallen, was nicht?"></textarea></label>
   <button class="btn" type="submit">Bewertung absenden</button>
 </form></div></div></section>
-<section><div class="wrap"><div class="row-head"><h2>Passt dazu</h2><a href="definitionen.html">Mehr aus Definitionen</a></div><div class="grid"><a class="card" data-kats="definitionen" data-pers="1" data-set="0" href="poster-mamaherz.html"><span class="img"><img src="img/f_mamaherz.jpg" alt="Mamaherz – Motiv" class="blatt" width="620" height="620"  loading="lazy" decoding="async"><img src="img/mamaherz.jpg" alt="Mamaherz im Kinderzimmer" class="szene" width="720" height="720"  loading="lazy" decoding="async"></span><h3>Mamaherz</h3><span class="typ">Poster · personalisierbar</span><span class="price"><s>27,99 €</s><b>ab 19,59 €</b></span></a><a class="card" data-kats="definitionen" data-pers="1" data-set="0" href="poster-papaherz.html"><span class="img"><img src="img/f_papaherz.jpg" alt="Papaherz – Motiv" class="blatt" width="620" height="620"  loading="lazy" decoding="async"><img src="img/papaherz.jpg" alt="Papaherz im Kinderzimmer" class="szene" width="720" height="720"  loading="lazy" decoding="async"></span><h3>Papaherz</h3><span class="typ">Poster · personalisierbar</span><span class="price"><s>27,99 €</s><b>ab 19,59 €</b></span></a><a class="card" data-kats="definitionen geburt-baby" data-pers="1" data-set="0" href="poster-wunschkind.html"><span class="img"><img src="img/f_wunschkind.jpg" alt="Wunschkind – Motiv" class="blatt" width="620" height="620"  loading="lazy" decoding="async"><img src="img/wunschkind.jpg" alt="Wunschkind im Kinderzimmer" class="szene" width="720" height="720"  loading="lazy" decoding="async"></span><h3>Wunschkind</h3><span class="typ">Poster · personalisierbar</span><span class="price"><s>27,99 €</s><b>ab 19,59 €</b></span></a><a class="card" data-kats="definitionen kinderzimmer" data-pers="1" data-set="0" href="poster-hausregeln-mit-familienname.html"><span class="img"><img src="img/f_hausregeln.jpg" alt="Hausregeln mit Familienname – Motiv" class="blatt" width="620" height="620"  loading="lazy" decoding="async"><img src="img/hausregeln.jpg" alt="Hausregeln mit Familienname im Kinderzimmer" class="szene" width="720" height="720"  loading="lazy" decoding="async"></span><h3>Hausregeln mit Familienname</h3><span class="typ">Poster · personalisierbar</span><span class="price"><s>27,99 €</s><b>ab 19,59 €</b></span></a></div></div></section>
+<section><div class="wrap"><div class="row-head"><h2>Passt dazu</h2><a href="definitionen.html">Mehr aus Definitionen</a></div><div class="grid"><a class="card" data-kats="definitionen" data-pers="1" data-set="0" href="poster-mamaherz.html"><span class="img"><img src="img/f_mamaherz.jpg" alt="Mamaherz – Motiv" class="blatt" width="620" height="620"  loading="lazy" decoding="async"><img src="img/mamaherz.jpg" alt="Mamaherz im Kinderzimmer" class="szene" width="720" height="720"  loading="lazy" decoding="async"></span><h3>Mamaherz</h3><span class="typ">Poster · personalisierbar</span><span class="price"><b>ab 6,99 €</b><small>digital</small><span class="gedruckt">gedruckt ab 19,59 €</span></span></a><a class="card" data-kats="definitionen" data-pers="1" data-set="0" href="poster-papaherz.html"><span class="img"><img src="img/f_papaherz.jpg" alt="Papaherz – Motiv" class="blatt" width="620" height="620"  loading="lazy" decoding="async"><img src="img/papaherz.jpg" alt="Papaherz im Kinderzimmer" class="szene" width="720" height="720"  loading="lazy" decoding="async"></span><h3>Papaherz</h3><span class="typ">Poster · personalisierbar</span><span class="price"><b>ab 6,99 €</b><small>digital</small><span class="gedruckt">gedruckt ab 19,59 €</span></span></a><a class="card" data-kats="definitionen geburt-baby" data-pers="1" data-set="0" href="poster-wunschkind.html"><span class="img"><img src="img/f_wunschkind.jpg" alt="Wunschkind – Motiv" class="blatt" width="620" height="620"  loading="lazy" decoding="async"><img src="img/wunschkind.jpg" alt="Wunschkind im Kinderzimmer" class="szene" width="720" height="720"  loading="lazy" decoding="async"></span><h3>Wunschkind</h3><span class="typ">Poster · personalisierbar</span><span class="price"><b>ab 6,99 €</b><small>digital</small><span class="gedruckt">gedruckt ab 19,59 €</span></span></a><a class="card" data-kats="definitionen kinderzimmer" data-pers="1" data-set="0" href="poster-hausregeln-mit-familienname.html"><span class="img"><img src="img/f_hausregeln.jpg" alt="Hausregeln mit Familienname – Motiv" class="blatt" width="620" height="620"  loading="lazy" decoding="async"><img src="img/hausregeln.jpg" alt="Hausregeln mit Familienname im Kinderzimmer" class="szene" width="720" height="720"  loading="lazy" decoding="async"></span><h3>Hausregeln mit Familienname</h3><span class="typ">Poster · personalisierbar</span><span class="price"><b>ab 7,99 €</b><small>digital</small><span class="gedruckt">gedruckt ab 19,59 €</span></span></a></div></div></section>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Product", "name": "Arbeitsmama (Definition)", "description": "Arbeitsmama Poster Definition personalisiert mit Name – liebevoller Text. Gedruckt auf mattem 200-g-Posterpapier in acht Größen oder als digitale Datei zum Sofort-Download. Der Name wird bei der Bestellung eingetragen.", "brand": {"@type": "Brand", "name": "Walleria"}, "category": "Definitionen", "offers": {"@type": "AggregateOffer", "priceCurrency": "EUR", "lowPrice": 19.59, "highPrice": 57.39, "offerCount": 8, "availability": "https://schema.org/InStock"}}</script></main>
 <section style="padding:0"><div class="wrap"><div class="usps">
     <div class="usp"><svg class="ico"><use href="#i-truck"/></svg><div><b>Kostenloser Versand ab 60 €</b><small>Sonst 3,90 € · 3–5 Werktage</small></div></div>
@@ -790,7 +801,20 @@ function korbZeigen(){const ul=q("#korbListe"); if(!ul) return; ul.innerHTML="";
   korb.forEach((k,i)=>{s+=k.preis; const li=document.createElement("li"); li.innerHTML=`<img data-k="${k.img}" alt="${k.titel}"><div class="t"><b>${esc(k.titel)}</b><small>${esc(k.groesse)}${k.name?" · "+esc(k.name):""}${k.farbe?" · "+esc(k.farbe):""}</small></div><b>${eur(k.preis)}</b><button class="btn line" style="padding:4px 8px;min-height:32px" data-del="${i}">✕</button>`; ul.appendChild(li);});
   q("#korbSumme").textContent=eur(s); q("#cartN").textContent=korb.length; bilderSetzen(ul);
   ul.querySelectorAll("[data-del]").forEach(b=>b.addEventListener("click",()=>{korb.splice(+b.dataset.del,1);korbSpeichern();korbZeigen();}));}
-function bilderSetzen(root){ if(!window.IMGMAP) return; (root||document).querySelectorAll("img[data-k]").forEach(im=>{ let k=im.dataset.k; if(!IMGMAP[k] && /^g_e\d+_\d$/.test(k)) k="c_"+k.slice(2,-2); if(!im.src && IMGMAP[k]) im.src=IMGMAP[k]; if(!window.IMGMAP_ONLY && !IMGMAP[im.dataset.k]) im.src="img/"+im.dataset.k+".jpg"; }); }
+function bilderSetzen(root){
+  /* Ohne IMGMAP (lokale Auslieferung) liegen die Bilder als Dateien unter img/ -
+     frueher stieg die Funktion hier aus und der Warenkorb blieb bilderlos. */
+  (root||document).querySelectorAll("img[data-k]").forEach(im=>{
+    if(im.getAttribute("src")) return;
+    const k0=im.dataset.k; if(!k0) return;
+    if(window.IMGMAP){
+      let k=k0; if(!IMGMAP[k] && /^g_e\\d+_\\d$/.test(k)) k="c_"+k.slice(2,-2);
+      if(IMGMAP[k]){ im.src=IMGMAP[k]; return; }
+      if(window.IMGMAP_ONLY) return;
+    }
+    im.src="img/"+k0+".jpg";
+  });
+}
 
 /* ---------- Handy: Raumszene per Knopf ---------- */
 function raumKnoepfe(){

@@ -490,6 +490,11 @@ img,video,svg,table{max-width:100%}
   .head{column-gap:12px}
   .tools{gap:2px}
 
+  /* Filterspalte darf auf dem Handy nicht mitkleben - sie lag sonst
+     als sticky Block ueber den Produktkacheln */
+  .filter{position:static;top:auto;gap:12px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+  .katalog{gap:20px}
+
   /* Mehr Luft zum Bildschirmrand */
   .wrap{padding-left:20px;padding-right:20px}
 
@@ -543,6 +548,12 @@ img,video,svg,table{max-width:100%}
 /* Konto-Symbol ist jetzt ein Link zur Bestellabfrage und muss aussehen wie die Nachbarn */
 .tools a.ic{display:inline-flex;align-items:center;justify-content:center;color:inherit;background:none;border:0;padding:8px;cursor:pointer;text-decoration:none}
 .tools a.ic:hover{color:var(--ink)}
+
+/* Preiszeile: digitaler Preis zuerst, gedruckter darunter */
+.card .price{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px}
+.card .price b{font-size:1.02rem}
+.card .price small{color:var(--ink2);font-size:.78rem}
+.card .price .gedruckt{flex:1 1 100%;color:var(--ink2);font-size:.8rem}
 
 /* Bestellung verfolgen */
 .best-seite{gap:30px}
@@ -774,7 +785,20 @@ function korbZeigen(){const ul=q("#korbListe"); if(!ul) return; ul.innerHTML="";
   korb.forEach((k,i)=>{s+=k.preis; const li=document.createElement("li"); li.innerHTML=`<img data-k="${k.img}" alt="${k.titel}"><div class="t"><b>${esc(k.titel)}</b><small>${esc(k.groesse)}${k.name?" · "+esc(k.name):""}${k.farbe?" · "+esc(k.farbe):""}</small></div><b>${eur(k.preis)}</b><button class="btn line" style="padding:4px 8px;min-height:32px" data-del="${i}">✕</button>`; ul.appendChild(li);});
   q("#korbSumme").textContent=eur(s); q("#cartN").textContent=korb.length; bilderSetzen(ul);
   ul.querySelectorAll("[data-del]").forEach(b=>b.addEventListener("click",()=>{korb.splice(+b.dataset.del,1);korbSpeichern();korbZeigen();}));}
-function bilderSetzen(root){ if(!window.IMGMAP) return; (root||document).querySelectorAll("img[data-k]").forEach(im=>{ let k=im.dataset.k; if(!IMGMAP[k] && /^g_e\d+_\d$/.test(k)) k="c_"+k.slice(2,-2); if(!im.src && IMGMAP[k]) im.src=IMGMAP[k]; if(!window.IMGMAP_ONLY && !IMGMAP[im.dataset.k]) im.src="img/"+im.dataset.k+".jpg"; }); }
+function bilderSetzen(root){
+  /* Ohne IMGMAP (lokale Auslieferung) liegen die Bilder als Dateien unter img/ -
+     frueher stieg die Funktion hier aus und der Warenkorb blieb bilderlos. */
+  (root||document).querySelectorAll("img[data-k]").forEach(im=>{
+    if(im.getAttribute("src")) return;
+    const k0=im.dataset.k; if(!k0) return;
+    if(window.IMGMAP){
+      let k=k0; if(!IMGMAP[k] && /^g_e\\d+_\\d$/.test(k)) k="c_"+k.slice(2,-2);
+      if(IMGMAP[k]){ im.src=IMGMAP[k]; return; }
+      if(window.IMGMAP_ONLY) return;
+    }
+    im.src="img/"+k0+".jpg";
+  });
+}
 
 /* ---------- Handy: Raumszene per Knopf ---------- */
 function raumKnoepfe(){
