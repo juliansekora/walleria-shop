@@ -305,9 +305,10 @@ a[data-go],a[data-scroll],a[data-noop]{cursor:pointer}
 .art label{position:relative;border:1px solid var(--line);border-radius:4px;padding:10px 12px;cursor:pointer;display:grid;gap:2px;font-size:.9rem}
 .art label b{font-size:.95rem}
 .art label small{color:var(--ink2)}
-.art input{position:absolute;opacity:0}
+.art input{position:absolute;opacity:0;left:0;top:0;width:1px;height:1px;margin:0;min-height:0}
 .art label.on{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
-.einw{display:flex;gap:10px;align-items:flex-start;font-size:.82rem;color:var(--ink2);border:1px solid var(--line);padding:10px 12px}
+.einw{display:block;position:relative;font-size:.82rem;color:var(--ink2);border:1px solid var(--line);padding:10px 12px 10px 36px;line-height:1.5}
+.einw>input[type=checkbox]{position:absolute;left:12px;top:11px;margin:0}
 .einw input{margin-top:3px}
 .card.set .img img{object-fit:cover;background:#E9E1D3}
 .katalog{display:grid;grid-template-columns:230px 1fr;gap:36px;align-items:start;padding-bottom:56px}
@@ -391,7 +392,6 @@ a[data-go],a[data-scroll],a[data-noop]{cursor:pointer}
 .card.set .img img.blatt{object-fit:cover;background:none}
 /* Set-Mockups zeigen die ganze Wand – nicht beschneiden */
 .card.set .img img.szene{object-fit:cover;background:#E9E1D3}
-@media (hover:none){.card .img img.szene{display:none}}
 @media (prefers-reduced-motion:reduce){.card .img img.szene{transition:none}}
 
 /* Kategorie-Kacheln ruhiger */
@@ -414,6 +414,122 @@ a[data-go],a[data-scroll],a[data-noop]{cursor:pointer}
 
 /* Galerie „So sieht es bei euch aus“ – gleiche Proportion */
 .galerie img{aspect-ratio:4/5;object-fit:cover}
+
+/* ============ HANDY-PASS ============ */
+img,video,svg,table{max-width:100%}
+.begleiter{width:min(560px,100%)}
+
+@media(max-width:760px){
+  /* Formularfelder: 16px verhindert das Reinzoomen in iOS-Safari */
+  input,select,textarea{font-size:16px!important}
+  input[type=checkbox],input[type=radio]{width:22px;height:22px;flex:0 0 22px;accent-color:var(--ink)}
+
+  /* Tippflaechen auf mindestens 44 px bringen */
+  .burger{width:44px;height:44px;min-width:44px}
+  .head .ic,.head a.ic,.head button{min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
+  footer .cols a,.menu a,.drawer a{display:inline-block;padding:11px 0;line-height:1.2}
+  .crumbs a,.crumbs span{padding:6px 0;display:inline-block}
+  .dsg{min-height:44px}
+  /* Zustimmungs-Zeilen: Kaestchen links, Text laeuft normal weiter */
+  .einw{padding:11px 12px 11px 42px;line-height:1.55}
+  .einw>input[type=checkbox]{left:12px;top:11px}
+  .ck-link{display:inline;padding:0;text-underline-offset:3px}
+
+  /* Live-Vorschau: Buehne schmaler, kein Ueberlauf */
+  .stage{padding:0}
+  .live{gap:26px}
+  .live .form{gap:12px}
+  .live input:not([type=checkbox]):not([type=radio]){flex:1 1 100%;min-height:52px}
+  .live .btn{width:100%;min-height:52px}
+  .farben{gap:10px}
+
+  /* Produktseite */
+  .pdp{gap:22px}
+  .gal .thumbs{gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none}
+  .gal .thumbs::-webkit-scrollbar{display:none}
+  .gal .thumbs img{width:62px;height:78px;flex:0 0 auto}
+  .art{grid-template-columns:1fr}
+  .sizes{grid-template-columns:repeat(2,1fr)}
+  .sizes button{min-height:52px}
+  #inKorb{min-height:54px;font-size:1.02rem}
+
+  /* Kasse */
+  .kasse .zeile,.kasse .row{grid-template-columns:1fr}
+  .kasse input:not([type=checkbox]):not([type=radio]),.kasse select{min-height:50px}
+
+  /* Kacheln: zwei Spalten, aber lesbare Titel */
+  .grid{gap:20px 12px}
+  .card h3{font-size:.95rem;min-height:2.5em}
+  .card .typ{font-size:.76rem}
+
+  /* Hero: unten mehr Abdunklung, damit die Schrift auf dem Motiv lesbar bleibt */
+  .hero .ov{background:
+    linear-gradient(180deg,rgba(30,24,18,.30) 0%,rgba(30,24,18,.10) 26%,rgba(30,24,18,.34) 52%,rgba(30,24,18,.72) 76%,rgba(30,24,18,.86) 100%),
+    radial-gradient(130% 58% at 50% 100%,rgba(30,24,18,.42) 0%,rgba(30,24,18,0) 74%)}
+  .hero .txt{padding-bottom:40px;gap:11px}
+  .hero .txt p{max-width:24rem}
+  .hero .txt .btn{min-height:52px}
+
+  /* Cookie-Hinweis kompakter, damit er nicht den halben Bildschirm fuellt */
+  .cookie{padding:0;align-items:flex-end}
+  .ck-box{padding:16px 16px calc(16px + env(safe-area-inset-bottom));gap:9px;font-size:.86rem;border-left:0;border-right:0;border-bottom:0;max-height:82vh;overflow-y:auto}
+  .ck-box h3{font-size:1rem}
+  .ck-box p{font-size:.84rem;line-height:1.45}
+  .ck-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .ck-btns .btn{width:100%;min-height:46px;font-size:.9rem;padding:0 10px}
+  .ck-btns .btn:first-child{grid-column:1/-1}
+  .ck-box>p:last-of-type{font-size:.76rem}
+
+  /* Restliche Tippflaechen */
+  .brand{min-height:44px;display:inline-flex;align-items:center}
+  .row-head a,.pagehead a,.mehr a,.acc a{display:inline-block;padding:10px 0;line-height:1.25}
+  footer .cols a,.menu a{padding:12px 0}
+  .thumbs button,.thumbs img{min-height:44px}
+
+  /* Ueberschriften nicht zu gross */
+  h1{font-size:clamp(1.5rem,6.2vw,2rem);line-height:1.2}
+  h2{font-size:clamp(1.25rem,5.2vw,1.6rem)}
+  .pagehead{padding:16px 0 4px}
+  section{padding:34px 0}
+}
+
+/* Ausfuehrungs-Wahl untereinander, sobald die Produktseite einspaltig wird */
+@media(max-width:900px){.art{grid-template-columns:1fr}}
+
+/* Sehr schmale Geraete (iPhone SE, 320 px): Kopfzeile enger schnueren */
+@media(max-width:400px){
+  .head{gap:9px!important;padding-left:13px!important;padding-right:13px!important}
+  .brand{font-size:1.12rem;letter-spacing:.06em}
+  .tools{gap:0}
+  .tools>*,.head .ic{min-width:40px!important;min-height:40px!important}
+  .burger{width:40px!important;min-width:40px!important;height:40px}
+  .bar{font-size:.74rem;padding:7px 10px}
+  form{flex-wrap:wrap}
+  form>.btn,form>button[type=submit]{width:100%;flex:1 1 100%}
+}
+
+/* Raumszene auf Touch-Geraeten per Knopf sichtbar machen */
+.card .img{position:relative}
+.szene-an{position:absolute;right:7px;bottom:7px;z-index:3;border:0;border-radius:999px;background:rgba(255,255,255,.82);color:#3a352f;width:30px;height:30px;padding:0;box-shadow:0 1px 5px rgba(0,0,0,.13);cursor:pointer;display:none;align-items:center;justify-content:center;backdrop-filter:saturate(1.1) blur(2px);transition:background .18s,opacity .18s}
+.szene-an .ico{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.7;display:block}
+.szene-an::after{content:"";position:absolute;left:50%;top:50%;width:44px;height:44px;transform:translate(-50%,-50%)}
+.card.raum .szene-an{background:rgba(28,25,23,.72);color:#fff}
+@media (hover:none){
+  .card .img img.szene{display:block}
+  .card .img img.szene{opacity:0}
+  .card.raum .img img.szene{opacity:1}
+  .szene-an{display:inline-flex;align-items:center}
+}
+
+/* Fester Kaufbalken am unteren Rand (nur Handy, nur Produktseite) */
+.kaufbar{position:fixed;left:0;right:0;bottom:0;z-index:55;display:none;gap:12px;align-items:center;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:var(--bg);border-top:1px solid var(--line);box-shadow:0 -6px 22px rgba(0,0,0,.10);transform:translateY(110%);transition:transform .26s ease}
+.kaufbar.zeig{transform:none}
+.kaufbar .kb-preis{display:flex;flex-direction:column;line-height:1.15}
+.kaufbar .kb-preis b{font-size:1.02rem}
+.kaufbar .kb-preis small{color:var(--ink2);font-size:.75rem}
+.kaufbar .btn{flex:1;min-height:50px;margin:0}
+@media(max-width:760px){body.pdp-seite .kaufbar{display:flex}}
+@media (prefers-reduced-motion:reduce){.kaufbar{transition:none}}
 </style><script>window.STRIPE_CHECKOUT_URL="https://lbypqkpuyfljeegljvbl.supabase.co/functions/v1/walleria-kasse";window.SUPABASE_URL="https://lbypqkpuyfljeegljvbl.supabase.co";window.SUPABASE_KEY="sb_publishable_B63DzW3v0kRFCaoTbpTD0g_KtML4ERa";</script></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></symbol>
   <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
@@ -556,8 +672,56 @@ function korbZeigen(){const ul=q("#korbListe"); if(!ul) return; ul.innerHTML="";
   q("#korbSumme").textContent=eur(s); q("#cartN").textContent=korb.length; bilderSetzen(ul);
   ul.querySelectorAll("[data-del]").forEach(b=>b.addEventListener("click",()=>{korb.splice(+b.dataset.del,1);korbSpeichern();korbZeigen();}));}
 function bilderSetzen(root){ if(!window.IMGMAP) return; (root||document).querySelectorAll("img[data-k]").forEach(im=>{ let k=im.dataset.k; if(!IMGMAP[k] && /^g_e\d+_\d$/.test(k)) k="c_"+k.slice(2,-2); if(!im.src && IMGMAP[k]) im.src=IMGMAP[k]; if(!window.IMGMAP_ONLY && !IMGMAP[im.dataset.k]) im.src="img/"+im.dataset.k+".jpg"; }); }
+
+/* ---------- Handy: Raumszene per Knopf ---------- */
+function raumKnoepfe(){
+  if(!window.matchMedia||!matchMedia("(hover:none)").matches) return;
+  document.querySelectorAll(".card").forEach(c=>{
+    const box=c.querySelector(".img"); if(!box||box.querySelector(".szene-an")) return;
+    if(!c.querySelector("img.szene")) return;
+    const b=document.createElement("button");
+    b.type="button"; b.className="szene-an";
+    b.innerHTML='<svg class="ico" aria-hidden="true"><use href="#i-eye"/></svg>';
+    b.setAttribute("aria-label","Poster im Kinderzimmer ansehen");
+    b.setAttribute("aria-pressed","false");
+    b.addEventListener("click",ev=>{ev.preventDefault(); ev.stopPropagation();
+      const an=c.classList.toggle("raum");
+      b.setAttribute("aria-pressed",an?"true":"false");
+      b.setAttribute("aria-label",an?"Nur das Motiv ansehen":"Poster im Kinderzimmer ansehen");});
+    box.appendChild(b);
+  });
+}
+
+/* ---------- Handy: fester Kaufbalken auf der Produktseite ---------- */
+function kaufbalken(){
+  const pdp=q(".pdp"), knopf=q("#inKorb"); if(!pdp||!knopf) return;
+  document.body.classList.add("pdp-seite");
+  const bar=document.createElement("div");
+  bar.className="kaufbar";
+  bar.innerHTML='<span class="kb-preis"><b id="kbPreis"></b><small id="kbGroesse"></small></span><button class="btn" type="button" id="kbKauf">In den Warenkorb</button>';
+  document.body.appendChild(bar);
+  const kbP=bar.querySelector("#kbPreis"), kbG=bar.querySelector("#kbGroesse");
+  const auffrischen=()=>{ const p=q("#preis"); if(p) kbP.textContent=p.textContent;
+    const akt=q("#groessen .on")||q("#groessen [aria-pressed=true]")||q("#groessen button.on");
+    kbG.textContent=akt?(akt.firstChild&&akt.firstChild.textContent?akt.firstChild.textContent.trim()+" cm":""):""; };
+  auffrischen();
+  bar.querySelector("#kbKauf").addEventListener("click",()=>{knopf.click();});
+  const beob=new MutationObserver(auffrischen);
+  const pr=q("#preis"); if(pr) beob.observe(pr,{childList:true,characterData:true,subtree:true});
+  const gr=q("#groessen"); if(gr) beob.observe(gr,{attributes:true,subtree:true,attributeFilter:["class","aria-pressed"]});
+  const pruefen=()=>{ const r=knopf.getBoundingClientRect();
+    const vorbei=r.bottom<0;                        /* Kaufknopf ist nach oben aus dem Bild */
+    const amEnde=(innerHeight+scrollY)>=document.documentElement.scrollHeight-140;
+    bar.classList.toggle("zeig", vorbei && !amEnde); };
+  addEventListener("scroll",pruefen,{passive:true});
+  addEventListener("resize",pruefen,{passive:true});
+  pruefen();
+}
+
 function initSeite(){
   bilderSetzen();
+  raumKnoepfe();
+  kaufbalken();
   const cb=q("#cartBtn"); if(cb) cb.onclick=()=>q("#drawer").classList.toggle("open");
   const dc=q("#drawerClose"); if(dc) dc.onclick=()=>q("#drawer").classList.remove("open");
   const ka=q("#kasse"); if(ka) ka.onclick=()=>toast("Prototyp: hier startet Stripe Checkout");
