@@ -622,7 +622,7 @@ html.nav-offen,html.nav-offen body{overflow:hidden}
 .kaufbar .btn{flex:1;min-height:50px;margin:0}
 @media(max-width:760px){body.pdp-seite .kaufbar{display:flex}}
 @media (prefers-reduced-motion:reduce){.kaufbar{transition:none}}
-</style><script>window.STRIPE_CHECKOUT_URL="https://lbypqkpuyfljeegljvbl.supabase.co/functions/v1/walleria-kasse";window.SUPABASE_URL="https://lbypqkpuyfljeegljvbl.supabase.co";window.SUPABASE_KEY="sb_publishable_B63DzW3v0kRFCaoTbpTD0g_KtML4ERa";window.WALLERIA_MAIL="info.deinkonzept@gmail.com";</script></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
+</style><script>window.STRIPE_CHECKOUT_URL="https://lbypqkpuyfljeegljvbl.supabase.co/functions/v1/walleria-kasse";window.SUPABASE_URL="https://lbypqkpuyfljeegljvbl.supabase.co";window.SUPABASE_KEY="sb_publishable_B63DzW3v0kRFCaoTbpTD0g_KtML4ERa";window.WALLERIA_MAIL="info.deinkonzept@gmail.com";window.OPENAI_PIXEL_ID="";</script></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></symbol>
   <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
   <symbol id="i-chevd" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
@@ -710,11 +710,11 @@ html.nav-offen,html.nav-offen body{overflow:hidden}
 <div class="pay"><div class="cards"><span>VISA</span><span>Mastercard</span><span>PayPal</span><span>Klarna</span><span>Apple Pay</span><span>Google Pay</span><span>SEPA</span></div><small>© 2026 Walleria · Prototyp</small></div>
 </div></footer><div class="cookie" id="cookie" hidden role="dialog" aria-modal="true" aria-labelledby="ckTitel">
   <div class="ck-box"><h3 id="ckTitel">Cookies & Datenschutz</h3>
-  <p>Wir verwenden notwendige Cookies für Warenkorb und Zahlungssicherheit. Statistik- und Marketing-Cookies (z. B. Meta-Pixel, Pinterest-Tag) setzen wir nur mit deiner Einwilligung. Details in der <a data-go="datenschutz" role="link" tabindex="0" class="ck-link">Datenschutzerklärung</a>. Du kannst deine Auswahl jederzeit über „Cookie-Einstellungen" im Footer ändern.</p>
+  <p>Wir verwenden notwendige Cookies für Warenkorb und Zahlungssicherheit. Statistik- und Marketing-Cookies (z. B. ChatGPT-Ads-Pixel, Meta-Pixel, Pinterest-Tag) setzen wir nur mit deiner Einwilligung. Details in der <a data-go="datenschutz" role="link" tabindex="0" class="ck-link">Datenschutzerklärung</a>. Du kannst deine Auswahl jederzeit über „Cookie-Einstellungen" im Footer ändern.</p>
   <div class="ck-opts" id="ckOpts" hidden>
     <label><input type="checkbox" checked disabled> <b>Notwendig</b> – Warenkorb, Cookie-Auswahl, Zahlungsabwicklung (immer aktiv)</label>
     <label><input type="checkbox" id="ckStat"> <b>Statistik</b> – anonyme Reichweitenmessung</label>
-    <label><input type="checkbox" id="ckMark"> <b>Marketing</b> – Meta-Pixel, Pinterest-Tag zur Erfolgsmessung von Anzeigen</label>
+    <label><input type="checkbox" id="ckMark"> <b>Marketing</b> – ChatGPT-Ads-Pixel, Meta-Pixel und Pinterest-Tag zur Erfolgsmessung von Anzeigen</label>
   </div>
   <div class="ck-btns"><button class="btn" id="ckAlle">Alle akzeptieren</button><button class="btn line" id="ckNur">Nur notwendige</button><button class="btn line" id="ckEinst">Einstellungen</button><button class="btn line" id="ckSpeichern" hidden>Auswahl speichern</button></div>
   <p class="small">Deine Auswahl gilt 6 Monate, danach fragen wir erneut. · <a data-go="impressum" role="link" tabindex="0" class="ck-link">Impressum</a> · <a data-go="datenschutz" role="link" tabindex="0" class="ck-link">Datenschutz</a></p></div>
@@ -1059,7 +1059,47 @@ try{ const roh=JSON.parse(localStorage.getItem(CK_KEY)||"null");
 window.consentAllows=(k)=>!!(consent&&consent[k]);
 function ckZeigen(einst){ const c=q("#cookie"); if(!c) return; c.hidden=false; q("#ckOpts").hidden=!einst; q("#ckSpeichern").hidden=!einst; q("#ckEinst").hidden=!!einst; if(consent){q("#ckStat").checked=!!consent.statistik; q("#ckMark").checked=!!consent.marketing;} }
 function ckSetzen(o){ consent={notwendig:true,statistik:!!o.statistik,marketing:!!o.marketing,zeit:new Date().toISOString(),version:1}; try{localStorage.setItem(CK_KEY,JSON.stringify(consent));}catch(e){} q("#cookie").hidden=true; ladeDienste(); }
-function ladeDienste(){ if(consentAllows("marketing")) console.log("Marketing-Tags würden jetzt laden"); }
+function ladeDienste(){
+  if(!consentAllows("marketing")) return;
+  ladeChatGptPixel();
+}
+
+/* ChatGPT-Ads-Messpixel - laedt ausschliesslich nach Marketing-Einwilligung */
+function ladeChatGptPixel(){
+  const pid=window.OPENAI_PIXEL_ID;
+  if(!pid || window.oaiq) return;
+  (function(w,d,s,u){
+    var q=function(){ q.q.push(arguments); }; q.q=[]; w.oaiq=q;
+    var js=d.createElement(s); js.async=true; js.src=u;
+    var f=d.getElementsByTagName(s)[0]; f.parentNode.insertBefore(js,f);
+  })(window,document,"script","https://bzrcdn.openai.com/sdk/oaiq.min.js");
+  oaiq("init",{pixelId:pid});
+  oaiq("measure","page_viewed",{type:"customer_action"});
+  pixelSeitenEreignis();
+}
+
+/* Seitenbezogene Ereignisse: Produktansicht, Warenkorb, Kasse, Kauf */
+function pixelSeitenEreignis(){
+  if(!window.oaiq) return;
+  const pdp=q(".pdp");
+  if(pdp){
+    const preis=parseFloat((q("#preis")||{textContent:""}).textContent.replace(/[^\d,]/g,"").replace(",","."));
+    oaiq("measure","contents_viewed",{type:"contents",amount:isFinite(preis)?Math.round(preis*100):undefined,currency:"EUR",
+      contents:[{id:pdp.dataset.id||"",name:pdp.dataset.titel||"",content_type:"product",quantity:1}]});
+  }
+  if(location.pathname.indexOf("kasse")>-1 && korb.length){
+    oaiq("measure","checkout_started",{type:"contents",amount:Math.round(korbSumme()*100),currency:"EUR",
+      contents:korb.map(p=>({id:p.titel,name:p.titel,content_type:"product",quantity:p.menge||1}))});
+  }
+  const p=new URLSearchParams(location.search);
+  const best=p.get("bestellung");
+  if(location.pathname.indexOf("danke")>-1 && best){
+    /* event_id = Bestellnummer, damit Pixel und Server-Meldung nicht doppelt zaehlen */
+    const betrag=parseInt(p.get("betrag")||"0",10);
+    oaiq("measure","order_created",{type:"contents",amount:betrag>0?betrag:undefined,currency:"EUR"},{event_id:best});
+  }
+}
+function korbSumme(){ return korb.reduce((s,p)=>s+Number(p.preis)*(p.menge||1),0); }
 const ck=q("#cookie"); if(ck&&!ck.dataset.init){ ck.dataset.init="1"; if(!consent) ckZeigen(false); else ladeDienste();
   q("#ckAlle").onclick=()=>ckSetzen({statistik:true,marketing:true}); q("#ckNur").onclick=()=>ckSetzen({}); q("#ckEinst").onclick=()=>ckZeigen(true); q("#ckSpeichern").onclick=()=>ckSetzen({statistik:q("#ckStat").checked,marketing:q("#ckMark").checked}); }
 document.querySelectorAll("[data-cookie]").forEach(a=>{ if(!a.dataset.init){ a.dataset.init="1"; a.addEventListener("click",e=>{e.preventDefault();ckZeigen(true);}); } });
