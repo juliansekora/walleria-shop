@@ -463,7 +463,12 @@ function initSeite(){
       if(fg) fg.hidden=(art==="digital"); if(ei) ei.hidden=(art!=="digital");
       preisZeigen(); })();
     pdp.querySelectorAll(".thumbs button").forEach(b=>b.addEventListener("click",()=>{pdp.querySelectorAll(".thumbs button").forEach(x=>x.setAttribute("aria-pressed","false")); b.setAttribute("aria-pressed","true"); const im=q("#galMain img"); const k=b.dataset.k; im.removeAttribute("src"); im.dataset.k=k; bilderSetzen(); if(!window.IMGMAP) im.src="img/"+k+".jpg"; const lm=q("#liveMain"); if(lm){lm.hidden=true; q("#galMain").hidden=false;}}));
-    pdp.querySelectorAll(".farben button").forEach(b=>b.addEventListener("click",()=>{pdp.querySelectorAll(".farben button").forEach(x=>x.setAttribute("aria-pressed","false")); b.setAttribute("aria-pressed","true"); farbe=b.dataset.farbe;}));
+    /* Gewaehltes Design / gewaehlte Farbe auch als Foto zeigen: die Karte
+       data-design-bilder / data-farb-bilder sagt, welche Szene es dafuer gibt. */
+    const bildZeigen=(k)=>{ if(!k) return; const im=q("#galMain img"); if(!im) return; im.removeAttribute("src"); im.dataset.k=k; bilderSetzen(); if(!window.IMGMAP) im.src="img/"+k+".jpg"; const lm=q("#liveMain"); if(lm){lm.hidden=true; q("#galMain").hidden=false;} pdp.querySelectorAll(".thumbs button").forEach(x=>x.setAttribute("aria-pressed", x.dataset.k===k?"true":"false")); };
+    const designBilder=JSON.parse(pdp.dataset.designBilder||"{}"), farbBilder=JSON.parse(pdp.dataset.farbBilder||"{}");
+    const farbKey=(f)=>/blau/i.test(f)?"blau":/wei/i.test(f)?"weiss":"rosa";
+    pdp.querySelectorAll(".farben button").forEach(b=>b.addEventListener("click",()=>{pdp.querySelectorAll(".farben button").forEach(x=>x.setAttribute("aria-pressed","false")); b.setAttribute("aria-pressed","true"); farbe=b.dataset.farbe; bildZeigen(farbBilder[farbKey(farbe)]);}));
     /* Ultraschallbild: im Browser verkleinern, hochladen, Kennung merken.
        Ein Handyfoto hat gern 6 MB - verkleinert kommt es auch bei schlechtem
        Netz durch, und fuer die Aquarell-Zeichnung reichen 2000 px allemal. */
@@ -509,7 +514,7 @@ function initSeite(){
       });
     }
 
-    const kn=q("#kName"), kd=q("#kDatum"), lm=q("#liveMain");
+    const kn=q("#kName")||q("[data-pers-feld][data-pflicht]"), kd=q("#kDatum"), lm=q("#liveMain");
     const kn2=q("#kName2"), feld2=kn2?kn2.closest(".field"):null;
     let anzahlNamen=1;
 
@@ -548,7 +553,7 @@ function initSeite(){
       design=dsgKnoepfe[0].dataset.design;
       dsgKnoepfe.forEach(b=>b.addEventListener("click",()=>{
         dsgKnoepfe.forEach(x=>x.setAttribute("aria-pressed","false"));
-        b.setAttribute("aria-pressed","true"); design=b.dataset.design; }));
+        b.setAttribute("aria-pressed","true"); design=b.dataset.design; bildZeigen(designBilder[b.dataset.nr]); }));
     }
     /* Alle Personalisierungsfelder des Produkts einsammeln - Name, Datum, Gewicht ... */
     const persFelder=()=>{
@@ -561,10 +566,14 @@ function initSeite(){
         l.unshift({feld:"Namen", wert:kn.value.trim()+" & "+kn2.value.trim()});
       }
       if(design) l.unshift({feld:"Design", wert:design});
+      if(typeof farbe!=="undefined" && farbe) l.push({feld:"Farbe", wert:farbe});
       if(usKennung) l.push({feld:"Ultraschallbild", wert:usKennung});
       return l.map(x=>({feld:x.feld, wert:x.wert})); };
     const persText=()=>persFelder().map(x=>x.feld+": "+x.wert).join(" · ");
-    q("#inKorb").addEventListener("click",()=>{ if(pdp.dataset.pers==="1" && !(kn&&kn.value.trim())){if(kn)kn.focus(); toast("Bitte zuerst den Namen eintragen"); return;}
+    q("#inKorb").addEventListener("click",()=>{ if(pdp.dataset.pers==="1" && !(kn&&kn.value.trim())){if(kn)kn.focus(); toast("Bitte zuerst "+((kn&&kn.dataset.persFeld)||"den Namen").replace(/\s*\((freiwillig|optional)\)/i,"")+" eintragen"); return;}
+      /* Pflichtfelder aus dem Etsy-Schema: leer -> freundlich anmahnen, nicht abschicken */
+      const leer=[...pdp.querySelectorAll("[data-pers-feld][data-pflicht]")].find(e=>!e.value.trim());
+      if(leer){ leer.focus(); toast("Bitte noch ausfüllen: "+leer.dataset.persFeld.replace(/\s*\((freiwillig|optional)\)/i,"")); return; }
       if(usFeld && !usKennung){ toast("Bitte lade dein Ultraschallbild hoch – daraus zeichnen wir das Poster."); usFeld.focus(); return; }
       if(art==="digital" && !q("#einwBox").checked){ toast("Bitte der sofortigen Bereitstellung zustimmen"); q("#einwBox").focus(); return; }
       const b=sizes[groesse]; const bild=pdp.dataset.bild||("g_"+pdp.dataset.id+"_0");
@@ -590,7 +599,7 @@ const kf=q("#kForm"); if(kf){
     try{ localStorage.setItem("jmp_kunde",JSON.stringify(kunde)); }catch(err){}
     const posten=korb.map(k=>({titel:k.titel,groesse:k.groesse,name:k.name,preis:Math.round(k.preis*100)}));
     if(window.STRIPE_CHECKOUT_URL){
-      try{ const r=await fetch(window.STRIPE_CHECKOUT_URL,{method:"POST",headers:{"Content-Type":"application/json","apikey":window.SUPABASE_KEY},body:JSON.stringify({posten:posten.map(function(p){return {produkt:p.produkt||"",titel:p.titel,preis:p.preis,menge:p.menge||1,digital:/Digitale Datei/i.test(p.groesse||""),groesse:p.groesse||"",angaben:p.angaben||[],zusatz:p.beschriftung||p.groesse||""};}),kunde})});
+      try{ const r=await fetch(window.STRIPE_CHECKOUT_URL,{method:"POST",headers:{"Content-Type":"application/json","apikey":window.SUPABASE_KEY},body:JSON.stringify({posten:posten.map(function(p){return {produkt:p.produkt||"",titel:p.titel,preis:p.preis,menge:p.menge||1,digital:/Digitale Datei/i.test(p.groesse||""),groesse:p.groesse||"",angaben:p.angaben||[],zusatz:[p.beschriftung,(p.farbe?("Farbe: "+p.farbe):"")].filter(Boolean).join(" · ")||p.groesse||""};}),kunde})});
         const j=await r.json(); if(j.url){ location.href=j.url; return; } throw new Error(j.fehler||j.error||"Keine Checkout-URL"); }
       catch(err){ btn.disabled=false; btn.textContent="Zahlungspflichtig bestellen"; q("#kHinweis").textContent="Zahlung derzeit nicht möglich: "+err.message; return; }
     }
