@@ -840,7 +840,19 @@ function rosieSVG(name){ const B=NP.B,H=NP.H,seed=1; const zeichen=initiale(name
     s+=blume(B*0.700,H*0.385,H*0.066,PAL.bunt[3],PAL.bunt[4],seed+3); }
   s+=buntBlock(schoen(name),H*0.745,H*0.245,seed,B);
   return `<svg viewBox="0 0 ${B} ${H}" xmlns="http://www.w3.org/2000/svg">${s}</svg>`; }
-function welleRahmen(x0,y0,x1,y1,len,amp){ let d=`M${x0} ${y0}`; for(let x=x0;x<x1;x+=len) d+=` q${len/2} ${-amp} ${len} 0`; for(let y=y0;y<y1;y+=len) d+=` q${amp} ${len/2} 0 ${len}`; for(let x=x1;x>x0;x-=len) d+=` q${-len/2} ${amp} ${-len} 0`; for(let y=y1;y>y0;y-=len) d+=` q${-amp} ${-len/2} 0 ${-len}`; return d+"Z"; }
+function welleRahmen(x0,y0,x1,y1,len,amp){
+  /* Die Wellen mussten frueher in fester Schrittweite laufen - passte die Strecke
+     nicht glatt darauf, lief die letzte Welle ueber die Ecke hinaus und der ganze
+     Rahmen sass verschoben (waagerecht 311 px, senkrecht 154 px). Jetzt wird die
+     Schrittweite so gewaehlt, dass sie die Strecke genau teilt. */
+  const nx=Math.max(1,Math.round((x1-x0)/len)), lx=(x1-x0)/nx;
+  const ny=Math.max(1,Math.round((y1-y0)/len)), ly=(y1-y0)/ny;
+  let d=`M${x0} ${y0}`;
+  for(let i=0;i<nx;i++) d+=` q${lx/2} ${-amp} ${lx} 0`;
+  for(let i=0;i<ny;i++) d+=` q${amp} ${ly/2} 0 ${ly}`;
+  for(let i=0;i<nx;i++) d+=` q${-lx/2} ${amp} ${-lx} 0`;
+  for(let i=0;i<ny;i++) d+=` q${-amp} ${-ly/2} 0 ${-ly}`;
+  return d+"Z"; }
 function sophieSVG(name){ const B=NP.B,H=NP.H; const ini=initiale(name)||"M"; let s=`<rect width="${B}" height="${H}" fill="#F5EFC9"/>`;
   const sb=B*0.062; for(let x=sb*0.5;x<B;x+=sb*2) s+=`<rect x="${x.toFixed(0)}" y="0" width="${sb.toFixed(0)}" height="${H}" fill="#A9BFE8"/>`;
   s+=`<rect x="${B*0.115}" y="${H*0.095}" width="${B*0.77}" height="${H*0.81}" rx="${B*0.010}" fill="#FCFAF4"/>`;
