@@ -199,7 +199,7 @@ footer a:hover{color:var(--ink)}
 @media (prefers-reduced-motion: reduce){*{transition:none!important;scroll-behavior:auto!important}}
 
 .menu a{white-space:nowrap}
-.crumbs{font-size:.82rem;color:var(--ink2);padding:18px 0 0;display:flex;gap:6px;flex-wrap:wrap}
+.crumbs{font-size:.82rem;color:var(--ink2);padding-top:18px;display:flex;gap:6px;flex-wrap:wrap}
 .crumbs a:hover{color:var(--ink)}
 .pagehead{padding:22px 0 8px;max-width:52rem}
 .pagehead h1{font-size:clamp(1.7rem,3vw,2.4rem);font-weight:600;margin-bottom:10px}
@@ -216,7 +216,7 @@ footer a:hover{color:var(--ink)}
 .faq details[open] summary::after{content:"–"}
 .faq p{margin-top:8px}
 /* Produktseite */
-.pdp{display:grid;grid-template-columns:7fr 5fr;gap:48px;padding:16px 0 56px;align-items:start}
+.pdp{display:grid;grid-template-columns:7fr 5fr;gap:48px;padding-top:16px;padding-bottom:56px;align-items:start}
 @media(max-width:900px){.pdp{grid-template-columns:1fr;gap:28px}}
 .gal{display:grid;grid-template-columns:80px 1fr;gap:12px;position:sticky;top:84px}
 @media(max-width:900px){.gal{grid-template-columns:1fr;position:static}}
@@ -250,7 +250,7 @@ footer a:hover{color:var(--ink)}
 .pdp-preview{aspect-ratio:1;background:var(--alt);display:grid;place-items:center}
 .vorschau-hinweis{position:absolute;left:12px;top:12px;background:#fff;color:#1E1B18;font-size:.7rem;font-weight:700;padding:4px 9px;letter-spacing:.06em}
 .gal .main{position:relative}
-.info-page{max-width:52rem;padding:10px 0 60px;display:grid;gap:22px;font-size:1.02rem}
+.info-page{max-width:52rem;padding-top:10px;padding-bottom:60px;display:grid;gap:22px;font-size:1.02rem}
 .info-page h2{font-size:1.4rem;margin-top:10px}
 .info-page p,.info-page li{color:var(--ink2)}
 .info-page ul{padding-left:20px;display:grid;gap:6px}
@@ -462,6 +462,8 @@ img,video,svg,table{max-width:100%}
 
   /* Kacheln: zwei Spalten, aber lesbare Titel */
   .grid{gap:20px 12px}
+  .grid>.card{min-width:0}
+  .card .price{flex-wrap:wrap}
   .card h3{font-size:.95rem;min-height:2.5em}
   .card .typ{font-size:.76rem}
 
@@ -483,6 +485,9 @@ img,video,svg,table{max-width:100%}
   .ck-btns .btn:first-child{grid-column:1/-1}
   .ck-box>p:last-of-type{font-size:.76rem}
 
+  /* Mehr Luft zum Bildschirmrand */
+  .wrap{padding-left:20px;padding-right:20px}
+
   /* Restliche Tippflaechen */
   .brand{min-height:44px;display:inline-flex;align-items:center}
   .row-head a,.pagehead a,.mehr a,.acc a{display:inline-block;padding:10px 0;line-height:1.25}
@@ -499,9 +504,15 @@ img,video,svg,table{max-width:100%}
 /* Ausfuehrungs-Wahl untereinander, sobald die Produktseite einspaltig wird */
 @media(max-width:900px){.art{grid-template-columns:1fr}}
 
-/* Sehr schmale Geraete (iPhone SE, 320 px): Kopfzeile enger schnueren */
-@media(max-width:400px){
-  .head{gap:9px!important;padding-left:13px!important;padding-right:13px!important}
+/* Sehr schmale Geraete (iPhone SE, 320 px): Kopfzeile enger schnueren.
+   Schwelle bewusst unter 375, damit iPhone-Standardformate die volle Luft behalten. */
+@media(max-width:360px){
+  .wrap{padding-left:15px;padding-right:15px}
+  /* Zwei Kacheln passen hier nicht mehr nebeneinander: der Preis sprengt die Spalte */
+  .grid{grid-template-columns:1fr!important;gap:26px}
+  .grid .card{min-width:0}
+  .card h3{min-height:0}
+  .head{gap:9px!important;padding-left:15px!important;padding-right:15px!important}
   .brand{font-size:1.12rem;letter-spacing:.06em}
   .tools{gap:0}
   .tools>*,.head .ic{min-width:40px!important;min-height:40px!important}
