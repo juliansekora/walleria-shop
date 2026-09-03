@@ -358,7 +358,7 @@ a[data-go],a[data-scroll],a[data-noop]{cursor:pointer}
 .urlbar b{color:#2B2622;font-weight:600}
 .bew-form{margin-top:26px;max-width:34rem}
 .bew-form h3{font-size:1.05rem;margin-bottom:4px}
-.bew-form form{display:grid;gap:12px;margin-top:14px}
+.bew-form form{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;margin-top:14px}
 .bew-form label{display:grid;gap:5px;font-size:.88rem;font-weight:600}
 .bew-form input,.bew-form select,.bew-form textarea{border:1px solid var(--line);border-radius:4px;padding:11px 12px;font:inherit;font-weight:400;background:var(--bg);color:var(--ink)}
 .bew-form textarea{resize:vertical}
@@ -366,7 +366,8 @@ a[data-go],a[data-scroll],a[data-noop]{cursor:pointer}
 /* Fotos zur Bewertung: Auswahl mit Vorschau, Anzeige als kleine Reihe */
 .bew-fotos{display:grid;gap:6px}
 .bew-fotos>label{font-size:.88rem;font-weight:600}
-.bew-fotos input[type=file]{font:inherit;font-size:.88rem;padding:8px 0}
+.bew-fotos{min-width:0}
+.bew-fotos input[type=file]{width:100%;max-width:100%;box-sizing:border-box;font:inherit;font-size:.88rem;padding:8px 0}
 .bew-fotos input[type=file]::file-selector-button{font:inherit;font-size:.85rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:4px;padding:8px 12px;margin-right:10px;cursor:pointer;min-height:40px}
 .bew-vorschau{display:flex;flex-wrap:wrap;gap:10px}
 .bew-vorschau:empty{display:none}
