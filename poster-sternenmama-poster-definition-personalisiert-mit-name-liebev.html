@@ -540,6 +540,45 @@ img,video,svg,table{max-width:100%}
   .faq-seite .faq summary{font-size:.98rem;line-height:1.35;padding:2px 0}
 }
 
+/* Konto-Symbol ist jetzt ein Link zur Bestellabfrage und muss aussehen wie die Nachbarn */
+.tools a.ic{display:inline-flex;align-items:center;justify-content:center;color:inherit;background:none;border:0;padding:8px;cursor:pointer;text-decoration:none}
+.tools a.ic:hover{color:var(--ink)}
+
+/* Bestellung verfolgen */
+.best-seite{gap:30px}
+.best-form{display:grid;gap:16px;max-width:30rem;border:1px solid var(--line);padding:22px;background:var(--bg)}
+.best-form .field{display:grid;gap:6px}
+.best-form label{font-weight:600;font-size:.92rem}
+.best-form input{font:inherit;padding:12px 14px;border:1px solid var(--line);border-radius:4px;background:var(--bg);color:var(--ink);min-height:48px;font-size:1rem}
+.best-form input:focus{border-color:var(--ink);outline:none}
+.best-form .small{color:var(--ink2);font-size:.8rem}
+.best-form .btn{min-height:50px}
+.best-ausgabe{border:1px solid var(--line);padding:22px;display:grid;gap:16px}
+.best-ausgabe.warn{border-color:#c8a06a;background:rgba(200,160,106,.07)}
+.best-ausgabe p{color:var(--ink2);margin-top:4px}
+.best-kopf{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.best-nr{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.06em;color:var(--ink2)}
+.best-status{padding:5px 12px;border-radius:999px;font-size:.84rem;background:var(--alt,#efeae1);color:var(--ink)}
+.best-status.s-versandt{background:#e3ede2}
+.best-status.s-storniert{background:#f0e0e0}
+.best-leiste{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;font-size:.78rem;text-align:center}
+.best-leiste span{padding:8px 4px;border-top:3px solid var(--line);color:var(--ink2)}
+.best-leiste span.an{border-top-color:var(--ink);color:var(--ink);font-weight:600}
+.best-daten{display:grid;grid-template-columns:auto 1fr;gap:8px 18px;margin:0;font-size:.94rem}
+.best-daten dt{color:var(--ink2)}
+.best-daten dd{margin:0}
+.best-ausgabe h3{font-size:1rem;margin-top:2px}
+.best-posten{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.best-posten li{display:grid;gap:2px;border-top:1px solid var(--line);padding-top:10px}
+.best-posten small{color:var(--ink2);font-size:.85rem}
+.best-hinweis h2{font-size:1.15rem;margin-bottom:6px}
+@media(max-width:760px){
+  .best-form{padding:18px 16px}
+  .best-leiste{font-size:.72rem}
+  .best-daten{grid-template-columns:1fr;gap:2px 0}
+  .best-daten dt{margin-top:8px}
+}
+
 /* Menue-Schublade hinter dem Burger (Handy und Tablet) */
 .nav-hg{position:fixed;inset:0;background:rgba(28,25,23,.42);z-index:70;opacity:0;visibility:hidden;transition:opacity .26s ease,visibility 0s linear .26s}
 .nav-hg.an{opacity:1;visibility:visible;transition:opacity .26s ease,visibility 0s}
@@ -583,7 +622,7 @@ html.nav-offen,html.nav-offen body{overflow:hidden}
 .kaufbar .btn{flex:1;min-height:50px;margin:0}
 @media(max-width:760px){body.pdp-seite .kaufbar{display:flex}}
 @media (prefers-reduced-motion:reduce){.kaufbar{transition:none}}
-</style><script>window.STRIPE_CHECKOUT_URL="https://lbypqkpuyfljeegljvbl.supabase.co/functions/v1/walleria-kasse";window.SUPABASE_URL="https://lbypqkpuyfljeegljvbl.supabase.co";window.SUPABASE_KEY="sb_publishable_B63DzW3v0kRFCaoTbpTD0g_KtML4ERa";</script></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
+</style><script>window.STRIPE_CHECKOUT_URL="https://lbypqkpuyfljeegljvbl.supabase.co/functions/v1/walleria-kasse";window.SUPABASE_URL="https://lbypqkpuyfljeegljvbl.supabase.co";window.SUPABASE_KEY="sb_publishable_B63DzW3v0kRFCaoTbpTD0g_KtML4ERa";window.WALLERIA_MAIL="info.deinkonzept@gmail.com";</script></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></symbol>
   <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
   <symbol id="i-chevd" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
@@ -614,7 +653,7 @@ html.nav-offen,html.nav-offen body{overflow:hidden}
   <div class="tools">
     <button class="lang">Deutsch (EUR) <svg class="ico"><use href="#i-chevd"/></svg></button>
     <button aria-label="Suche"><svg class="ico"><use href="#i-search"/></svg></button>
-    <button aria-label="Konto"><svg class="ico"><use href="#i-user"/></svg></button>
+    <a class="ic" href="bestellung.html" aria-label="Bestellung verfolgen" title="Bestellung verfolgen"><svg class="ico"><use href="#i-user"/></svg></a>
     <button class="count" id="cartBtn" aria-label="Warenkorb"><svg class="ico"><use href="#i-bag"/></svg><b id="cartN">0</b></button>
   </div>
 </div></header>
@@ -664,7 +703,7 @@ html.nav-offen,html.nav-offen body{overflow:hidden}
 <footer><div class="wrap"><div class="cols">
   <div><span class="brand">Wall<span>eria</span></span><p class="muted" style="margin-top:12px;max-width:22rem">Personalisierte Poster fürs Kinderzimmer. Gedruckt und verschickt aus Deutschland.</p></div>
   <div><b>Poster</b><a href="namensposter.html">Namensposter-Sets</a><a href="geburt-baby.html">Geburt & Baby</a><a href="definitionen.html">Definitionen</a><a href="kinderzimmer.html">Kinderzimmer</a><a href="6er-sets.html">Klassiker-Sets</a></div>
-  <div><b>Hilfe & Information</b><a href="so-gehts.html">So funktioniert's</a><a href="versand.html">Versand & Lieferzeit</a><a href="versand.html">Größen & Rahmen</a><a href="widerruf.html">Widerruf & Rückgabe</a><a href="haeufige-fragen.html">Häufige Fragen</a><a href="mailto:info.deinkonzept@gmail.com">Kontakt</a></div>
+  <div><b>Hilfe & Information</b><a href="so-gehts.html">So funktioniert's</a><a href="versand.html">Versand & Lieferzeit</a><a href="versand.html">Größen & Rahmen</a><a href="widerruf.html">Widerruf & Rückgabe</a><a href="haeufige-fragen.html">Häufige Fragen</a><a href="bestellung.html">Bestellung verfolgen</a><a href="mailto:info.deinkonzept@gmail.com">Kontakt</a></div>
   <div><b>Über uns</b><a href="ueber-uns.html">Unsere Druckerei</a><a href="#">Etsy-Shop</a><a href="#">Instagram</a><a href="#">Pinterest</a><b style="margin-top:14px">Rechtliches</b><a href="impressum.html">Impressum</a><a href="agb.html">AGB</a><a href="widerruf.html">Widerrufsbelehrung</a><a href="datenschutz.html">Datenschutz</a><a href="barrierefreiheit.html">Barrierefreiheit</a><a href="zahlung-versand.html">Zahlung & Versand</a><a data-cookie="1" role="button" tabindex="0">Cookie-Einstellungen</a></div>
 </div>
 <div class="pay"><div class="cards"><span>VISA</span><span>Mastercard</span><span>PayPal</span><span>Klarna</span><span>Apple Pay</span><span>Google Pay</span><span>SEPA</span></div><small>© 2026 Walleria · Prototyp</small></div>
@@ -813,7 +852,7 @@ function handyMenue(){
   quelle.querySelectorAll("a").forEach(a=>{const k=a.cloneNode(true); liste.appendChild(k);});
   p.appendChild(liste);
   const fuss=document.createElement("div"); fuss.className="np-fuss";
-  const dazu=[["So geht's","so-gehts.html"],["Häufige Fragen","haeufige-fragen.html"],["Versand & Rückgabe","versand.html"],["Über uns","ueber-uns.html"]];
+  const dazu=[["So geht's","so-gehts.html"],["Häufige Fragen","haeufige-fragen.html"],["Bestellung verfolgen","bestellung.html"],["Versand & Rückgabe","versand.html"],["Über uns","ueber-uns.html"]];
   const vorhanden=new Set([...document.querySelectorAll("footer a")].map(a=>a.getAttribute("href")));
   const basis=(quelle.querySelector("a")||{}).getAttribute? (quelle.querySelector("a").getAttribute("href")||"").replace(/[^/]*$/,"") : "";
   dazu.forEach(([t,ziel])=>{ const href=basis+ziel; if(!vorhanden.has(href)) return;
@@ -840,8 +879,71 @@ function handyMenue(){
   p.querySelectorAll("a").forEach(a=>a.addEventListener("click",zu));
 }
 
+
+/* ---------- Bestellung verfolgen (ohne Konto) ---------- */
+function bestellStatus(){
+  const form=q("#bestForm"); if(!form) return;
+  const ausgabe=q("#bestErgebnis"), knopf=q("#bestBtn");
+  const TEXTE={offen:"Zahlung ausstehend",bezahlt:"Bezahlt – wir bereiten den Druck vor",
+               im_druck:"Im Druck",versandt:"Versandt",storniert:"Storniert"};
+  /* Kennung nur fuer die Ratenbegrenzung, rein zufaellig und lokal */
+  let kennung=null;
+  try{ kennung=localStorage.getItem("walleria_abfrage"); }catch(e){}
+  if(!kennung){ kennung="k"+Math.random().toString(36).slice(2)+Date.now().toString(36);
+    try{ localStorage.setItem("walleria_abfrage",kennung); }catch(e){} }
+
+  const zeige=(html,art)=>{ ausgabe.hidden=false; ausgabe.className="best-ausgabe "+(art||""); ausgabe.innerHTML=html; };
+
+  form.addEventListener("submit",async ev=>{
+    ev.preventDefault();
+    const nr=q("#bestNr").value.trim().toUpperCase(), mail=q("#bestMail").value.trim();
+    if(!nr||!mail) return;
+    knopf.disabled=true; knopf.textContent="Wird geprüft …";
+    try{
+      const r=await fetch(window.SUPABASE_URL+"/rest/v1/rpc/walleria_bestellung_status",{
+        method:"POST",
+        headers:{apikey:window.SUPABASE_KEY,Authorization:"Bearer "+window.SUPABASE_KEY,"Content-Type":"application/json"},
+        body:JSON.stringify({p_nummer:nr,p_email:mail,p_kennung:kennung})});
+      const d=await r.json();
+      if(!d||d.ok!==true){
+        const grund=d&&d.fehler;
+        if(grund==="zu_viele_versuche") zeige("<b>Zu viele Versuche.</b><p>Bitte warte fünf Minuten und probier es dann noch einmal.</p>","warn");
+        else if(grund==="zu_alt") zeige("<b>Diese Bestellung ist älter als zwölf Monate.</b><p>Schreib uns an <a href='mailto:"+window.WALLERIA_MAIL+"'>"+window.WALLERIA_MAIL+"</a>, wir schauen für dich nach.</p>","warn");
+        else zeige("<b>Wir finden dazu keine Bestellung.</b><p>Prüf bitte Bestellnummer und E-Mail-Adresse. Beides muss zu derselben Bestellung gehören.</p>","warn");
+        return;
+      }
+      const posten=(d.posten||[]).map(p=>{
+        const teile=[p.groesse,p.name?("Name: "+esc(p.name)):"",p.farbe].filter(Boolean).join(" · ");
+        return "<li><b>"+esc(p.titel||"Poster")+"</b>"+(teile?"<small>"+esc(teile)+"</small>":"")+(p.menge>1?"<span>"+p.menge+"×</span>":"")+"</li>";
+      }).join("");
+      const summe=d.summe_cent!=null?(d.summe_cent/100).toFixed(2).replace(".",",")+" €":"";
+      const schritte=["bezahlt","im_druck","versandt"];
+      const jetzt=schritte.indexOf(d.status);
+      const leiste=schritte.map((s,i)=>'<span class="'+(i<=jetzt?"an":"")+'">'+TEXTE[s].split(" – ")[0]+"</span>").join("");
+      zeige(
+        '<div class="best-kopf"><span class="best-nr">'+esc(d.nummer)+'</span><b class="best-status s-'+d.status+'">'+(TEXTE[d.status]||d.status)+"</b></div>"+
+        (d.status!=="storniert"?'<div class="best-leiste">'+leiste+"</div>":"")+
+        "<dl class=\"best-daten\"><dt>Bestellt am</dt><dd>"+esc(d.bestellt_am||"–")+"</dd>"+
+        (d.bezahlt_am?"<dt>Bezahlt am</dt><dd>"+esc(d.bezahlt_am)+"</dd>":"")+
+        (d.versandt_am?"<dt>Versandt am</dt><dd>"+esc(d.versandt_am)+"</dd>":"")+
+        (summe?"<dt>Summe</dt><dd>"+summe+"</dd>":"")+
+        (d.sendungsnr?"<dt>Sendungsnummer</dt><dd>"+esc(d.sendungsnr)+(d.versanddienst?" ("+esc(d.versanddienst)+")":"")+"</dd>":"")+
+        "</dl>"+(posten?"<h3>Deine Artikel</h3><ul class=\"best-posten\">"+posten+"</ul>":""),"ok");
+    }catch(e){
+      zeige("<b>Das hat gerade nicht geklappt.</b><p>Bitte versuch es in einem Moment noch einmal.</p>","warn");
+    }finally{
+      knopf.disabled=false; knopf.textContent="Status anzeigen";
+    }
+  });
+
+  /* Nummer aus der Bestätigungsseite übernehmen */
+  const p=new URLSearchParams(location.search).get("bestellung");
+  if(p) q("#bestNr").value=p;
+}
+
 function initSeite(){
   bilderSetzen();
+  bestellStatus();
   raumKnoepfe();
   kaufbalken();
   handyMenue();
