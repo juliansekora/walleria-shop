@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+Disallow: /kasse
+Disallow: /danke
+
+# KI-Suchdienste ausdruecklich erlaubt
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://walleria.de/sitemap.xml
