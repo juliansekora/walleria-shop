@@ -483,6 +483,14 @@ a[data-go],a[data-scroll],a[data-noop]{cursor:pointer}
 /* Kategorie-Kacheln ruhiger */
 .kat .ring{aspect-ratio:4/5}
 .kats{gap:18px}
+/* Responsiv: nichts darf seitlich ueber den Bildschirm ragen (iOS macht sonst die Seite querscrollbar, z. B. durch das ausgeblendete Warenkorb-Fach) */
+html,body{overflow-x:hidden;overflow-x:clip}
+.drawer:not(.open){visibility:hidden;transition:transform .3s,visibility 0s .3s}
+.drawer.open{visibility:visible}
+/* Begleitposter der Live-Vorschau: Bildhoehe folgt der Breite, nicht dem Attribut */
+.begleiter .paper img,.live .paper img,.np-paare .paper img{width:100%;height:auto;display:block}
+@media(max-width:640px){.begleiter{grid-template-columns:repeat(5,1fr);gap:8px;width:92vw}}
+@media(max-width:480px){.begleiter{display:none}}
 @media(max-width:1640px){.menu{gap:14px}.menu a{font-size:.92rem}}
 @media(max-width:1460px){.menu{gap:11px}.menu a{font-size:.86rem}.menu a[href='alle-poster']{display:none}}
 @media(max-width:1300px){.menu a[href='maerchen']{display:none}}
