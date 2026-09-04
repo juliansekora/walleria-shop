@@ -483,6 +483,7 @@ a[data-go],a[data-scroll],a[data-noop]{cursor:pointer}
 /* Kategorie-Kacheln ruhiger */
 .kat .ring{aspect-ratio:4/5}
 .kats{gap:18px}
+.kat-knopf{grid-column:1/-1;display:flex;justify-content:center;margin-top:6px}
 /* Responsiv: nichts darf seitlich ueber den Bildschirm ragen (iOS macht sonst die Seite querscrollbar, z. B. durch das ausgeblendete Warenkorb-Fach) */
 html,body{overflow-x:hidden;overflow-x:clip}
 .drawer:not(.open){visibility:hidden;transition:transform .3s,visibility 0s .3s}
