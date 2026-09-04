@@ -546,6 +546,12 @@ function initSeite(){
     }
     if(kn2) kn2.addEventListener("input",vorschau);
     if(kn){ let vor=""; try{vor=new URLSearchParams(location.search).get("name")||sessionStorage.getItem("jmp_name")||"";}catch(e){} if(vor){kn.value=vor;} kn.addEventListener("input",vorschau); if(kd) kd.addEventListener("input",vorschau); vorschau(); try{sessionStorage.removeItem("jmp_name");}catch(e){} }
+    /* Auswahl-Knoepfe (frueher Dropdown): Wert ins versteckte Feld, Bild wechseln, wenn es eins je Option gibt */
+    const optBilder=JSON.parse(pdp.dataset.optBilder||"{}");
+    pdp.querySelectorAll(".chips").forEach(g=>{ const ziel=q("#"+g.dataset.fuer); g.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{
+      g.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed","false")); b.setAttribute("aria-pressed","true");
+      if(ziel){ ziel.value=b.dataset.opt; ziel.dispatchEvent(new Event("input")); }
+      const k=(optBilder[g.dataset.fuer]||{})[b.dataset.opt]; if(k) bildZeigen(k); })); });
     /* Designwahl */
     let design="";
     const dsgKnoepfe=[...pdp.querySelectorAll("#designs button")];

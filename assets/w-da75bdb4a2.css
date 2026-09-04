@@ -363,7 +363,12 @@ a[data-go],a[data-scroll],a[data-noop]{cursor:pointer}
 .bew-form .btn{justify-self:start}
 /* Ultraschallbild hochladen */
 .usb-feld{display:grid;gap:6px;min-width:0}
-.usb-feld input[type=file]{width:100%;max-width:100%;box-sizing:border-box;font:inherit;font-size:.88rem;padding:8px 0}
+.usb-feld input[type=file]{width:100%;max-width:100%;box-sizing:border-box;font:inherit;font-size:.88rem;padding:8px 10px;border:1px solid var(--line);border-radius:4px;background:var(--bg)}
+.pers-felder .field{display:grid;gap:6px;margin-bottom:16px}
+.pers-felder .field label{font-weight:600}
+.pers-felder .field label .small{font-weight:400;color:var(--ink2)}
+.pers-felder .feld-hinweis{display:block;color:var(--ink2);font-size:.82rem;line-height:1.45;margin:0}
+.pers-felder textarea{resize:vertical;min-height:96px}
 .usb-feld input[type=file]::file-selector-button{font:inherit;font-size:.85rem;font-weight:600;
   border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:4px;
   padding:9px 13px;margin-right:10px;cursor:pointer;min-height:42px}
