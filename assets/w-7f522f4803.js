@@ -188,7 +188,7 @@ function handyMenue(){
   quelle.querySelectorAll("a").forEach(a=>{const k=a.cloneNode(true); liste.appendChild(k);});
   p.appendChild(liste);
   const fuss=document.createElement("div"); fuss.className="np-fuss";
-  const dazu=[["So geht's","so-gehts.html"],["Häufige Fragen","haeufige-fragen.html"],["Bestellung verfolgen","bestellung.html"],["Versand & Rückgabe","versand.html"],["Über uns","ueber-uns.html"]];
+  const dazu=[["So geht's","so-gehts"],["Häufige Fragen","haeufige-fragen"],["Bestellung verfolgen","bestellung"],["Versand & Rückgabe","versand"],["Über uns","ueber-uns"]];
   const vorhanden=new Set([...document.querySelectorAll("footer a")].map(a=>a.getAttribute("href")));
   const basis=(quelle.querySelector("a")||{}).getAttribute? (quelle.querySelector("a").getAttribute("href")||"").replace(/[^/]*$/,"") : "";
   dazu.forEach(([t,ziel])=>{ const href=basis+ziel; if(!vorhanden.has(href)) return;
