@@ -439,7 +439,7 @@ function initSeite(){
   const ka=q("#kasse"); if(ka) ka.onclick=()=>toast("Prototyp: hier startet Stripe Checkout");
   korbZeigen();
   /* Hero-Video */
-  const hv=q("#heroVideo"); if(hv&&hv.querySelector("source")){hv.muted=true; const go=()=>hv.play().then(()=>q("#hero").classList.add("has-video")).catch(()=>{}); hv.addEventListener("canplay",go,{once:true}); const start=()=>{hv.preload="auto"; hv.load(); go();}; (window.requestIdleCallback||setTimeout)(()=>setTimeout(start,800)); ["pointerdown","touchstart","scroll","keydown"].forEach(ev=>addEventListener(ev,()=>{if(hv.paused)go();},{passive:true,once:true}));}
+  const hv=q("#heroVideo"); if(hv&&hv.querySelector("source")){hv.muted=true; const go=()=>hv.play().then(()=>q("#hero").classList.add("has-video")).catch(()=>{}); hv.addEventListener("canplay",go,{once:true}); let gestartet=false; const start=()=>{ if(gestartet) return; gestartet=true; hv.preload="auto"; hv.load(); go(); }; if(document.readyState==="complete") setTimeout(start,900); else addEventListener("load",()=>setTimeout(start,900),{once:true}); ["pointerdown","touchstart","scroll","keydown"].forEach(ev=>addEventListener(ev,()=>{start(); if(hv.paused)go();},{passive:true,once:true}));}
   /* Startseite: Live-Block */
   const nameIn=q("#nameIn"), poster=q("#poster");
   if(nameIn&&poster){ npRender(poster,""); nameIn.addEventListener("input",()=>{ if(["rosie","sophie"].includes(poster.dataset.design)) npRender(poster,nameIn.value); });
