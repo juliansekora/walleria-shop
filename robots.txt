@@ -2,6 +2,7 @@ User-agent: *
 Allow: /
 Disallow: /kasse
 Disallow: /danke
+Disallow: /statistik
 
 # KI-Suchdienste ausdruecklich erlaubt
 User-agent: GPTBot

@@ -483,6 +483,12 @@ a[data-go],a[data-scroll],a[data-noop]{cursor:pointer}
 /* Kategorie-Kacheln ruhiger */
 .kat .ring{aspect-ratio:4/5}
 .kats{gap:18px}
+.badge{position:absolute;left:10px;top:10px;background:var(--ink);color:#fff;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600;padding:5px 9px;border-radius:3px;z-index:3}
+.badge.inline{position:static;display:inline-block;margin-left:10px;vertical-align:middle}
+.stats-kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:18px 0 28px}
+.kpi{border:1px solid var(--line);border-radius:6px;padding:14px 16px;background:var(--bg)}.kpi b{display:block;font-size:1.6rem;font-weight:700}.kpi span{display:block;color:var(--ink2);font-size:.85rem}.kpi small{color:var(--ink2);font-size:.75rem}
+.tabelle{overflow-x:auto;margin:8px 0 26px}.tabelle table{width:100%;border-collapse:collapse;font-size:.9rem}.tabelle th,.tabelle td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}.tabelle th{font-weight:600;color:var(--ink2);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase}
+.stats-zwei{display:grid;grid-template-columns:1fr 1fr;gap:24px}@media(max-width:760px){.stats-zwei{grid-template-columns:1fr}}
 
 /* Design-Chips: kein Doppelring (Regel stammt von den Farbkreisen) */
 .farben .dsg{box-shadow:none!important;border:1px solid var(--line)}
