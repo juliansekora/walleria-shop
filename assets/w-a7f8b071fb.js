@@ -585,7 +585,7 @@ function initSeite(){
       const b=sizes[groesse]; const bild=pdp.dataset.bild||("g_"+pdp.dataset.id+"_0");
       const angaben=persFelder(), beschriftung=persText();
       const pid=pdp.dataset.id||"";
-      if(art==="digital") korb.push({produkt:pid,titel:pdp.dataset.titel,img:bild,groesse:"Digitale Datei (PDF + JPG)",name:kn?kn.value.trim():"",angaben,beschriftung,farbe,preis:dig});
+      if(art==="digital") korb.push({produkt:pid,titel:pdp.dataset.titel,img:bild,groesse:"Digitale Datei (JPG in 5 Größen bis 50×70 cm)",name:kn?kn.value.trim():"",angaben,beschriftung,farbe,preis:dig});
       else korb.push({produkt:pid,titel:pdp.dataset.titel,img:bild,groesse:b.firstChild.textContent+" cm",name:kn?kn.value.trim():"",angaben,beschriftung,farbe,preis:parseFloat(b.dataset.preis)*(1-RABATT)}); korbSpeichern(); korbZeigen(); q("#drawer").classList.add("open"); toast("In den Warenkorb gelegt"); }); }
   /* Kasse */
 const kf=q("#kForm"); if(kf){
