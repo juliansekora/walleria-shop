@@ -37,6 +37,9 @@
 <div id="stLogin" class="field" style="max-width:26rem"><label for="stKey">Statistik-Schlüssel</label><input id="stKey" type="password" autocomplete="off"><button class="btn" id="stGo" style="margin-top:10px">Anzeigen</button></div>
 <div id="stInhalt" hidden>
 <div class="stats-kpi" id="stKpi"></div>
+<h2>Kaufweg (30 Tage)</h2><p class="small">Besucher je Schritt – gezählt ohne Cookies, also alle Besucher, nicht nur die mit Cookie-Ja.</p>
+<div class="stats-kpi" id="stTrichter"></div>
+<div class="stats-zwei"><div><h2>Kaufweg je Tag</h2><div class="tabelle" id="stTrichterTage"></div></div><div><h2>Was gewählt wird</h2><div class="tabelle" id="stWahl"></div></div></div>
 <h2>Tage</h2><div class="tabelle" id="stTage"></div>
 <h2>Meistbesuchte Seiten</h2><div class="tabelle" id="stSeiten"></div>
 <h2>Meiste Klicks</h2><div class="tabelle" id="stKlicks"></div>
@@ -63,6 +66,16 @@
     tab(q("#stSeiten"),(d.seiten||[]).slice(0,25),[["Seite",z=>(titel[z.pfad]?titel[z.pfad]+" <span class='muted'>"+z.pfad+"</span>":z.pfad)],["Besucher","besucher"],["Aufrufe","aufrufe"],["Ø Sekunden","schnitt_sekunden"]]);
     tab(q("#stKlicks"),(d.klicks||[]).slice(0,25),[["Ziel","ziel"],["Klicks","klicks"],["Besucher","besucher"]]);
     tab(q("#stQuellen"),d.quellen,[["Quelle",z=>z.quelle||"direkt"],["Besucher","besucher"],["Aufrufe","aufrufe"]]);
+    /* Trichter: Summen ueber 30 Tage + Quote zum vorigen Schritt */
+    (function(){ const T=(d.trichter||[]).slice(0,30); const su=k=>T.reduce((a,z)=>a+(Number(z[k])||0),0);
+      const b=su("besucher"),p=su("produkt"),w=su("warenkorb"),ka=su("kasse"),kf=su("kaeufe"),um=su("umsatz_cent")/100;
+      const pz=(x,y)=>y?Math.round(100*x/y)+" %":"–";
+      q("#stTrichter").innerHTML=[["Besucher",b,""],["Produktseite",p,pz(p,b)+" der Besucher"],["In den Warenkorb",w,pz(w,p)+" davon"],["Kasse",ka,pz(ka,w)+" davon"],["Käufe",kf,pz(kf,ka)+" davon · "+um.toFixed(2).replace(".",",")+" €"]]
+        .map(([t,v,u])=>`<div class="kpi"><b>${v}</b><span>${t}</span>${u?`<span>${u}</span>`:""}</div>`).join("");
+      tab(q("#stTrichterTage"),T,[["Tag",z=>String(z.tag||"").slice(5)],["Besucher","besucher"],["Produkt","produkt"],["Korb","warenkorb"],["Kasse","kasse"],["Käufe","kaeufe"]]);
+      const N={ausfuehrung:"Ausführung",groesse:"Größe",design:"Design",farbe:"Farbe",suche:"Suche",kauf:"Kauf (Cent)"};
+      tab(q("#stWahl"),(d.wahl||[]).filter(z=>z.kategorie!=="kauf"),[["Was",z=>N[z.kategorie]||z.kategorie],["Wert","wert"],["Klicks","klicks"],["Besucher","besucher"]]);
+    })();
     tab(q("#stGeraete"),d.geraete,[["Gerät","geraet"],["Besucher","besucher"],["Aufrufe","aufrufe"]]);
     tab(q("#stBest"),d.bestellungen,[["Nummer","nummer"],["Am",z=>(z.am||"").slice(0,10)],["Status","status"],["Summe",z=>(z.summe||0).toFixed(2).replace(".",",")+" €"],["Artikel",z=>(z.artikel||[]).join(", ")]]);
     return true; }
@@ -109,4 +122,4 @@
   </div>
   <div class="ck-btns"><button class="btn" id="ckAlle">Alle akzeptieren</button><button class="btn line" id="ckNur">Nur notwendige</button><button class="btn line" id="ckEinst">Einstellungen</button><button class="btn line" id="ckSpeichern" hidden>Auswahl speichern</button></div>
   <p class="small">Deine Auswahl gilt 6 Monate, danach fragen wir erneut. · <a href="impressum" class="ck-link">Impressum</a> · <a href="datenschutz" class="ck-link">Datenschutz</a></p></div>
-</div><aside class="drawer" id="drawer" aria-label="Warenkorb"><div class="hd"><h3>Warenkorb</h3><button class="btn line" id="drawerClose" style="padding:8px 14px;min-height:40px">Schließen</button></div><ul id="korbListe"></ul><div class="korb-rabatt" id="korbRabatt" hidden></div><div class="total"><span>Zwischensumme</span><b id="korbSumme">0,00 €</b></div><button class="btn" id="kasse" style="margin-top:12px">Zur Kasse</button><p class="small" style="margin-top:8px">Sichere Zahlung über Stripe: Karte, Klarna, Apple Pay. Kostenloser Versand ab 60 €.</p></aside><div class="toast" id="toast"></div><script src="assets/w-f7dfbb474f.js" defer></script></body></html>
+</div><aside class="drawer" id="drawer" aria-label="Warenkorb"><div class="hd"><h3>Warenkorb</h3><button class="btn line" id="drawerClose" style="padding:8px 14px;min-height:40px">Schließen</button></div><ul id="korbListe"></ul><div class="korb-rabatt" id="korbRabatt" hidden></div><div class="total"><span>Zwischensumme</span><b id="korbSumme">0,00 €</b></div><button class="btn" id="kasse" style="margin-top:12px">Zur Kasse</button><p class="small" style="margin-top:8px">Sichere Zahlung über Stripe: Karte, Klarna, Apple Pay. Kostenloser Versand ab 60 €.</p></aside><div class="toast" id="toast"></div><script src="assets/w-080c894ba3.js" defer></script></body></html>
