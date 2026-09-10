@@ -113,6 +113,7 @@ input[type=range]{width:100%}
 .poster.d-haus .mapwrap{margin-top:auto;width:100%;justify-content:flex-end}
 .poster.d-haus .mapbox{width:94%;aspect-ratio:1/1.02;clip-path:polygon(0% 41%,17% 28%,17% 13%,26% 13%,26% 21%,50% 2%,100% 41%,100% 100%,0% 100%)}
 .poster.d-haus .txt{display:none}
+.poster.d-haus .mapbox .pin{width:7.5%}
 </style>
 </head>
 <body>
@@ -139,7 +140,7 @@ input[type=range]{width:100%}
 </div><div id="schriftrow"><label>Schrift</label>
 <div class="seg" id="schrift"><button data-t="script">Mila</button><button data-t="maria" class="on">Maria</button><button data-t="ringe">Julietta</button></div>
 </div><label>Ausschnitt (Zoom) <span id="zv" style="float:right;font-weight:400">13</span></label>
-<input type="range" id="zoom" min="10" max="16" step="0.25" value="13">
+<input type="range" id="zoom" min="10" max="17" step="0.25" value="13">
 <label>Extras</label>
 <div class="seg"><button id="pinbtn" class="on">Herz-Marker</button></div>
 <p class="note"><span class="tag">Karte: OpenFreeMap / OpenStreetMap</span><span class="tag">Adresse: Photon</span><br>Die Vorschau zeigt Bildschirmqualität. Für den Druck rendern wir dieselbe Karte serverseitig in 300 dpi.</p>
@@ -158,7 +159,7 @@ const PRESETS={
 const STYLES={
  linie:{bg:"#FFFFFF",ink:"#111111",water:"#DCDCDC",road:"#111111",minor:"#3A3A3A",build:"#F1F1F1",park:"#F6F6F6",pin:"#C4342D"},
  sand:{bg:"#F4EEE4",ink:"#2B2622",water:"#D9D0C2",road:"#2B2622",minor:"#5A524A",build:"#EDE6DA",park:"#EEE8DD",pin:"#B5452F"},
- grau:{bg:"#DADADA",ink:"#2B2622",water:"#EEEEEE",road:"#FFFFFF",minor:"#FAFAFA",build:"#C9C9C9",park:"#D3D3D3",pin:"#C4342D"},
+ grau:{bg:"#DCDCDC",ink:"#2B2622",water:"#F0F0F0",road:"#FFFFFF",minor:"#FFFFFF",build:"#C4C4C4",park:"#D2D2D2",pin:"#C4342D",outline:"#A9A9A9"},
  nacht:{bg:"#141414",ink:"#F5F1EA",water:"#303030",road:"#DAD6CE",minor:"#8E8A84",build:"#1D1D1D",park:"#191919",pin:"#D9574C"}
 };
 const TILES="https://tiles.openfreemap.org/planet";
@@ -166,7 +167,7 @@ const TILES="https://tiles.openfreemap.org/planet";
 function applyStyle(map,key){const c=STYLES[key];const go=()=>{try{
  map.setPaintProperty("bg","background-color",c.bg);map.setPaintProperty("park","fill-color",c.park);map.setPaintProperty("landuse","fill-color",c.build);
  map.setPaintProperty("water","fill-color",c.water);map.setPaintProperty("waterway","line-color",c.water);map.setPaintProperty("building","fill-color",c.build);
- map.setPaintProperty("rd-minor","line-color",c.minor);map.setPaintProperty("rd-mid","line-color",c.road);map.setPaintProperty("rd-major","line-color",c.road);map.setPaintProperty("rail","line-color",c.minor);
+ map.setPaintProperty("rd-minor","line-color",c.minor);map.setPaintProperty("rd-mid","line-color",c.road);map.setPaintProperty("rd-major","line-color",c.road);map.setPaintProperty("rail","line-color",c.minor);map.setPaintProperty("rd-path","line-color",c.minor);map.setPaintProperty("building","fill-outline-color",c.outline||c.bg);
 }catch(e){}};if(map.style&&map.style.stylesheet)go();else map.once("style.load",go);map.once("idle",go)}
 function mapStyle(s){const c=STYLES[s];return{version:8,sources:{om:{type:"vector",url:TILES}},layers:[
  {id:"bg",type:"background",paint:{"background-color":c.bg}},
@@ -174,8 +175,9 @@ function mapStyle(s){const c=STYLES[s];return{version:8,sources:{om:{type:"vecto
  {id:"landuse",type:"fill","source":"om","source-layer":"landuse",filter:["in","class","residential","commercial","industrial"],paint:{"fill-color":c.build,"fill-opacity":.6}},
  {id:"water",type:"fill","source":"om","source-layer":"water",paint:{"fill-color":c.water}},
  {id:"waterway",type:"line","source":"om","source-layer":"waterway",paint:{"line-color":c.water,"line-width":["interpolate",["linear"],["zoom"],10,1,15,3]}},
- {id:"building",type:"fill","source":"om","source-layer":"building",minzoom:13,paint:{"fill-color":c.build,"fill-outline-color":c.bg}},
- {id:"rd-minor",type:"line","source":"om","source-layer":"transportation",filter:["in","class","minor","service","track","path","pedestrian","living_street","residential"],paint:{"line-color":c.minor,"line-width":["interpolate",["exponential",1.4],["zoom"],10,.2,13,.7,14.5,1.6,16,2.6]}},
+ {id:"building",type:"fill","source":"om","source-layer":"building",minzoom:13,paint:{"fill-color":c.build,"fill-outline-color":c.outline||c.bg}},
+ {id:"rd-minor",type:"line","source":"om","source-layer":"transportation",filter:["in","class","minor","service","track","path","pedestrian","living_street","residential"],paint:{"line-color":c.minor,"line-width":["interpolate",["exponential",1.4],["zoom"],10,.2,13,.7,14.5,1.6,16,3.2,17,4.5]}},
+ {id:"rd-path",type:"line","source":"om","source-layer":"transportation",filter:["in","class","path","track","pedestrian","service"],minzoom:14,paint:{"line-color":c.minor,"line-width":["interpolate",["linear"],["zoom"],14,.5,16,1.4,17,2.2],"line-opacity":.9}},
  {id:"rd-mid",type:"line","source":"om","source-layer":"transportation",filter:["in","class","tertiary","secondary"],paint:{"line-color":c.road,"line-width":["interpolate",["exponential",1.4],["zoom"],10,.6,13,1.4,16,3.5]}},
  {id:"rd-major",type:"line","source":"om","source-layer":"transportation",filter:["in","class","primary","trunk","motorway"],paint:{"line-color":c.road,"line-width":["interpolate",["exponential",1.4],["zoom"],10,1.2,13,2.4,16,6]}},
  {id:"rail",type:"line","source":"om","source-layer":"transportation",filter:["==","class","rail"],paint:{"line-color":c.minor,"line-width":.8,"line-dasharray":[3,2]}}
@@ -241,7 +243,7 @@ function seg(id,key,attr,cb){document.getElementById(id).querySelectorAll("butto
 seg("modus","modus","m",rebuild);seg("preset","preset","p",rebuild);
 seg("stil","stil","s",()=>cards.forEach(c=>{applyStyle(c.map,state.stil);render(c)}));
 seg("form","form","f",()=>cards.forEach(render));
-seg("design","design","d",()=>{document.getElementById("formrow").hidden=state.design!=="klassik";document.getElementById("schriftrow").hidden=false;const V={klassik:{t:"Wo alles begann",d:"14.06.2019",s:"linie",f:"script",z:13},sil:{t:"Wo alles begann",d:"22.05.2025",s:"nacht",f:"maria",z:13.5},haus:{t:"Zuhause",d:"",s:"grau",f:"maria",z:15.2}}[state.design];state.zoom=V.z;document.getElementById("zoom").value=V.z;document.getElementById("zv").textContent=V.z;cards.forEach(c=>c.map.setZoom(V.z));state.schrift=V.f;document.querySelectorAll("#schrift button").forEach(b=>b.classList.toggle("on",b.dataset.t===V.f));cards.forEach(c=>{c.cfg.t=V.t;c.cfg.d=V.d;c.el.querySelector("[data-k=t]").value=V.t;c.el.querySelector("[data-k=d]").value=V.d});state.stil=V.s;document.querySelectorAll("#stil button").forEach(b=>b.classList.toggle("on",b.dataset.s===V.s));cards.forEach(c=>{applyStyle(c.map,state.stil);render(c)});setTimeout(()=>cards.forEach(c=>c.map.resize()),60);setTimeout(()=>cards.forEach(c=>c.map.resize()),500)});seg("schrift","schrift","t",()=>cards.forEach(render));
+seg("design","design","d",()=>{document.getElementById("formrow").hidden=state.design!=="klassik";document.getElementById("schriftrow").hidden=false;const V={klassik:{t:"Wo alles begann",d:"14.06.2019",s:"linie",f:"script",z:13},sil:{t:"Wo alles begann",d:"22.05.2025",s:"nacht",f:"maria",z:13.5},haus:{t:"Zuhause",d:"",s:"grau",f:"maria",z:16}}[state.design];state.zoom=V.z;document.getElementById("zoom").value=V.z;document.getElementById("zv").textContent=V.z;cards.forEach(c=>c.map.setZoom(V.z));state.schrift=V.f;document.querySelectorAll("#schrift button").forEach(b=>b.classList.toggle("on",b.dataset.t===V.f));cards.forEach(c=>{c.cfg.t=V.t;c.cfg.d=V.d;c.el.querySelector("[data-k=t]").value=V.t;c.el.querySelector("[data-k=d]").value=V.d});state.stil=V.s;document.querySelectorAll("#stil button").forEach(b=>b.classList.toggle("on",b.dataset.s===V.s));cards.forEach(c=>{applyStyle(c.map,state.stil);render(c)});setTimeout(()=>cards.forEach(c=>c.map.resize()),60);setTimeout(()=>cards.forEach(c=>c.map.resize()),500)});seg("schrift","schrift","t",()=>cards.forEach(render));
 document.getElementById("zoom").oninput=e=>{state.zoom=+e.target.value;document.getElementById("zv").textContent=state.zoom;cards.forEach(c=>c.map.setZoom(state.zoom))};
 document.getElementById("pinbtn").onclick=e=>{state.pin=!state.pin;e.target.classList.toggle("on",state.pin);cards.forEach(render)};
 window.addEventListener("resize",()=>cards.forEach(c=>{c.map.resize();render(c)}));
