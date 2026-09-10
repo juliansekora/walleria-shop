@@ -52,7 +52,7 @@ input[type=range]{width:100%}
 .mapbox.kreis{border-radius:50%}
 .mapbox.herz{clip-path:url(#herzclip)}
 .mapbox .map{position:absolute;inset:-2px}
-.mapbox .pin{position:absolute;left:50%;top:50%;width:12%;transform:translate(-50%,-58%) rotate(-7deg);pointer-events:none;filter:drop-shadow(0 1.5px 1.5px rgba(0,0,0,.14))}
+.mapbox .pin{position:absolute;left:50%;top:50%;width:12%;transform:translate(-50%,-58%);pointer-events:none;filter:drop-shadow(0 1.5px 1.5px rgba(0,0,0,.14))}
 .maplibregl-ctrl-attrib{display:none}
 .txt{width:100%;text-align:center;margin-top:auto;padding-top:6%}
 .t1{font-family:Sacramento,cursive;font-size:clamp(28px,7.5cqw,64px);line-height:1;margin:0}
@@ -167,7 +167,7 @@ function makeCard(i,cfg){
  const el=document.createElement("div");el.className="card";
  el.innerHTML=`<div class="adr"><input type="text" placeholder="Adresse oder Ort" value="${esc(cfg.q)}" data-k="q"><div class="sugg"></div></div>
  <div class="mini"><input type="text" value="${esc(cfg.n1||"")}" data-k="n1" placeholder="Name 1" autocomplete="off"><input type="text" value="${esc(cfg.n2||"")}" data-k="n2" placeholder="Name 2" autocomplete="off"><input type="text" value="${esc(cfg.t)}" data-k="t" placeholder="Titel"><input type="text" value="${esc(cfg.d)}" data-k="d" placeholder="Datum"></div>
- <div class="poster"><div class="mapbox"><div class="map"></div><svg class="pin" viewBox="0 0 100 92"><defs><radialGradient id="pg" cx="38%" cy="32%" r="70%"><stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/></radialGradient></defs><path fill="currentColor" d="M50.5 88.5 C43 81.5 27 69.5 15.5 56 C6.5 45.5 3 36 4.5 26.5 C6.5 14 16 5.5 27.5 5 C37 4.6 45 10 50 18.5 C54.5 10.5 62 4.5 71.5 4.5 C83.5 4.5 94 13.5 95.5 26 C96.8 36.5 92.5 47 84 57 C73.5 69.5 58 81 50.5 88.5 Z"/><path fill="url(#pg)" d="M50.5 88.5 C43 81.5 27 69.5 15.5 56 C6.5 45.5 3 36 4.5 26.5 C6.5 14 16 5.5 27.5 5 C37 4.6 45 10 50 18.5 C54.5 10.5 62 4.5 71.5 4.5 C83.5 4.5 94 13.5 95.5 26 C96.8 36.5 92.5 47 84 57 C73.5 69.5 58 81 50.5 88.5 Z"/></svg></div>
+ <div class="poster"><div class="mapbox"><div class="map"></div><svg class="pin" viewBox="0 0 100 92"><defs><radialGradient id="pg" cx="38%" cy="32%" r="70%"><stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/></radialGradient></defs><path fill="currentColor" d="M47 88 C39.5 80.5 22 68.5 12 55.5 C3 44 -0.5 32.5 3 22 C6.5 10.5 17 3.2 29 4 C39.5 4.8 47.5 12 52 21.5 C56 13.5 62.5 8.5 70.5 8.5 C82.5 8.5 92.5 17.5 94.5 29.5 C96.2 40.5 91 50.5 82.5 60 C72 71.5 55.5 81.5 47 88 Z"/><path fill="url(#pg)" d="M47 88 C39.5 80.5 22 68.5 12 55.5 C3 44 -0.5 32.5 3 22 C6.5 10.5 17 3.2 29 4 C39.5 4.8 47.5 12 52 21.5 C56 13.5 62.5 8.5 70.5 8.5 C82.5 8.5 92.5 17.5 94.5 29.5 C96.2 40.5 91 50.5 82.5 60 C72 71.5 55.5 81.5 47 88 Z"/></svg></div>
  <div class="txt"><p class="t1"></p><p class="t2"></p><p class="t3"></p></div></div>`;
  document.getElementById("wrap").appendChild(el);
  const map=new maplibregl.Map({container:el.querySelector(".map"),style:mapStyle(state.stil),center:[9.43,54.78],zoom:state.zoom,attributionControl:false,dragRotate:false,pitchWithRotate:false,touchZoomRotate:true,cooperativeGestures:('ontouchstart' in window),locale:{'CooperativeGesturesHandler.WindowsHelpText':'Strg + Scrollen zum Zoomen','CooperativeGesturesHandler.MacHelpText':'⌘ + Scrollen zum Zoomen','CooperativeGesturesHandler.MobileHelpText':'Mit zwei Fingern verschieben'}});
