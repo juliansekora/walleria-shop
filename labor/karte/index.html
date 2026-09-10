@@ -97,8 +97,8 @@ input[type=range]{width:100%}
 .poster.d-sil .t3{order:2;margin-top:1.5%}
 .poster.d-sil .mapwrap{margin-top:auto;width:100%}
 .poster.d-sil .mapbox{width:100%;aspect-ratio:1/1;-webkit-mask:url(sil.png) center bottom/contain no-repeat;mask:url(sil.png) center bottom/contain no-repeat}
-.poster.d-sil .mapbox .map{inset:-34%;transform:translate(-9.06%,13.10%)}
-.poster.d-sil .mapbox .pin{left:34.8%;top:72.0%;width:6.5%}
+.poster.d-sil .mapbox .map{inset:-34%;transform:translate(-11.39%,7.74%)}
+.poster.d-sil .mapbox .pin{left:30.9%;top:63.0%;width:6.5%}
 /* Kreis */
 .poster.d-kreis .mapwrap{width:72%;margin-top:9%}
 .poster.d-kreis .ring{display:block}
@@ -107,11 +107,11 @@ input[type=range]{width:100%}
 .poster.d-kreis .t2{order:1;font-family:"DM Sans",sans-serif!important;text-transform:uppercase;letter-spacing:.24em;font-size:clamp(8px,2.1cqw,15px)!important;opacity:.85;margin:3% 0 0}
 .poster.d-kreis .t3{order:2;margin-top:1.5%}
 /* Haus */
-.poster.d-haus{align-items:flex-start;padding:8% 0 0 8%}
-.poster.d-haus .kopf{display:block;text-align:left;font-family:"Hi Maria",cursive;font-weight:400;letter-spacing:0;text-transform:none;font-size:clamp(28px,8.6cqw,78px);margin:0;white-space:nowrap}
+.poster.d-haus{align-items:flex-start;padding:7% 0 0 6%}
+.poster.d-haus .kopf{display:block;text-align:left;font-family:"Hi Maria",cursive;font-weight:400;letter-spacing:0;text-transform:none;font-size:clamp(28px,8.6cqw,78px);margin:0 0 0 3%;white-space:nowrap}
 .poster.d-haus .koord{display:block;width:100%;text-align:left;font-family:"DM Sans",sans-serif;font-size:clamp(8px,2.1cqw,15px);letter-spacing:.26em;text-transform:uppercase;opacity:.8;margin:2% 0 0 7%;line-height:1.8}
 .poster.d-haus .mapwrap{margin-top:auto;width:100%;justify-content:flex-end}
-.poster.d-haus .mapbox{width:82%;aspect-ratio:1/1.06;clip-path:polygon(0% 41%,17% 28%,17% 13%,26% 13%,26% 21%,50% 2%,100% 41%,100% 100%,0% 100%)}
+.poster.d-haus .mapbox{width:94%;aspect-ratio:1/1.02;clip-path:polygon(0% 41%,17% 28%,17% 13%,26% 13%,26% 21%,50% 2%,100% 41%,100% 100%,0% 100%)}
 .poster.d-haus .txt{display:none}
 </style>
 </head>
@@ -158,7 +158,7 @@ const PRESETS={
 const STYLES={
  linie:{bg:"#FFFFFF",ink:"#111111",water:"#DCDCDC",road:"#111111",minor:"#3A3A3A",build:"#F1F1F1",park:"#F6F6F6",pin:"#C4342D"},
  sand:{bg:"#F4EEE4",ink:"#2B2622",water:"#D9D0C2",road:"#2B2622",minor:"#5A524A",build:"#EDE6DA",park:"#EEE8DD",pin:"#B5452F"},
- grau:{bg:"#D8D8D8",ink:"#2B2622",water:"#EBEBEB",road:"#FFFFFF",minor:"#F4F4F4",build:"#D1D1D1",park:"#D5D5D5",pin:"#C4342D"},
+ grau:{bg:"#DADADA",ink:"#2B2622",water:"#EEEEEE",road:"#FFFFFF",minor:"#FAFAFA",build:"#C9C9C9",park:"#D3D3D3",pin:"#C4342D"},
  nacht:{bg:"#141414",ink:"#F5F1EA",water:"#303030",road:"#DAD6CE",minor:"#8E8A84",build:"#1D1D1D",park:"#191919",pin:"#D9574C"}
 };
 const TILES="https://tiles.openfreemap.org/planet";
@@ -174,7 +174,7 @@ function mapStyle(s){const c=STYLES[s];return{version:8,sources:{om:{type:"vecto
  {id:"landuse",type:"fill","source":"om","source-layer":"landuse",filter:["in","class","residential","commercial","industrial"],paint:{"fill-color":c.build,"fill-opacity":.6}},
  {id:"water",type:"fill","source":"om","source-layer":"water",paint:{"fill-color":c.water}},
  {id:"waterway",type:"line","source":"om","source-layer":"waterway",paint:{"line-color":c.water,"line-width":["interpolate",["linear"],["zoom"],10,1,15,3]}},
- {id:"building",type:"fill","source":"om","source-layer":"building",minzoom:13,paint:{"fill-color":c.build}},
+ {id:"building",type:"fill","source":"om","source-layer":"building",minzoom:13,paint:{"fill-color":c.build,"fill-outline-color":c.bg}},
  {id:"rd-minor",type:"line","source":"om","source-layer":"transportation",filter:["in","class","minor","service","track","path","pedestrian","living_street","residential"],paint:{"line-color":c.minor,"line-width":["interpolate",["exponential",1.4],["zoom"],10,.2,13,.7,14.5,1.6,16,2.6]}},
  {id:"rd-mid",type:"line","source":"om","source-layer":"transportation",filter:["in","class","tertiary","secondary"],paint:{"line-color":c.road,"line-width":["interpolate",["exponential",1.4],["zoom"],10,.6,13,1.4,16,3.5]}},
  {id:"rd-major",type:"line","source":"om","source-layer":"transportation",filter:["in","class","primary","trunk","motorway"],paint:{"line-color":c.road,"line-width":["interpolate",["exponential",1.4],["zoom"],10,1.2,13,2.4,16,6]}},
@@ -241,7 +241,7 @@ function seg(id,key,attr,cb){document.getElementById(id).querySelectorAll("butto
 seg("modus","modus","m",rebuild);seg("preset","preset","p",rebuild);
 seg("stil","stil","s",()=>cards.forEach(c=>{applyStyle(c.map,state.stil);render(c)}));
 seg("form","form","f",()=>cards.forEach(render));
-seg("design","design","d",()=>{document.getElementById("formrow").hidden=state.design!=="klassik";document.getElementById("schriftrow").hidden=false;const V={klassik:{t:"Wo alles begann",d:"14.06.2019",s:"linie",f:"script",z:13},sil:{t:"Wo alles begann",d:"22.05.2025",s:"nacht",f:"maria",z:13.5},haus:{t:"Zuhause",d:"",s:"grau",f:"maria",z:14.5}}[state.design];state.zoom=V.z;document.getElementById("zoom").value=V.z;document.getElementById("zv").textContent=V.z;cards.forEach(c=>c.map.setZoom(V.z));state.schrift=V.f;document.querySelectorAll("#schrift button").forEach(b=>b.classList.toggle("on",b.dataset.t===V.f));cards.forEach(c=>{c.cfg.t=V.t;c.cfg.d=V.d;c.el.querySelector("[data-k=t]").value=V.t;c.el.querySelector("[data-k=d]").value=V.d});state.stil=V.s;document.querySelectorAll("#stil button").forEach(b=>b.classList.toggle("on",b.dataset.s===V.s));cards.forEach(c=>{applyStyle(c.map,state.stil);render(c)});setTimeout(()=>cards.forEach(c=>c.map.resize()),60);setTimeout(()=>cards.forEach(c=>c.map.resize()),500)});seg("schrift","schrift","t",()=>cards.forEach(render));
+seg("design","design","d",()=>{document.getElementById("formrow").hidden=state.design!=="klassik";document.getElementById("schriftrow").hidden=false;const V={klassik:{t:"Wo alles begann",d:"14.06.2019",s:"linie",f:"script",z:13},sil:{t:"Wo alles begann",d:"22.05.2025",s:"nacht",f:"maria",z:13.5},haus:{t:"Zuhause",d:"",s:"grau",f:"maria",z:15.2}}[state.design];state.zoom=V.z;document.getElementById("zoom").value=V.z;document.getElementById("zv").textContent=V.z;cards.forEach(c=>c.map.setZoom(V.z));state.schrift=V.f;document.querySelectorAll("#schrift button").forEach(b=>b.classList.toggle("on",b.dataset.t===V.f));cards.forEach(c=>{c.cfg.t=V.t;c.cfg.d=V.d;c.el.querySelector("[data-k=t]").value=V.t;c.el.querySelector("[data-k=d]").value=V.d});state.stil=V.s;document.querySelectorAll("#stil button").forEach(b=>b.classList.toggle("on",b.dataset.s===V.s));cards.forEach(c=>{applyStyle(c.map,state.stil);render(c)});setTimeout(()=>cards.forEach(c=>c.map.resize()),60);setTimeout(()=>cards.forEach(c=>c.map.resize()),500)});seg("schrift","schrift","t",()=>cards.forEach(render));
 document.getElementById("zoom").oninput=e=>{state.zoom=+e.target.value;document.getElementById("zv").textContent=state.zoom;cards.forEach(c=>c.map.setZoom(state.zoom))};
 document.getElementById("pinbtn").onclick=e=>{state.pin=!state.pin;e.target.classList.toggle("on",state.pin);cards.forEach(render)};
 window.addEventListener("resize",()=>cards.forEach(c=>{c.map.resize();render(c)}));
