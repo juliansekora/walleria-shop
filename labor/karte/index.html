@@ -19,8 +19,9 @@ header img{height:26px}
 header .lab{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 header .hint{margin-left:auto;font-size:12px;color:var(--muted)}
 main{display:grid;grid-template-columns:340px 1fr;gap:22px;padding:22px;max-width:1500px;margin:0 auto}
-@media(max-width:900px){main{grid-template-columns:1fr}}
-.panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;align-self:start;position:sticky;top:14px}
+@media(max-width:900px){main{grid-template-columns:1fr;padding:14px;gap:16px}.panel{position:static}.posterwrap,.posterwrap.einzeln{grid-template-columns:1fr;max-width:440px;margin:0 auto}input[type=text],select{font-size:16px}header .hint{display:none}}
+.panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;align-self:start;position:sticky;top:14px;z-index:5}
+button{color:inherit;-webkit-appearance:none;appearance:none;-webkit-tap-highlight-color:transparent}
 h1{font-size:19px;margin:0 0 4px;font-weight:600}
 .sub{font-size:13px;color:var(--muted);margin:0 0 14px}
 label{display:block;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin:14px 0 6px}
@@ -70,7 +71,7 @@ input[type=range]{width:100%}
 <main>
 <aside class="panel">
 <h1>Live-Vorschau Karten-Poster</h1>
-<p class="sub">Adresse eintippen, Vorschlag anklicken, Karte mit der Maus feinjustieren. Alles rendert sofort.</p>
+<p class="sub">Adresse eintippen, Vorschlag antippen, Karte mit Maus oder zwei Fingern feinjustieren. Alles rendert sofort.</p>
 <label>Produkt</label>
 <div class="seg" id="modus"><button data-m="einzeln">Einzelposter</button><button data-m="set" class="on">3er-Set</button></div>
 <label>Set-Vorlage</label>
@@ -130,7 +131,8 @@ function makeCard(i,cfg){
  <div class="poster"><div class="mapbox"><div class="map"></div><svg class="pin" viewBox="0 0 24 24"><path fill="currentColor" d="M12 21s-7-4.6-9.3-9.2C.9 8.2 3.1 4 7 4c2 0 3.6 1.1 5 3 1.4-1.9 3-3 5-3 3.9 0 6.1 4.2 4.3 7.8C19 16.4 12 21 12 21z"/></svg></div>
  <div class="txt"><p class="t1"></p><p class="t2"></p><p class="t3"></p></div></div>`;
  document.getElementById("wrap").appendChild(el);
- const map=new maplibregl.Map({container:el.querySelector(".map"),style:mapStyle(state.stil),center:[9.43,54.78],zoom:state.zoom,attributionControl:false,dragRotate:false,pitchWithRotate:false,touchZoomRotate:true});
+ const map=new maplibregl.Map({container:el.querySelector(".map"),style:mapStyle(state.stil),center:[9.43,54.78],zoom:state.zoom,attributionControl:false,dragRotate:false,pitchWithRotate:false,touchZoomRotate:true,cooperativeGestures:('ontouchstart' in window),locale:{'CooperativeGesturesHandler.WindowsHelpText':'Strg + Scrollen zum Zoomen','CooperativeGesturesHandler.MacHelpText':'⌘ + Scrollen zum Zoomen','CooperativeGesturesHandler.MobileHelpText':'Mit zwei Fingern verschieben'}});
+ map.touchZoomRotate.disableRotation();
  map.on("move",()=>{c.center=map.getCenter();render(c)});
  const c={el,map,cfg:{...cfg},center:null,city:""};
  el.querySelectorAll("input").forEach(inp=>{
