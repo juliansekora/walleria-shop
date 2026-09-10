@@ -162,6 +162,12 @@ const STYLES={
  nacht:{bg:"#141414",ink:"#F5F1EA",water:"#303030",road:"#DAD6CE",minor:"#8E8A84",build:"#1D1D1D",park:"#191919",pin:"#D9574C"}
 };
 const TILES="https://tiles.openfreemap.org/planet";
+
+function applyStyle(map,key){const c=STYLES[key];const go=()=>{try{
+ map.setPaintProperty("bg","background-color",c.bg);map.setPaintProperty("park","fill-color",c.park);map.setPaintProperty("landuse","fill-color",c.build);
+ map.setPaintProperty("water","fill-color",c.water);map.setPaintProperty("waterway","line-color",c.water);map.setPaintProperty("building","fill-color",c.build);
+ map.setPaintProperty("rd-minor","line-color",c.minor);map.setPaintProperty("rd-mid","line-color",c.road);map.setPaintProperty("rd-major","line-color",c.road);map.setPaintProperty("rail","line-color",c.minor);
+}catch(e){}};if(map.isStyleLoaded())go();else map.once("style.load",go)}
 function mapStyle(s){const c=STYLES[s];return{version:8,sources:{om:{type:"vector",url:TILES}},layers:[
  {id:"bg",type:"background",paint:{"background-color":c.bg}},
  {id:"park",type:"fill","source":"om","source-layer":"park",paint:{"fill-color":c.park}},
@@ -233,9 +239,9 @@ function render(c){const p=c.el.querySelector(".poster"),s=STYLES[state.stil];co
 function rebuild(){document.getElementById("wrap").innerHTML="";cards.forEach(c=>c.map.remove());cards.length=0;const w=document.getElementById("wrap");w.className="posterwrap "+state.modus;const list=state.modus==="set"?PRESETS[state.preset]:[PRESETS[state.preset][0]];list.forEach((cfg,i)=>makeCard(i,cfg));setTimeout(()=>cards.forEach(c=>c.map.resize()),50)}
 function seg(id,key,attr,cb){document.getElementById(id).querySelectorAll("button").forEach(b=>b.onclick=()=>{document.getElementById(id).querySelectorAll("button").forEach(x=>x.classList.remove("on"));b.classList.add("on");state[key]=b.dataset[attr];cb()})}
 seg("modus","modus","m",rebuild);seg("preset","preset","p",rebuild);
-seg("stil","stil","s",()=>cards.forEach(c=>{c.map.setStyle(mapStyle(state.stil));render(c)}));
+seg("stil","stil","s",()=>cards.forEach(c=>{applyStyle(c.map,state.stil);render(c)}));
 seg("form","form","f",()=>cards.forEach(render));
-seg("design","design","d",()=>{document.getElementById("formrow").hidden=state.design!=="klassik";document.getElementById("schriftrow").hidden=false;const V={klassik:{t:"Wo alles begann",d:"14.06.2019",s:"linie",f:"script"},sil:{t:"Wo alles begann",d:"22.05.2025",s:"nacht",f:"maria"},haus:{t:"Zuhause",d:"",s:"grau",f:"maria"}}[state.design];state.schrift=V.f;document.querySelectorAll("#schrift button").forEach(b=>b.classList.toggle("on",b.dataset.t===V.f));cards.forEach(c=>{c.cfg.t=V.t;c.cfg.d=V.d;c.el.querySelector("[data-k=t]").value=V.t;c.el.querySelector("[data-k=d]").value=V.d});state.stil=V.s;document.querySelectorAll("#stil button").forEach(b=>b.classList.toggle("on",b.dataset.s===V.s));cards.forEach(c=>{c.map.setStyle(mapStyle(state.stil));render(c)});setTimeout(()=>cards.forEach(c=>c.map.resize()),60)});seg("schrift","schrift","t",()=>cards.forEach(render));
+seg("design","design","d",()=>{document.getElementById("formrow").hidden=state.design!=="klassik";document.getElementById("schriftrow").hidden=false;const V={klassik:{t:"Wo alles begann",d:"14.06.2019",s:"linie",f:"script"},sil:{t:"Wo alles begann",d:"22.05.2025",s:"nacht",f:"maria"},haus:{t:"Zuhause",d:"",s:"grau",f:"maria"}}[state.design];state.schrift=V.f;document.querySelectorAll("#schrift button").forEach(b=>b.classList.toggle("on",b.dataset.t===V.f));cards.forEach(c=>{c.cfg.t=V.t;c.cfg.d=V.d;c.el.querySelector("[data-k=t]").value=V.t;c.el.querySelector("[data-k=d]").value=V.d});state.stil=V.s;document.querySelectorAll("#stil button").forEach(b=>b.classList.toggle("on",b.dataset.s===V.s));cards.forEach(c=>{applyStyle(c.map,state.stil);render(c)});setTimeout(()=>cards.forEach(c=>c.map.resize()),60)});seg("schrift","schrift","t",()=>cards.forEach(render));
 document.getElementById("zoom").oninput=e=>{state.zoom=+e.target.value;document.getElementById("zv").textContent=state.zoom;cards.forEach(c=>c.map.setZoom(state.zoom))};
 document.getElementById("pinbtn").onclick=e=>{state.pin=!state.pin;e.target.classList.toggle("on",state.pin);cards.forEach(render)};
 window.addEventListener("resize",()=>cards.forEach(c=>{c.map.resize();render(c)}));
