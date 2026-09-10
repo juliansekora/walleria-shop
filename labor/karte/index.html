@@ -71,15 +71,15 @@ input[type=range]{width:100%}
 <main>
 <aside class="panel">
 <h1>Live-Vorschau Karten-Poster</h1>
-<p class="sub">Adresse eintippen, Vorschlag antippen, Karte mit Maus oder zwei Fingern feinjustieren. Alles rendert sofort.</p>
-<label>Produkt</label>
-<div class="seg" id="modus"><button data-m="einzeln">Einzelposter</button><button data-m="set" class="on">3er-Set</button></div>
+<p class="sub">Oben am Poster Adresse, Titel, Namen und Datum eintragen. Karte mit Maus oder zwei Fingern feinjustieren.</p>
+<div id="setui" hidden><label>Produkt</label>
+<div class="seg" id="modus"><button data-m="einzeln" class="on">Einzelposter</button><button data-m="set">3er-Set</button></div>
 <label>Set-Vorlage</label>
 <div class="preset" id="preset">
 <button data-p="paar" class="on">Paar<small>Kennengelernt · Ja gesagt · Zuhause</small></button>
 <button data-p="familie">Familie<small>Mama · Papa · Zuhause</small></button>
 <button data-p="einzug">Einzug<small>Damals · Heute · Lieblingsort</small></button>
-</div>
+</div></div>
 <label>Kartenstil</label>
 <div class="seg" id="stil"><button data-s="linie" class="on">Schwarz-Weiß</button><button data-s="sand">Sand</button><button data-s="nacht">Nacht</button></div>
 <label>Form</label>
@@ -98,6 +98,7 @@ input[type=range]{width:100%}
 </main>
 <script>
 const PRESETS={
+ haupt:[{t:"Wo alles begann",n:"Anna & Paul",d:"14.06.2019",q:"Flensburg"}],
  paar:[{t:"Kennengelernt",n:"Anna & Paul",d:"14.06.2019",q:"Flensburg"},{t:"Ja gesagt",n:"Anna & Paul",d:"22.08.2024",q:"Bremen"},{t:"Zuhause",n:"Anna & Paul",d:"seit 2025",q:"Hamburg Ottensen"}],
  familie:[{t:"Mama",n:"Geboren in",d:"12.03.1991",q:"Kiel"},{t:"Papa",n:"Geboren in",d:"05.11.1989",q:"Lübeck"},{t:"Zuhause",n:"Familie Schmidt",d:"seit 2021",q:"Harrislee"}],
  einzug:[{t:"Damals",n:"Erste Wohnung",d:"2016",q:"Berlin Prenzlauer Berg"},{t:"Heute",n:"Unser Zuhause",d:"2026",q:"Leipzig Südvorstadt"},{t:"Lieblingsort",n:"Ostsee",d:"immer",q:"Heiligenhafen"}]
@@ -120,7 +121,7 @@ function mapStyle(s){const c=STYLES[s];return{version:8,sources:{om:{type:"vecto
  {id:"rd-major",type:"line","source":"om","source-layer":"transportation",filter:["in","class","primary","trunk","motorway"],paint:{"line-color":c.road,"line-width":["interpolate",["exponential",1.4],["zoom"],10,1.2,13,2.4,16,6]}},
  {id:"rail",type:"line","source":"om","source-layer":"transportation",filter:["==","class","rail"],paint:{"line-color":c.minor,"line-width":.8,"line-dasharray":[3,2]}}
 ]}}
-const state={modus:"set",preset:"paar",stil:"linie",form:"quadrat",schrift:"script",zoom:13,pin:true,rahmen:false};
+const state={modus:"einzeln",preset:"haupt",stil:"linie",form:"quadrat",schrift:"script",zoom:13,pin:true,rahmen:false};
 const cards=[];
 function dms(v,lat){const a=Math.abs(v),d=Math.floor(a),m=Math.floor((a-d)*60),s=((a-d)*60-m)*60;return `${d}°${String(m).padStart(2,"0")}'${s.toFixed(1)}"${lat?(v>=0?"N":"S"):(v>=0?"E":"W")}`}
 function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
@@ -158,6 +159,7 @@ document.getElementById("zoom").oninput=e=>{state.zoom=+e.target.value;document.
 document.getElementById("pinbtn").onclick=e=>{state.pin=!state.pin;e.target.classList.toggle("on",state.pin);cards.forEach(render)};
 document.getElementById("rahmenbtn").onclick=e=>{state.rahmen=!state.rahmen;e.target.classList.toggle("on",state.rahmen);cards.forEach(render);setTimeout(()=>cards.forEach(c=>c.map.resize()),250)};
 window.addEventListener("resize",()=>cards.forEach(c=>c.map.resize()));
+if(location.search.includes("set=1")){document.getElementById("setui").hidden=false}
 rebuild();
 </script>
 </body>
