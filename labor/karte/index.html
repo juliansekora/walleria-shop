@@ -167,7 +167,7 @@ function applyStyle(map,key){const c=STYLES[key];const go=()=>{try{
  map.setPaintProperty("bg","background-color",c.bg);map.setPaintProperty("park","fill-color",c.park);map.setPaintProperty("landuse","fill-color",c.build);
  map.setPaintProperty("water","fill-color",c.water);map.setPaintProperty("waterway","line-color",c.water);map.setPaintProperty("building","fill-color",c.build);
  map.setPaintProperty("rd-minor","line-color",c.minor);map.setPaintProperty("rd-mid","line-color",c.road);map.setPaintProperty("rd-major","line-color",c.road);map.setPaintProperty("rail","line-color",c.minor);
-}catch(e){}};if(map.isStyleLoaded())go();else map.once("style.load",go)}
+}catch(e){}};if(map.style&&map.style.stylesheet)go();else map.once("style.load",go);map.once("idle",go)}
 function mapStyle(s){const c=STYLES[s];return{version:8,sources:{om:{type:"vector",url:TILES}},layers:[
  {id:"bg",type:"background",paint:{"background-color":c.bg}},
  {id:"park",type:"fill","source":"om","source-layer":"park",paint:{"fill-color":c.park}},
