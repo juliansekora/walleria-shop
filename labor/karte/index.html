@@ -13,6 +13,7 @@
 <style>
 @font-face{font-family:"Mila Love";src:url(MilaLove.otf) format("opentype");font-display:swap}
 @font-face{font-family:"Julietta Alexart";src:url(Julietta.otf) format("opentype");font-display:swap}
+@font-face{font-family:"Hi Maria";src:url(HiMaria.otf) format("opentype");font-display:swap}
 :root{--ink:#2B2622;--paper:#FBF9F5;--line:#E6E0D6;--acc:#B8432F;--muted:#7A736B}
 *{box-sizing:border-box}
 body{margin:0;font-family:"DM Sans",system-ui,sans-serif;color:var(--ink);background:#F3EFE8}
@@ -60,6 +61,7 @@ input[type=range]{width:100%}
 .t3{font-family:"DM Sans",sans-serif;font-size:clamp(8px,2cqw,14px);letter-spacing:.2em;text-transform:uppercase;opacity:.75;margin:3% 0 0}
 .poster:not(.serif) .txt{display:flex;flex-direction:column}
 .poster:not(.serif) .t2{order:1;font-family:"Mila Love",Sacramento,cursive;text-transform:none;letter-spacing:0;font-size:clamp(26px,7.2cqw,62px);line-height:1.1;margin:0;font-feature-settings:"liga"}
+.poster.maria .t2{font-family:"Hi Maria",cursive;font-size:clamp(28px,8cqw,68px);line-height:1.05}
 .poster.ringe .t2{font-family:"Julietta Alexart",cursive;font-size:clamp(30px,8.6cqw,74px);line-height:1.05}
 .poster:not(.serif) .t1{order:2;font-family:"Cormorant Garamond",serif;font-size:clamp(11px,3cqw,22px);letter-spacing:.24em;text-transform:uppercase;margin:5% 0 0}
 .poster:not(.serif) .t3{order:3}
@@ -95,7 +97,7 @@ input[type=range]{width:100%}
 <label>Form</label>
 <div class="seg" id="form"><button data-f="quadrat" class="on">Quadrat</button><button data-f="kreis">Kreis</button><button data-f="herz">Herz</button></div>
 <label>Schrift</label>
-<div class="seg" id="schrift"><button data-t="script" class="on">Herz</button><button data-t="ringe">Ringe</button><button data-t="serif">Serifen</button></div>
+<div class="seg" id="schrift"><button data-t="script" class="on">Herz Mila</button><button data-t="maria">Herz Maria</button><button data-t="ringe">Ringe</button><button data-t="serif">Serifen</button></div>
 <label>Ausschnitt (Zoom) <span id="zv" style="float:right;font-weight:400">13</span></label>
 <input type="range" id="zoom" min="10" max="16" step="0.25" value="13">
 <label>Extras</label>
@@ -180,9 +182,9 @@ async function photon(q){const r=await fetch(`https://photon.komoot.io/api/?q=${
 async function suggest(c,q){const box=c.el.querySelector(".sugg");if(q.trim().length<3){box.style.display="none";return}try{const res=await photon(q);box.innerHTML=res.map((r,i)=>`<div data-i="${i}">${esc(r.name)}</div>`).join("");box.style.display=res.length?"block":"none";box.querySelectorAll("div").forEach(d=>d.onmousedown=()=>{const r=res[+d.dataset.i];apply(c,r);c.el.querySelector('[data-k=q]').value=r.name;box.style.display="none"})}catch(e){box.style.display="none"}}
 async function geocode(c,q){try{const res=await photon(q);if(res[0])apply(c,res[0])}catch(e){}}
 function apply(c,r){c.city=r.city;const z=r.type==="house"||r.type==="street"?Math.max(state.zoom,14):state.zoom;c.map.jumpTo({center:[r.lon,r.lat],zoom:z});c.center=c.map.getCenter();render(c)}
-function render(c){const p=c.el.querySelector(".poster"),s=STYLES[state.stil];p.style.setProperty("--pbg",s.bg);p.style.setProperty("--pink",s.ink);p.classList.toggle("serif",state.schrift==="serif");p.classList.toggle("ringe",state.schrift==="ringe");p.classList.toggle("rahmen",state.rahmen);
+function render(c){const p=c.el.querySelector(".poster"),s=STYLES[state.stil];p.style.setProperty("--pbg",s.bg);p.style.setProperty("--pink",s.ink);p.classList.toggle("serif",state.schrift==="serif");p.classList.toggle("ringe",state.schrift==="ringe");p.classList.toggle("maria",state.schrift==="maria");p.classList.toggle("rahmen",state.rahmen);
  const mb=c.el.querySelector(".mapbox");mb.className="mapbox "+state.form;const pin=c.el.querySelector(".pin");pin.style.display=state.pin?"":"none";pin.style.color=s.pin;
- c.el.querySelector(".t1").textContent=c.cfg.t;const nm=c.cfg.n.trim(),parts=nm.split(/\s*(?:&|\+|\bund\b|♥|♡)\s*/i).filter(Boolean),e2=c.el.querySelector(".t2");const hz=parts.length===2&&state.schrift==='script'?herzNamen(parts[0],parts[1]):(parts.length===2&&state.schrift==='ringe'?parts[0]+' + '+parts[1]:null);if(hz)e2.textContent=hz;else if(parts.length===2)e2.innerHTML=esc(parts[0])+'<svg class="hz" viewBox="0 0 24 24"><path d="M12 20 C8 17 3 13.5 3 9.5 A4.5 4.5 0 0 1 12 8 A4.5 4.5 0 0 1 21 9.5 C21 13.5 16 17 12 20 Z"/></svg>'+esc(parts[1]);else e2.textContent=nm;
+ c.el.querySelector(".t1").textContent=c.cfg.t;const nm=c.cfg.n.trim(),parts=nm.split(/\s*(?:&|\+|\bund\b|♥|♡)\s*/i).filter(Boolean),e2=c.el.querySelector(".t2");const hz=parts.length===2&&state.schrift==='script'?herzNamen(parts[0],parts[1]):(parts.length===2&&state.schrift==='ringe'?parts[0]+'+'+parts[1]:(parts.length===2&&state.schrift==='maria'?parts[0]+'='+parts[1]:null));if(hz)e2.textContent=hz;else if(parts.length===2)e2.innerHTML=esc(parts[0])+'<svg class="hz" viewBox="0 0 24 24"><path d="M12 20 C8 17 3 13.5 3 9.5 A4.5 4.5 0 0 1 12 8 A4.5 4.5 0 0 1 21 9.5 C21 13.5 16 17 12 20 Z"/></svg>'+esc(parts[1]);else e2.textContent=nm;
  const ct=c.center;c.el.querySelector(".t3").textContent=[c.cfg.d,c.city,ct?`${dms(ct.lat,true)} ${dms(ct.lng,false)}`:""].filter(Boolean).join("  ·  ");}
 function rebuild(){document.getElementById("wrap").innerHTML="";cards.forEach(c=>c.map.remove());cards.length=0;const w=document.getElementById("wrap");w.className="posterwrap "+state.modus;const list=state.modus==="set"?PRESETS[state.preset]:[PRESETS[state.preset][0]];list.forEach((cfg,i)=>makeCard(i,cfg));setTimeout(()=>cards.forEach(c=>c.map.resize()),50)}
 function seg(id,key,attr,cb){document.getElementById(id).querySelectorAll("button").forEach(b=>b.onclick=()=>{document.getElementById(id).querySelectorAll("button").forEach(x=>x.classList.remove("on"));b.classList.add("on");state[key]=b.dataset[attr];cb()})}
