@@ -10,6 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Sacramento&family=Cormorant+Garamond:wght@500;600&family=Great+Vibes&display=swap" rel="stylesheet">
 <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet">
 <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/opentype.js/1.3.4/opentype.min.js"></script>
 <style>
 :root{--ink:#2B2622;--paper:#FBF9F5;--line:#E6E0D6;--acc:#B8432F;--muted:#7A736B}
 *{box-sizing:border-box}
@@ -62,6 +63,7 @@ input[type=range]{width:100%}
 .poster:not(.serif) .t3{order:3}
 .hz{height:1.18em;width:auto;vertical-align:-.33em;margin:0 -.1em;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
 .poster.serif .hz{height:.8em;stroke-width:1.8}
+.t2 svg.nm{height:1.45em;width:auto;max-width:100%;display:block;margin:0 auto;fill:currentColor;overflow:visible}
 .card{container-type:inline-size}
 .note{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.5}
 .tag{display:inline-block;font-size:11px;padding:3px 8px;border-radius:999px;background:#F3EFE8;color:var(--muted);margin-right:6px}
@@ -127,6 +129,28 @@ function mapStyle(s){const c=STYLES[s];return{version:8,sources:{om:{type:"vecto
  {id:"rd-major",type:"line","source":"om","source-layer":"transportation",filter:["in","class","primary","trunk","motorway"],paint:{"line-color":c.road,"line-width":["interpolate",["exponential",1.4],["zoom"],10,1.2,13,2.4,16,6]}},
  {id:"rail",type:"line","source":"om","source-layer":"transportation",filter:["==","class","rail"],paint:{"line-color":c.minor,"line-width":.8,"line-dasharray":[3,2]}}
 ]}}
+
+let FONT=null;
+opentype.load('Sacramento-Regular.ttf',(err,f)=>{if(!err){FONT=f;cards.forEach(render)}});
+function pathD(pth){return pth.toPathData(2)}
+function extreme(pth,maxx){let best=null;pth.commands.forEach(c=>{if(c.x===undefined)return;if(!best||(maxx?c.x>best.x:c.x<best.x)||(c.x===best.x&&c.y>best.y))best={x:c.x,y:c.y}});return best}
+function nmSVG(a,b){
+ const S=100, pa=FONT.getPath(a,0,0,S), pb=FONT.getPath(b,0,0,S);
+ const E=extreme(pa,true), St=extreme(pb,false);
+ const H=S*.60, hw=S*.58, tl=S*.16, tr=S*.16, yb=E.y;           // Herz: Hoehe, Breite, Schwaenze; Spitze auf Hoehe des Austritts
+ const cx=E.x+tl+hw/2, r=hw/4, ly=yb-H*.66;                    // Lobenmitte
+ const d=[`M${E.x} ${E.y}`,
+  `C${E.x+tl*.5} ${E.y+1} ${cx-hw*.28} ${yb+1} ${cx} ${yb}`,     // Schwanz in die Spitze
+  `C${cx-hw*.22} ${yb-H*.22} ${cx-hw/2} ${ly+r*.4} ${cx-hw/2} ${ly}`, // linke Seite hoch
+  `A${r} ${r} 0 0 1 ${cx} ${ly-r*.15}`,                          // linker Bogen -> Einbuchtung
+  `A${r} ${r} 0 0 1 ${cx+hw/2} ${ly}`,                           // rechter Bogen
+  `C${cx+hw/2} ${ly+r*.4} ${cx+hw*.22} ${yb-H*.22} ${cx} ${yb}`, // rechte Seite runter zur Spitze
+  `C${cx+hw*.28} ${yb+1} ${cx+hw/2+tr*.5} ${St.y+1} ${cx+hw/2+tr} ${St.y}`].join(' '); // Schwanz zum 2. Namen
+ const dx=(cx+hw/2+tr)-St.x;
+ const bb1=pa.getBoundingBox(), bb2=pb.getBoundingBox();
+ const x1=Math.min(bb1.x1,0)-2, x2=Math.max(bb2.x2+dx, cx+hw/2+tr)+2, y1=Math.min(bb1.y1,bb2.y1,ly-r-3)-2, y2=Math.max(bb1.y2,bb2.y2,yb+3)+2;
+ return `<svg class="nm" viewBox="${x1} ${y1} ${x2-x1} ${y2-y1}" xmlns="http://www.w3.org/2000/svg"><path d="${pathD(pa)}"/><path d="${pathD(pb)}" transform="translate(${dx} 0)"/><path d="${d}" fill="none" stroke="currentColor" stroke-width="${S*.052}" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+}
 const state={modus:"einzeln",preset:"haupt",stil:"linie",form:"quadrat",schrift:"script",zoom:13,pin:true,rahmen:false};
 const cards=[];
 function dms(v,lat){const a=Math.abs(v),d=Math.floor(a),m=Math.floor((a-d)*60),s=((a-d)*60-m)*60;return `${d}°${String(m).padStart(2,"0")}'${s.toFixed(1)}"${lat?(v>=0?"N":"S"):(v>=0?"E":"W")}`}
@@ -154,7 +178,7 @@ async function geocode(c,q){try{const res=await photon(q);if(res[0])apply(c,res[
 function apply(c,r){c.city=r.city;const z=r.type==="house"||r.type==="street"?Math.max(state.zoom,14):state.zoom;c.map.jumpTo({center:[r.lon,r.lat],zoom:z});c.center=c.map.getCenter();render(c)}
 function render(c){const p=c.el.querySelector(".poster"),s=STYLES[state.stil];p.style.setProperty("--pbg",s.bg);p.style.setProperty("--pink",s.ink);p.classList.toggle("serif",state.schrift==="serif");p.classList.toggle("rahmen",state.rahmen);
  const mb=c.el.querySelector(".mapbox");mb.className="mapbox "+state.form;const pin=c.el.querySelector(".pin");pin.style.display=state.pin?"":"none";pin.style.color=s.pin;
- c.el.querySelector(".t1").textContent=c.cfg.t;const nm=c.cfg.n.trim(),parts=nm.split(/\s*(?:&|\+|\bund\b|♥|♡)\s*/i).filter(Boolean),e2=c.el.querySelector(".t2");if(parts.length===2)e2.innerHTML=esc(parts[0])+'<svg class="hz" viewBox="0 0 40 30"><path d="M0 28.5 C7 28.6 13.5 28 18 27 C12.5 22.5 6.5 16.5 6.5 11.2 A5.8 5.8 0 0 1 18 10.4 A5.8 5.8 0 0 1 29.5 11.2 C29.5 16.5 23.5 22.5 18 27 C23 28.2 31 28 40 25.8"/></svg>'+esc(parts[1]);else e2.textContent=nm;
+ c.el.querySelector(".t1").textContent=c.cfg.t;const nm=c.cfg.n.trim(),parts=nm.split(/\s*(?:&|\+|\bund\b|♥|♡)\s*/i).filter(Boolean),e2=c.el.querySelector(".t2");if(parts.length===2&&FONT&&state.schrift==='script')e2.innerHTML=nmSVG(parts[0],parts[1]);else if(parts.length===2)e2.innerHTML=esc(parts[0])+'<svg class="hz" viewBox="0 0 24 24"><path d="M12 20 C8 17 3 13.5 3 9.5 A4.5 4.5 0 0 1 12 8 A4.5 4.5 0 0 1 21 9.5 C21 13.5 16 17 12 20 Z"/></svg>'+esc(parts[1]);else e2.textContent=nm;
  const ct=c.center;c.el.querySelector(".t3").textContent=[c.cfg.d,c.city,ct?`${dms(ct.lat,true)} ${dms(ct.lng,false)}`:""].filter(Boolean).join("  ·  ");}
 function rebuild(){document.getElementById("wrap").innerHTML="";cards.forEach(c=>c.map.remove());cards.length=0;const w=document.getElementById("wrap");w.className="posterwrap "+state.modus;const list=state.modus==="set"?PRESETS[state.preset]:[PRESETS[state.preset][0]];list.forEach((cfg,i)=>makeCard(i,cfg));setTimeout(()=>cards.forEach(c=>c.map.resize()),50)}
 function seg(id,key,attr,cb){document.getElementById(id).querySelectorAll("button").forEach(b=>b.onclick=()=>{document.getElementById(id).querySelectorAll("button").forEach(x=>x.classList.remove("on"));b.classList.add("on");state[key]=b.dataset[attr];cb()})}
