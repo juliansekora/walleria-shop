@@ -110,10 +110,10 @@ input[type=range]{width:100%}
 </main>
 <script>
 const PRESETS={
- haupt:[{t:"Wo alles begann",n:"Anna & Paul",d:"14.06.2019",q:"Flensburg"}],
- paar:[{t:"Kennengelernt",n:"Anna & Paul",d:"14.06.2019",q:"Flensburg"},{t:"Ja gesagt",n:"Anna & Paul",d:"22.08.2024",q:"Bremen"},{t:"Zuhause",n:"Anna & Paul",d:"seit 2025",q:"Hamburg Ottensen"}],
- familie:[{t:"Mama",n:"Geboren in",d:"12.03.1991",q:"Kiel"},{t:"Papa",n:"Geboren in",d:"05.11.1989",q:"Lübeck"},{t:"Zuhause",n:"Familie Schmidt",d:"seit 2021",q:"Harrislee"}],
- einzug:[{t:"Damals",n:"Erste Wohnung",d:"2016",q:"Berlin Prenzlauer Berg"},{t:"Heute",n:"Unser Zuhause",d:"2026",q:"Leipzig Südvorstadt"},{t:"Lieblingsort",n:"Ostsee",d:"immer",q:"Heiligenhafen"}]
+ haupt:[{t:"Wo alles begann",n1:"Anna",n2:"Paul",d:"14.06.2019",q:"Flensburg"}],
+ paar:[{t:"Kennengelernt",n1:"Anna",n2:"Paul",d:"14.06.2019",q:"Flensburg"},{t:"Ja gesagt",n1:"Anna",n2:"Paul",d:"22.08.2024",q:"Bremen"},{t:"Zuhause",n1:"Anna",n2:"Paul",d:"seit 2025",q:"Hamburg Ottensen"}],
+ familie:[{t:"Mama",n1:"Geboren in",n2:"",d:"12.03.1991",q:"Kiel"},{t:"Papa",n1:"Geboren in",n2:"",d:"05.11.1989",q:"Lübeck"},{t:"Zuhause",n1:"Familie Schmidt",n2:"",d:"seit 2021",q:"Harrislee"}],
+ einzug:[{t:"Damals",n1:"Erste Wohnung",n2:"",d:"2016",q:"Berlin Prenzlauer Berg"},{t:"Heute",n1:"Unser Zuhause",n2:"",d:"2026",q:"Leipzig Südvorstadt"},{t:"Lieblingsort",n1:"Ostsee",n2:"",d:"immer",q:"Heiligenhafen"}]
 };
 const STYLES={
  linie:{bg:"#FFFFFF",ink:"#111111",water:"#DCDCDC",road:"#111111",minor:"#3A3A3A",build:"#F1F1F1",park:"#F6F6F6",pin:"#C8102E"},
@@ -135,6 +135,7 @@ function mapStyle(s){const c=STYLES[s];return{version:8,sources:{om:{type:"vecto
 ]}}
 
 const HERZ={"a": 57632, "b": 57635, "c": 57636, "d": 57637, "e": 57638, "f": 57639, "g": 57640, "h": 57641, "i": 57642, "j": 57643, "k": 57644, "l": 57645, "m": 57646, "n": 57647, "o": 57648, "p": 57649, "q": 57650, "r": 57651, "s": 57652, "t": 57653, "u": 57654, "v": 57655, "w": 57656, "x": 57657, "y": 57658, "z": 57659};
+function sauber(s){return (s||'').replace(/\s+/g,' ').trim()}
 function herzNamen(a,b){const l=a.slice(-1),cp=HERZ[l];return cp?a.slice(0,-1)+String.fromCodePoint(cp)+b:null}
 let FONT=null;
 
@@ -164,7 +165,7 @@ function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;
 function makeCard(i,cfg){
  const el=document.createElement("div");el.className="card";
  el.innerHTML=`<div class="adr"><input type="text" placeholder="Adresse oder Ort" value="${esc(cfg.q)}" data-k="q"><div class="sugg"></div></div>
- <div class="mini"><input type="text" value="${esc(cfg.t)}" data-k="t" placeholder="Titel"><input type="text" value="${esc(cfg.n)}" data-k="n" placeholder="Namen"><input type="text" value="${esc(cfg.d)}" data-k="d" placeholder="Datum" style="grid-column:1/-1"></div>
+ <div class="mini"><input type="text" value="${esc(cfg.n1||"")}" data-k="n1" placeholder="Name 1" autocomplete="off"><input type="text" value="${esc(cfg.n2||"")}" data-k="n2" placeholder="Name 2" autocomplete="off"><input type="text" value="${esc(cfg.t)}" data-k="t" placeholder="Titel"><input type="text" value="${esc(cfg.d)}" data-k="d" placeholder="Datum"></div>
  <div class="poster"><div class="mapbox"><div class="map"></div><svg class="pin" viewBox="0 0 24 24"><path fill="currentColor" d="M12 21s-7-4.6-9.3-9.2C.9 8.2 3.1 4 7 4c2 0 3.6 1.1 5 3 1.4-1.9 3-3 5-3 3.9 0 6.1 4.2 4.3 7.8C19 16.4 12 21 12 21z"/></svg></div>
  <div class="txt"><p class="t1"></p><p class="t2"></p><p class="t3"></p></div></div>`;
  document.getElementById("wrap").appendChild(el);
@@ -174,7 +175,7 @@ function makeCard(i,cfg){
  const c={el,map,cfg:{...cfg},center:null,city:""};
  el.querySelectorAll("input").forEach(inp=>{
   if(inp.dataset.k==="q"){let t;inp.addEventListener("input",()=>{clearTimeout(t);t=setTimeout(()=>suggest(c,inp.value),260)});inp.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();geocode(c,inp.value)}});inp.addEventListener("blur",()=>setTimeout(()=>el.querySelector(".sugg").style.display="none",200))}
-  else inp.addEventListener("input",()=>{c.cfg[inp.dataset.k]=inp.value;render(c)});
+  else{inp.addEventListener("input",()=>{c.cfg[inp.dataset.k]=inp.value;render(c)});if(inp.dataset.k==="n1"||inp.dataset.k==="n2")inp.addEventListener("blur",()=>{inp.value=sauber(inp.value);c.cfg[inp.dataset.k]=inp.value;render(c)})}
  });
  cards.push(c);render(c);geocode(c,cfg.q);return c;
 }
@@ -184,7 +185,7 @@ async function geocode(c,q){try{const res=await photon(q);if(res[0])apply(c,res[
 function apply(c,r){c.city=r.city;const z=r.type==="house"||r.type==="street"?Math.max(state.zoom,14):state.zoom;c.map.jumpTo({center:[r.lon,r.lat],zoom:z});c.center=c.map.getCenter();render(c)}
 function render(c){const p=c.el.querySelector(".poster"),s=STYLES[state.stil];p.style.setProperty("--pbg",s.bg);p.style.setProperty("--pink",s.ink);p.classList.toggle("serif",state.schrift==="serif");p.classList.toggle("ringe",state.schrift==="ringe");p.classList.toggle("maria",state.schrift==="maria");p.classList.toggle("rahmen",state.rahmen);
  const mb=c.el.querySelector(".mapbox");mb.className="mapbox "+state.form;const pin=c.el.querySelector(".pin");pin.style.display=state.pin?"":"none";pin.style.color=s.pin;
- c.el.querySelector(".t1").textContent=c.cfg.t;const nm=c.cfg.n.trim(),parts=nm.split(/\s*(?:&|\+|\bund\b|♥|♡)\s*/i).filter(Boolean),e2=c.el.querySelector(".t2");const hz=parts.length===2&&state.schrift==='script'?herzNamen(parts[0],parts[1]):(parts.length===2&&state.schrift==='ringe'?parts[0]+'+'+parts[1]:(parts.length===2&&state.schrift==='maria'?parts[0]+'='+parts[1]:null));if(hz)e2.textContent=hz;else if(parts.length===2)e2.innerHTML=esc(parts[0])+'<svg class="hz" viewBox="0 0 24 24"><path d="M12 20 C8 17 3 13.5 3 9.5 A4.5 4.5 0 0 1 12 8 A4.5 4.5 0 0 1 21 9.5 C21 13.5 16 17 12 20 Z"/></svg>'+esc(parts[1]);else e2.textContent=nm;
+ c.el.querySelector(".t1").textContent=c.cfg.t;const parts=[sauber(c.cfg.n1),sauber(c.cfg.n2)].filter(Boolean),nm=parts.join(' & '),e2=c.el.querySelector(".t2");const hz=parts.length===2&&state.schrift==='script'?herzNamen(parts[0],parts[1]):(parts.length===2&&state.schrift==='ringe'?parts[0]+'+'+parts[1]:(parts.length===2&&state.schrift==='maria'?parts[0]+'='+parts[1]:null));if(hz)e2.textContent=hz;else if(parts.length===2)e2.innerHTML=esc(parts[0])+'<svg class="hz" viewBox="0 0 24 24"><path d="M12 20 C8 17 3 13.5 3 9.5 A4.5 4.5 0 0 1 12 8 A4.5 4.5 0 0 1 21 9.5 C21 13.5 16 17 12 20 Z"/></svg>'+esc(parts[1]);else e2.textContent=nm;
  const ct=c.center;c.el.querySelector(".t3").textContent=[c.cfg.d,c.city,ct?`${dms(ct.lat,true)} ${dms(ct.lng,false)}`:""].filter(Boolean).join("  ·  ");}
 function rebuild(){document.getElementById("wrap").innerHTML="";cards.forEach(c=>c.map.remove());cards.length=0;const w=document.getElementById("wrap");w.className="posterwrap "+state.modus;const list=state.modus==="set"?PRESETS[state.preset]:[PRESETS[state.preset][0]];list.forEach((cfg,i)=>makeCard(i,cfg));setTimeout(()=>cards.forEach(c=>c.map.resize()),50)}
 function seg(id,key,attr,cb){document.getElementById(id).querySelectorAll("button").forEach(b=>b.onclick=()=>{document.getElementById(id).querySelectorAll("button").forEach(x=>x.classList.remove("on"));b.classList.add("on");state[key]=b.dataset[attr];cb()})}
