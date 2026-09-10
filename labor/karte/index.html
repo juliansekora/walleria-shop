@@ -70,6 +70,13 @@ input[type=range]{width:100%}
 .poster.serif .hz{height:.8em;stroke-width:1.8}
 .t2 svg.nm{height:1.45em;width:auto;max-width:100%;display:block;margin:0 auto;fill:currentColor;overflow:visible}
 .card{container-type:inline-size}
+.kopf{display:none;width:100%;text-align:center;font-family:"Cormorant Garamond",serif;font-weight:500;letter-spacing:.32em;text-transform:uppercase;font-size:clamp(16px,5.2cqw,46px);line-height:1;margin:0 0 6%}
+.poster.d-zuhause .kopf{display:block}.poster.d-zuhause .t1{display:none}
+.poster.d-zuhause .t2{font-family:"Cormorant Garamond",serif!important;text-transform:uppercase;letter-spacing:.26em;font-size:clamp(11px,3.1cqw,24px)!important;white-space:nowrap;margin:0}
+.poster.d-zuhause .t3{margin-top:4%}
+.poster.d-herz .mapbox{clip-path:url(#herzclip);width:104%;margin:-2% 0 0}
+.poster.d-herz .t3 .z{display:block;margin-top:2.2%}.poster.d-herz .t3 .sep{display:none}
+.t3 .z{margin-left:0}
 .note{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.5}
 .tag{display:inline-block;font-size:11px;padding:3px 8px;border-radius:999px;background:#F3EFE8;color:var(--muted);margin-right:6px}
 .preset{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
@@ -93,16 +100,18 @@ input[type=range]{width:100%}
 <button data-p="familie">Familie<small>Mama · Papa · Zuhause</small></button>
 <button data-p="einzug">Einzug<small>Damals · Heute · Lieblingsort</small></button>
 </div></div>
+<label>Design</label>
+<div class="seg" id="design"><button data-d="klassik" class="on">Klassik</button><button data-d="herz">Herz</button><button data-d="zuhause">Zuhause</button></div>
 <label>Kartenstil</label>
 <div class="seg" id="stil"><button data-s="linie" class="on">Schwarz-Weiß</button><button data-s="sand">Sand</button><button data-s="nacht">Nacht</button></div>
-<label>Form</label>
+<div id="formrow"><label>Form</label>
 <div class="seg" id="form"><button data-f="quadrat" class="on">Quadrat</button><button data-f="kreis">Kreis</button><button data-f="herz">Herz</button></div>
-<label>Schrift</label>
+</div><div id="schriftrow"><label>Schrift</label>
 <div class="seg" id="schrift"><button data-t="script" class="on">Herz Mila</button><button data-t="maria">Herz Maria</button><button data-t="ringe">Ringe</button></div>
-<label>Ausschnitt (Zoom) <span id="zv" style="float:right;font-weight:400">13</span></label>
+</div><label>Ausschnitt (Zoom) <span id="zv" style="float:right;font-weight:400">13</span></label>
 <input type="range" id="zoom" min="10" max="16" step="0.25" value="13">
 <label>Extras</label>
-<div class="seg"><button id="pinbtn" class="on">Herz-Marker</button><button id="rahmenbtn">Rahmen Natur</button></div>
+<div class="seg"><button id="pinbtn" class="on">Herz-Marker</button></div>
 <p class="note"><span class="tag">Karte: OpenFreeMap / OpenStreetMap</span><span class="tag">Adresse: Photon</span><br>Die Vorschau zeigt Bildschirmqualität. Für den Druck rendern wir dieselbe Karte serverseitig in 300 dpi.</p>
 </aside>
 <section>
@@ -161,7 +170,7 @@ function nmSVG(a,b){
  return `<svg class="nm" viewBox="${x1} ${y1} ${x2-x1} ${y2-y1}" xmlns="http://www.w3.org/2000/svg"><path d="${pathD(pa)}"/><path d="${pathD(pb)}" transform="translate(${dx} 0)"/><path d="${d}" fill="none" stroke="currentColor" stroke-width="${S*.052}" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 }
 const MARKER={"flach": "<svg viewBox=\"-6 -6 112 104\"><path d=\"M44 90 C36 82 20 70 11 57 C4 47 2 38 5 29 C8 19 17 12 27 12.5 C36 13 43 18 47 25 C51 15 59 8 69 8 C81 8 92 17 95 30 C97.5 42 92 53 83 63 C72 75 55 84 44 90 Z\" fill=\"currentColor\" transform=\"rotate(-4 50 50) translate(50 0) scale(.9 1) translate(-50 0)\"/></svg>"};
-const state={marker:"flach",modus:"einzeln",preset:"haupt",stil:"linie",form:"quadrat",schrift:"script",zoom:13,pin:true,rahmen:false};
+const state={design:"klassik",marker:"flach",modus:"einzeln",preset:"haupt",stil:"linie",form:"quadrat",schrift:"script",zoom:13,pin:true,rahmen:false};
 const cards=[];
 function dms(v,lat){const a=Math.abs(v),d=Math.floor(a),m=Math.floor((a-d)*60),s=((a-d)*60-m)*60;return `${d}°${String(m).padStart(2,"0")}'${s.toFixed(1)}"${lat?(v>=0?"N":"S"):(v>=0?"E":"W")}`}
 function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
@@ -169,7 +178,7 @@ function makeCard(i,cfg){
  const el=document.createElement("div");el.className="card";
  el.innerHTML=`<div class="adr"><input type="text" placeholder="Adresse oder Ort" value="${esc(cfg.q)}" data-k="q"><div class="sugg"></div></div>
  <div class="mini"><input type="text" value="${esc(cfg.n1||"")}" data-k="n1" placeholder="Name 1" autocomplete="off"><input type="text" value="${esc(cfg.n2||"")}" data-k="n2" placeholder="Name 2" autocomplete="off"><input type="text" value="${esc(cfg.t)}" data-k="t" placeholder="Titel"><input type="text" value="${esc(cfg.d)}" data-k="d" placeholder="Datum"></div>
- <div class="poster"><div class="mapbox"><div class="map"></div><div class="pin"></div></div>
+ <div class="poster"><p class="kopf"></p><div class="mapbox"><div class="map"></div><div class="pin"></div></div>
  <div class="txt"><p class="t1"></p><p class="t2"></p><p class="t3"></p></div></div>`;
  document.getElementById("wrap").appendChild(el);
  const map=new maplibregl.Map({container:el.querySelector(".map"),style:mapStyle(state.stil),center:[9.43,54.78],zoom:state.zoom,attributionControl:false,dragRotate:false,pitchWithRotate:false,touchZoomRotate:true,cooperativeGestures:('ontouchstart' in window),locale:{'CooperativeGesturesHandler.WindowsHelpText':'Strg + Scrollen zum Zoomen','CooperativeGesturesHandler.MacHelpText':'⌘ + Scrollen zum Zoomen','CooperativeGesturesHandler.MobileHelpText':'Mit zwei Fingern verschieben'}});
@@ -186,18 +195,18 @@ async function photon(q){const r=await fetch(`https://photon.komoot.io/api/?q=${
 async function suggest(c,q){const box=c.el.querySelector(".sugg");if(q.trim().length<3){box.style.display="none";return}try{const res=await photon(q);box.innerHTML=res.map((r,i)=>`<div data-i="${i}">${esc(r.name)}</div>`).join("");box.style.display=res.length?"block":"none";box.querySelectorAll("div").forEach(d=>d.onmousedown=()=>{const r=res[+d.dataset.i];apply(c,r);c.el.querySelector('[data-k=q]').value=r.name;box.style.display="none"})}catch(e){box.style.display="none"}}
 async function geocode(c,q){try{const res=await photon(q);if(res[0])apply(c,res[0])}catch(e){}}
 function apply(c,r){c.city=r.city;const z=r.type==="house"||r.type==="street"?Math.max(state.zoom,14):state.zoom;c.map.jumpTo({center:[r.lon,r.lat],zoom:z});c.center=c.map.getCenter();render(c)}
-function render(c){const p=c.el.querySelector(".poster"),s=STYLES[state.stil];p.style.setProperty("--pbg",s.bg);p.style.setProperty("--pink",s.ink);p.classList.toggle("serif",state.schrift==="serif");p.classList.toggle("ringe",state.schrift==="ringe");p.classList.toggle("maria",state.schrift==="maria");p.classList.toggle("rahmen",state.rahmen);
- const mb=c.el.querySelector(".mapbox");mb.className="mapbox "+state.form;const pin=c.el.querySelector(".pin");pin.style.display=state.pin?"":"none";pin.style.color=s.pin;pin.style.setProperty("--ink",s.ink);if(pin.dataset.m!==state.marker){pin.innerHTML=MARKER[state.marker];pin.dataset.m=state.marker}
- c.el.querySelector(".t1").textContent=c.cfg.t;const parts=[sauber(c.cfg.n1),sauber(c.cfg.n2)].filter(Boolean),nm=parts.join(' & '),e2=c.el.querySelector(".t2");const hz=parts.length===2&&state.schrift==='script'?herzNamen(parts[0],parts[1]):(parts.length===2&&state.schrift==='ringe'?parts[0]+'+'+parts[1]:(parts.length===2&&state.schrift==='maria'?parts[0]+'='+parts[1]:null));if(hz)e2.textContent=hz;else if(parts.length===2)e2.innerHTML=esc(parts[0])+'<svg class="hz" viewBox="0 0 24 24"><path d="M12 20 C8 17 3 13.5 3 9.5 A4.5 4.5 0 0 1 12 8 A4.5 4.5 0 0 1 21 9.5 C21 13.5 16 17 12 20 Z"/></svg>'+esc(parts[1]);else e2.textContent=nm;
- passend(e2);const ct=c.center;c.el.querySelector(".t3").textContent=[c.cfg.d,c.city,ct?`${dms(ct.lat,true)} ${dms(ct.lng,false)}`:""].filter(Boolean).join("  ·  ");}
+function render(c){const p=c.el.querySelector(".poster"),s=STYLES[state.stil];p.style.setProperty("--pbg",s.bg);p.style.setProperty("--pink",s.ink);p.classList.toggle("d-herz",state.design==="herz");p.classList.toggle("d-zuhause",state.design==="zuhause");c.el.querySelector(".kopf").textContent=c.cfg.t;p.classList.toggle("serif",state.schrift==="serif");p.classList.toggle("ringe",state.schrift==="ringe");p.classList.toggle("maria",state.schrift==="maria");p.classList.toggle("rahmen",state.rahmen);
+ const mb=c.el.querySelector(".mapbox");mb.className="mapbox "+(state.design==="herz"?"herz":(state.design==="zuhause"?"quadrat":state.form));const pin=c.el.querySelector(".pin");pin.style.display=state.pin?"":"none";pin.style.color=s.pin;pin.style.setProperty("--ink",s.ink);if(pin.dataset.m!==state.marker){pin.innerHTML=MARKER[state.marker];pin.dataset.m=state.marker}
+ c.el.querySelector(".t1").textContent=c.cfg.t;const parts=[sauber(c.cfg.n1),sauber(c.cfg.n2)].filter(Boolean),nm=parts.join(' & '),e2=c.el.querySelector(".t2");const hz=state.design==='zuhause'?(parts.join(' · ')||''):(parts.length===2&&state.schrift==='script'?herzNamen(parts[0],parts[1]):(parts.length===2&&state.schrift==='ringe'?parts[0]+'+'+parts[1]:(parts.length===2&&state.schrift==='maria'?parts[0]+'='+parts[1]:null)));if(hz)e2.textContent=hz;else if(parts.length===2)e2.innerHTML=esc(parts[0])+'<svg class="hz" viewBox="0 0 24 24"><path d="M12 20 C8 17 3 13.5 3 9.5 A4.5 4.5 0 0 1 12 8 A4.5 4.5 0 0 1 21 9.5 C21 13.5 16 17 12 20 Z"/></svg>'+esc(parts[1]);else e2.textContent=nm;
+ passend(e2);const ct=c.center;const m1=[c.cfg.d,c.city].filter(Boolean).join("  ·  "),m2=ct?`${dms(ct.lat,true)} ${dms(ct.lng,false)}`:"";c.el.querySelector(".t3").innerHTML=esc(m1)+(m1&&m2?"<span class=\"sep\">  ·  </span>":"")+`<span class="z">${esc(m2)}</span>`;}
 function rebuild(){document.getElementById("wrap").innerHTML="";cards.forEach(c=>c.map.remove());cards.length=0;const w=document.getElementById("wrap");w.className="posterwrap "+state.modus;const list=state.modus==="set"?PRESETS[state.preset]:[PRESETS[state.preset][0]];list.forEach((cfg,i)=>makeCard(i,cfg));setTimeout(()=>cards.forEach(c=>c.map.resize()),50)}
 function seg(id,key,attr,cb){document.getElementById(id).querySelectorAll("button").forEach(b=>b.onclick=()=>{document.getElementById(id).querySelectorAll("button").forEach(x=>x.classList.remove("on"));b.classList.add("on");state[key]=b.dataset[attr];cb()})}
 seg("modus","modus","m",rebuild);seg("preset","preset","p",rebuild);
 seg("stil","stil","s",()=>cards.forEach(c=>{c.map.setStyle(mapStyle(state.stil));render(c)}));
-seg("form","form","f",()=>cards.forEach(render));seg("schrift","schrift","t",()=>cards.forEach(render));
+seg("form","form","f",()=>cards.forEach(render));
+seg("design","design","d",()=>{document.getElementById("formrow").hidden=state.design!=="klassik";document.getElementById("schriftrow").hidden=state.design==="zuhause";cards.forEach(render);setTimeout(()=>cards.forEach(c=>c.map.resize()),60)});seg("schrift","schrift","t",()=>cards.forEach(render));
 document.getElementById("zoom").oninput=e=>{state.zoom=+e.target.value;document.getElementById("zv").textContent=state.zoom;cards.forEach(c=>c.map.setZoom(state.zoom))};
 document.getElementById("pinbtn").onclick=e=>{state.pin=!state.pin;e.target.classList.toggle("on",state.pin);cards.forEach(render)};
-document.getElementById("rahmenbtn").onclick=e=>{state.rahmen=!state.rahmen;e.target.classList.toggle("on",state.rahmen);cards.forEach(render);setTimeout(()=>cards.forEach(c=>c.map.resize()),250)};
 window.addEventListener("resize",()=>cards.forEach(c=>{c.map.resize();render(c)}));
 document.fonts.ready.then(()=>cards.forEach(render));document.fonts.addEventListener&&document.fonts.addEventListener("loadingdone",()=>cards.forEach(render));
 if(location.search.includes("set=1")){document.getElementById("setui").hidden=false}
