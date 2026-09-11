@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Karten-Poster Live-Vorschau · Walleria Labor</title>
+<title>3er-Sets Übersicht · Walleria Labor</title>
 <link rel="icon" href="/favicon-32.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Sacramento&family=Cormorant+Garamond:wght@500;600&family=Great+Vibes&display=swap" rel="stylesheet">
@@ -115,48 +115,46 @@ input[type=range]{width:100%}
 .poster.d-haus .mapbox{width:110%;margin-left:4%;flex:none;aspect-ratio:100/104;-webkit-mask:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20104%22%3E%3Cpath%20fill%3D%22%23fff%22%20fill-rule%3D%22evenodd%22%20d%3D%22M0%2042%20L50%202%20L100%2042%20L92%2042%20L92%20104%20L8%20104%20L8%2042%20Z%20M19%2052%20h16%20v16%20h-16%20Z%20M65%2052%20h16%20v16%20h-16%20Z%20M42%20104%20V80%20a8%208%200%200%201%2016%200%20V104%20Z%22/%3E%3Crect%20fill%3D%22%23fff%22%20x%3D%2223%22%20y%3D%229%22%20width%3D%229%22%20height%3D%2221%22/%3E%3Crect%20fill%3D%22%23fff%22%20x%3D%2221%22%20y%3D%227%22%20width%3D%2213%22%20height%3D%224%22/%3E%3Cg%20stroke%3D%22%23fff%22%20stroke-width%3D%221.4%22%20fill%3D%22none%22%3E%3Cline%20x1%3D%2227%22%20y1%3D%2252%22%20x2%3D%2227%22%20y2%3D%2268%22/%3E%3Cline%20x1%3D%2219%22%20y1%3D%2260%22%20x2%3D%2235%22%20y2%3D%2260%22/%3E%3Cline%20x1%3D%2273%22%20y1%3D%2252%22%20x2%3D%2273%22%20y2%3D%2268%22/%3E%3Cline%20x1%3D%2265%22%20y1%3D%2260%22%20x2%3D%2281%22%20y2%3D%2260%22/%3E%3C/g%3E%3C/svg%3E") center/100% 100% no-repeat;mask:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20104%22%3E%3Cpath%20fill%3D%22%23fff%22%20fill-rule%3D%22evenodd%22%20d%3D%22M0%2042%20L50%202%20L100%2042%20L92%2042%20L92%20104%20L8%20104%20L8%2042%20Z%20M19%2052%20h16%20v16%20h-16%20Z%20M65%2052%20h16%20v16%20h-16%20Z%20M42%20104%20V80%20a8%208%200%200%201%2016%200%20V104%20Z%22/%3E%3Crect%20fill%3D%22%23fff%22%20x%3D%2223%22%20y%3D%229%22%20width%3D%229%22%20height%3D%2221%22/%3E%3Crect%20fill%3D%22%23fff%22%20x%3D%2221%22%20y%3D%227%22%20width%3D%2213%22%20height%3D%224%22/%3E%3Cg%20stroke%3D%22%23fff%22%20stroke-width%3D%221.4%22%20fill%3D%22none%22%3E%3Cline%20x1%3D%2227%22%20y1%3D%2252%22%20x2%3D%2227%22%20y2%3D%2268%22/%3E%3Cline%20x1%3D%2219%22%20y1%3D%2260%22%20x2%3D%2235%22%20y2%3D%2260%22/%3E%3Cline%20x1%3D%2273%22%20y1%3D%2252%22%20x2%3D%2273%22%20y2%3D%2268%22/%3E%3Cline%20x1%3D%2265%22%20y1%3D%2260%22%20x2%3D%2281%22%20y2%3D%2260%22/%3E%3C/g%3E%3C/svg%3E") center/100% 100% no-repeat}
 .poster.d-haus .txt{display:none}
 .poster.d-haus .mapbox .pin{width:7.5%}
-</style>
-</head>
+
+body{padding:0 0 60px}
+h1{font-size:22px;margin:26px 24px 4px;font-weight:600}
+.intro{margin:0 24px 10px;color:var(--muted);font-size:14px;max-width:760px}
+section.set{margin:26px 24px 0;background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 22px 24px}
+section.set h2{font-size:17px;margin:0 0 2px;font-weight:600}
+section.set .sub{color:var(--muted);font-size:13px;margin:0 0 16px}
+.row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;max-width:980px}
+.slot{container-type:inline-size}
+.slot .cap{font-size:12px;color:var(--muted);margin:10px 0 0;text-align:center;letter-spacing:.02em}
+.slot .cap b{color:var(--ink);font-weight:600}
+.poster{box-shadow:0 10px 26px rgba(0,0,0,.12)}
+.poster.txtonly{justify-content:center;text-align:center}
+.poster.txtonly .big{font-family:"Hi Maria",cursive;font-size:clamp(30px,13cqw,110px);line-height:1.05;margin:0;white-space:nowrap}
+.poster.txtonly .big.mila{font-family:"Mila Love",cursive;font-size:clamp(26px,11cqw,96px)}
+.poster.txtonly .sm{font-family:"Cormorant Garamond",serif;font-size:clamp(11px,3.4cqw,26px);letter-spacing:.24em;text-transform:uppercase;margin:6% 0 0}
+.poster.txtonly .xs{font-family:"DM Sans",sans-serif;font-size:clamp(8px,2.1cqw,15px);letter-spacing:.22em;text-transform:uppercase;opacity:.75;margin:3% 0 0;line-height:1.9}
+.poster.txtonly .namen{font-family:"Cormorant Garamond",serif;font-size:clamp(13px,4.4cqw,34px);letter-spacing:.2em;text-transform:uppercase;margin:7% 0 0;line-height:1.7}
+.poster.sterne{background:#141414;color:#F5F1EA;padding:0;overflow:hidden}
+.poster.sterne canvas{position:absolute;inset:0;width:100%;height:100%}
+.poster.sterne .txt{position:relative;padding:0 9% 9%;margin-top:auto}
+.poster.sterne .t1{font-family:"Hi Maria",cursive;text-transform:none;letter-spacing:0;font-size:clamp(26px,9cqw,76px);line-height:1;margin:0 0 4%}
+.poster.sterne .t3{font-family:"DM Sans",sans-serif;font-size:clamp(8px,2.1cqw,15px);letter-spacing:.22em;text-transform:uppercase;opacity:.8;margin:0;line-height:1.9}
+.poster.schild{background:#DCDCDC;color:#2B2622;justify-content:center;padding:9%}
+.poster.schild .map{position:absolute;inset:0;opacity:.55}
+.poster.schild .tafel{position:relative;background:#fff;padding:9% 7%;width:100%;text-align:center;box-shadow:0 8px 20px rgba(0,0,0,.12)}
+.poster.schild .str{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:clamp(16px,6.2cqw,50px);letter-spacing:.14em;text-transform:uppercase;line-height:1.15;margin:0}
+.poster.schild .ort{font-family:"DM Sans",sans-serif;font-size:clamp(8px,2.3cqw,16px);letter-spacing:.26em;text-transform:uppercase;opacity:.75;margin:5% 0 0}
+.poster.schild .kd{font-family:"Hi Maria",cursive;font-size:clamp(20px,7cqw,58px);margin:5% 0 0;line-height:1}
+.poster.d-haus.haus-mini .kopf{margin-left:3%}
+</style></head>
 <body>
+<header><img src="/logo-wortmarke.png" alt="Walleria" onerror="this.replaceWith(Object.assign(document.createElement('b'),{textContent:'Walleria'}))"><span class="lab">Labor · 3er-Sets</span><span class="hint">Prototyp, nicht öffentlich verlinkt</span></header>
+<h1>So könnten die 3er-Sets aussehen</h1>
+<p class="intro">Jedes Set: ein Hauptposter mit Karte (Mitte) und zwei Nebenposter, die zur gleichen Geschichte gehören. Gleicher Kartenstil, gleiche Schrift, gleiches Papier, damit die drei nebeneinander an der Wand als Einheit wirken.</p>
+<section class="set"><h2>Set 1 · Klassik „Drei Orte“</h2><p class="sub">Für Paare. Drei Stationen der Beziehung: kennengelernt, Ja gesagt, Zuhause. Alle drei mit Karte, Hauptposter als Herz, die beiden Nebenposter als Kreis.</p><div class="row"><div class="slot"><div class="poster f-script" style="--pbg:#fff;--pink:#111" data-lat="54.7837" data-lon="9.436" data-z="13" data-stil="linie"><p class="kopf"></p><p class="koord"></p><div class="mapwrap"><div class="mapbox kreis" style="background:#fff"><div class="map"></div><div class="pin" style="color:#C4342D"></div></div></div><div class="txt"><p class="t1">Kennengelernt</p><p class="t2" data-n1="Anna" data-n2="Paul"></p><p class="t3">14.06.2019  ·  Flensburg  ·  <span class="z"></span></p></div></div><p class="cap"><b>Station 1</b> · Wo wir uns trafen</p></div><div class="slot"><div class="poster f-script" style="--pbg:#fff;--pink:#111" data-lat="53.0758" data-lon="8.8072" data-z="13" data-stil="linie"><p class="kopf"></p><p class="koord"></p><div class="mapwrap"><div class="mapbox herz" style="background:#fff"><div class="map"></div><div class="pin" style="color:#C4342D"></div></div></div><div class="txt"><p class="t1">Ja gesagt</p><p class="t2" data-n1="Anna" data-n2="Paul"></p><p class="t3">22.08.2024  ·  Bremen  ·  <span class="z"></span></p></div></div><p class="cap"><b>Hauptposter</b> · Wo wir Ja sagten</p></div><div class="slot"><div class="poster f-script" style="--pbg:#fff;--pink:#111" data-lat="53.5528" data-lon="9.925" data-z="14" data-stil="linie"><p class="kopf"></p><p class="koord"></p><div class="mapwrap"><div class="mapbox kreis" style="background:#fff"><div class="map"></div><div class="pin" style="color:#C4342D"></div></div></div><div class="txt"><p class="t1">Zuhause</p><p class="t2" data-n1="Anna" data-n2="Paul"></p><p class="t3">seit 2025  ·  Hamburg  ·  <span class="z"></span></p></div></div><p class="cap"><b>Station 3</b> · Wo wir heute leben</p></div></div></section>
+<section class="set"><h2>Set 2 · Silhouette „Unsere Nacht“</h2><p class="sub">Für Paare, auch gleichgeschlechtlich (zweite Silhouette Frau + Frau / Mann + Mann). Links Namen und Datum als reines Schriftposter, Mitte die Silhouette mit Karte, rechts der Sternenhimmel genau dieser Nacht über diesem Ort.</p><div class="row"><div class="slot"><div class="poster txtonly" style="--pbg:#fff;--pink:#1A1A1A;background:#fff;color:#1A1A1A"><p class="big">Anna=Paul</p><p class="sm">Wo alles begann</p><p class="xs">22.05.2025<br>53°04'33.0"N · 8°48'25.8"E</p></div><p class="cap"><b>Nebenposter 1</b> · Namen mit Herz, Datum, Koordinaten</p></div><div class="slot"><div class="poster d-sil maria f-maria" style="--pbg:#fff;--pink:#1A1A1A" data-lat="53.0758" data-lon="8.8072" data-z="13" data-stil="nacht"><p class="kopf"></p><p class="koord"></p><div class="mapwrap"><div class="mapbox quadrat" style="background:#141414"><div class="map"></div><div class="pin" style="color:#D9574C"></div></div></div><div class="txt"><p class="t1">Wo alles begann</p><p class="t2">Anna  ·  Paul  ·  22.05.2025</p><p class="t3">Bremen  ·  <span class="z"></span></p></div></div><p class="cap"><b>Hauptposter</b> · Silhouette mit Karte</p></div><div class="slot"><div class="poster sterne"><canvas class="sky"></canvas><div class="txt"><p class="t1">Unsere Nacht=</p><p class="t3">Sternenhimmel über Bremen<br>22.05.2025 · 23:30 Uhr</p></div></div><p class="cap"><b>Nebenposter 2</b> · Sternenhimmel der Nacht</p></div></div></section>
+<section class="set"><h2>Set 3 · Haus „Unser Zuhause“</h2><p class="sub">Für Familien und zum Einzug. Links alle Bewohner mit Namen, Mitte das Haus mit Karte, rechts die eigene Straße als Schild auf derselben grauen Karte.</p><div class="row"><div class="slot"><div class="poster txtonly" style="--pbg:#fff;--pink:#1A1A1A;background:#fff;color:#1A1A1A"><p class="big">Familie Schmidt=</p><p class="namen">Anna<br>Paul<br>Emma<br>Ben</p><p class="xs">Zuhause seit 2021</p></div><p class="cap"><b>Nebenposter 1</b> · Alle Bewohner mit Namen</p></div><div class="slot"><div class="poster d-haus maria f-maria haus-mini" style="--pbg:#fff;--pink:#1A1A1A" data-lat="54.797" data-lon="9.374" data-z="16" data-stil="grau"><p class="kopf">Zuhause=</p><p class="koord" data-d="seit 2021"></p><div class="mapwrap"><div class="mapbox quadrat" style="background:#DCDCDC"><div class="map"></div><div class="pin" style="color:#C4342D"></div></div></div><div class="txt"><p class="t1"></p><p class="t2"></p><p class="t3"></p></div></div><p class="cap"><b>Hauptposter</b> · Haus mit Karte</p></div><div class="slot"><div class="poster schild" data-lat="54.7970" data-lon="9.3740" data-z="15" data-stil="grau"><div class="map"></div><div class="tafel"><p class="str">Süderstraße 12</p><p class="ort">24955 Harrislee</p><p class="kd">seit 2021=</p></div></div><p class="cap"><b>Nebenposter 2</b> · Straße als Schild auf der Karte</p></div></div></section>
 <svg width="0" height="0" style="position:absolute"><defs><clipPath id="herzclip" clipPathUnits="objectBoundingBox"><path d="M0.5,0.95 C0.5,0.95 0.03,0.62 0.03,0.32 C0.03,0.14 0.17,0.03 0.3,0.03 C0.4,0.03 0.47,0.09 0.5,0.16 C0.53,0.09 0.6,0.03 0.7,0.03 C0.83,0.03 0.97,0.14 0.97,0.32 C0.97,0.62 0.5,0.95 0.5,0.95 Z"/></clipPath></defs></svg>
-<header><img src="/logo-wortmarke.png" alt="Walleria" onerror="this.replaceWith(Object.assign(document.createElement('b'),{textContent:'Walleria'}))"><span class="lab">Labor · Karten-Poster</span><span class="hint">Prototyp, nicht öffentlich verlinkt</span></header>
-<main>
-<aside class="panel">
-<h1>Live-Vorschau Karten-Poster</h1>
-<p class="sub">Oben am Poster Adresse, Titel, Namen und Datum eintragen. Karte mit Maus oder zwei Fingern feinjustieren.</p>
-<div id="setui" hidden><label>Produkt</label>
-<div class="seg" id="modus"><button data-m="einzeln" class="on">Einzelposter</button><button data-m="set">3er-Set</button></div>
-<label>Set-Vorlage</label>
-<div class="preset" id="preset">
-<button data-p="paar" class="on">Paar<small>Kennengelernt · Ja gesagt · Zuhause</small></button>
-<button data-p="familie">Familie<small>Mama · Papa · Zuhause</small></button>
-<button data-p="einzug">Einzug<small>Damals · Heute · Lieblingsort</small></button>
-</div></div>
-<label>Design</label>
-<div class="seg" id="design"><button data-d="klassik">Klassik</button><button data-d="sil" class="on">Silhouette</button><button data-d="haus">Haus</button></div>
-<label>Kartenstil</label>
-<div class="seg" id="stil"><button data-s="linie">Schwarz-Weiß</button><button data-s="sand">Sand</button><button data-s="grau">Grau</button><button data-s="nacht" class="on">Nacht</button></div>
-<div id="formrow"><label>Form <span style="font-weight:400;text-transform:none;letter-spacing:0">(Design Klassik)</span></label>
-<div class="seg" id="form"><button data-f="quadrat" class="on">Quadrat</button><button data-f="kreis">Kreis</button><button data-f="herz">Herz</button></div>
-</div><div id="schriftrow"><label>Schrift</label>
-<div class="seg" id="schrift"><button data-t="script">Mila</button><button data-t="maria" class="on">Maria</button><button data-t="ringe">Julietta</button></div>
-</div><label>Ausschnitt (Zoom) <span id="zv" style="float:right;font-weight:400">13</span></label>
-<input type="range" id="zoom" min="10" max="17" step="0.25" value="13">
-<label>Extras</label>
-<div class="seg"><button id="pinbtn" class="on">Herz-Marker</button></div>
-<p class="note"><span class="tag">Karte: OpenFreeMap / OpenStreetMap</span><span class="tag">Adresse: Photon</span><br>Die Vorschau zeigt Bildschirmqualität. Für den Druck rendern wir dieselbe Karte serverseitig in 300 dpi.</p>
-</aside>
-<section>
-<div class="posterwrap" id="wrap"></div>
-</section>
-</main>
 <script>
-const PRESETS={
- haupt:[{t:"Wo alles begann",n1:"Anna",n2:"Paul",d:"22.05.2025",q:"Bremen"}],
- paar:[{t:"Kennengelernt",n1:"Anna",n2:"Paul",d:"14.06.2019",q:"Flensburg"},{t:"Ja gesagt",n1:"Anna",n2:"Paul",d:"22.08.2024",q:"Bremen"},{t:"Zuhause",n1:"Anna",n2:"Paul",d:"seit 2025",q:"Hamburg Ottensen"}],
- familie:[{t:"Mama",n1:"Geboren in",n2:"",d:"12.03.1991",q:"Kiel"},{t:"Papa",n1:"Geboren in",n2:"",d:"05.11.1989",q:"Lübeck"},{t:"Zuhause",n1:"Familie Schmidt",n2:"",d:"seit 2021",q:"Harrislee"}],
- einzug:[{t:"Damals",n1:"Erste Wohnung",n2:"",d:"2016",q:"Berlin Prenzlauer Berg"},{t:"Heute",n1:"Unser Zuhause",n2:"",d:"2026",q:"Leipzig Südvorstadt"},{t:"Lieblingsort",n1:"Ostsee",n2:"",d:"immer",q:"Heiligenhafen"}]
-};
 const STYLES={
  linie:{bg:"#FFFFFF",ink:"#111111",water:"#DCDCDC",road:"#111111",minor:"#3A3A3A",build:"#F1F1F1",park:"#F6F6F6",pin:"#C4342D"},
  sand:{bg:"#F4EEE4",ink:"#2B2622",water:"#D9D0C2",road:"#2B2622",minor:"#5A524A",build:"#EDE6DA",park:"#EEE8DD",pin:"#B5452F"},
@@ -183,74 +181,30 @@ function mapStyle(s){const c=STYLES[s];return{version:8,sources:{om:{type:"vecto
  {id:"rd-major",type:"line","source":"om","source-layer":"transportation",filter:["in","class","primary","trunk","motorway"],paint:{"line-color":c.road,"line-width":["interpolate",["exponential",1.4],["zoom"],10,1.2,13,2.4,16,6]}},
  {id:"rail",type:"line","source":"om","source-layer":"transportation",filter:["==","class","rail"],paint:{"line-color":c.minor,"line-width":.8,"line-dasharray":[3,2]}}
 ]}}
-
 const HERZ={"a": 57632, "b": 57635, "c": 57636, "d": 57637, "e": 57638, "f": 57639, "g": 57640, "h": 57641, "i": 57642, "j": 57643, "k": 57644, "l": 57645, "m": 57646, "n": 57647, "o": 57648, "p": 57649, "q": 57650, "r": 57651, "s": 57652, "t": 57653, "u": 57654, "v": 57655, "w": 57656, "x": 57657, "y": 57658, "z": 57659};
-function passend(el){el.style.fontSize='';const max=el.clientWidth||el.parentElement.clientWidth;if(!max)return;let fs=parseFloat(getComputedStyle(el).fontSize);let n=0;while(el.scrollWidth>max+1&&fs>9&&n<40){fs*=0.94;el.style.fontSize=fs+'px';n++}}
-function sauber(s){return (s||'').replace(/\s+/g,' ').trim()}
-function herzNamen(a,b){const l=a.slice(-1),cp=HERZ[l];return cp?a.slice(0,-1)+String.fromCodePoint(cp)+b:null}
-let FONT=null;
-
-function pathD(pth){return pth.toPathData(2)}
-function extreme(pth,maxx){let best=null;pth.commands.forEach(c=>{if(c.x===undefined)return;if(!best||(maxx?c.x>best.x:c.x<best.x)||(c.x===best.x&&c.y>best.y))best={x:c.x,y:c.y}});return best}
-function nmSVG(a,b){
- const S=100, pa=FONT.getPath(a,0,0,S), pb=FONT.getPath(b,0,0,S);
- const E=extreme(pa,true), St=extreme(pb,false);
- const H=S*.60, hw=S*.58, tl=S*.16, tr=S*.16, yb=E.y;           // Herz: Hoehe, Breite, Schwaenze; Spitze auf Hoehe des Austritts
- const cx=E.x+tl+hw/2, r=hw/4, ly=yb-H*.66;                    // Lobenmitte
- const d=[`M${E.x} ${E.y}`,
-  `C${E.x+tl*.5} ${E.y+1} ${cx-hw*.28} ${yb+1} ${cx} ${yb}`,     // Schwanz in die Spitze
-  `C${cx-hw*.22} ${yb-H*.22} ${cx-hw/2} ${ly+r*.4} ${cx-hw/2} ${ly}`, // linke Seite hoch
-  `A${r} ${r} 0 0 1 ${cx} ${ly-r*.15}`,                          // linker Bogen -> Einbuchtung
-  `A${r} ${r} 0 0 1 ${cx+hw/2} ${ly}`,                           // rechter Bogen
-  `C${cx+hw/2} ${ly+r*.4} ${cx+hw*.22} ${yb-H*.22} ${cx} ${yb}`, // rechte Seite runter zur Spitze
-  `C${cx+hw*.28} ${yb+1} ${cx+hw/2+tr*.5} ${St.y+1} ${cx+hw/2+tr} ${St.y}`].join(' '); // Schwanz zum 2. Namen
- const dx=(cx+hw/2+tr)-St.x;
- const bb1=pa.getBoundingBox(), bb2=pb.getBoundingBox();
- const x1=Math.min(bb1.x1,0)-2, x2=Math.max(bb2.x2+dx, cx+hw/2+tr)+2, y1=Math.min(bb1.y1,bb2.y1,ly-r-3)-2, y2=Math.max(bb1.y2,bb2.y2,yb+3)+2;
- return `<svg class="nm" viewBox="${x1} ${y1} ${x2-x1} ${y2-y1}" xmlns="http://www.w3.org/2000/svg"><path d="${pathD(pa)}"/><path d="${pathD(pb)}" transform="translate(${dx} 0)"/><path d="${d}" fill="none" stroke="currentColor" stroke-width="${S*.052}" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-}
 const MARKER={"flach": "<svg viewBox=\"-6 -6 112 104\"><path d=\"M44 90 C36 82 20 70 11 57 C4 47 2 38 5 29 C8 19 17 12 27 12.5 C36 13 43 18 47 25 C51 15 59 8 69 8 C81 8 92 17 95 30 C97.5 42 92 53 83 63 C72 75 55 84 44 90 Z\" fill=\"currentColor\" transform=\"rotate(-4 50 50) translate(50 0) scale(.9 1) translate(-50 0)\"/></svg>"};
-const state={design:"sil",marker:"flach",modus:"einzeln",preset:"haupt",stil:"nacht",form:"quadrat",schrift:"maria",zoom:13,pin:true,rahmen:false};
-const cards=[];
 function dms(v,lat){const a=Math.abs(v),d=Math.floor(a),m=Math.floor((a-d)*60),s=((a-d)*60-m)*60;return `${d}°${String(m).padStart(2,"0")}'${s.toFixed(1)}"${lat?(v>=0?"N":"S"):(v>=0?"E":"W")}`}
 function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
-function makeCard(i,cfg){
- const el=document.createElement("div");el.className="card";
- el.innerHTML=`<div class="adr"><input type="text" placeholder="Adresse oder Ort" value="${esc(cfg.q)}" data-k="q"><div class="sugg"></div></div>
- <div class="mini"><input type="text" value="${esc(cfg.n1||"")}" data-k="n1" placeholder="Name 1" autocomplete="off"><input type="text" value="${esc(cfg.n2||"")}" data-k="n2" placeholder="Name 2" autocomplete="off"><input type="text" value="${esc(cfg.t)}" data-k="t" placeholder="Titel"><input type="text" value="${esc(cfg.d)}" data-k="d" placeholder="Datum"></div>
- <div class="poster"><p class="kopf"></p><p class="koord"></p><div class="mapwrap"><svg class="ring" viewBox="0 0 200 200"><defs><path id="rp" d="M100,100 m-88,0 a88,88 0 1,1 176,0 a88,88 0 1,1 -176,0"/></defs><text><textPath href="#rp" startOffset="50%" text-anchor="middle"></textPath></text></svg><div class="mapbox"><div class="map"></div><div class="pin"></div></div>
- </div><div class="txt"><p class="t1"></p><p class="t2"></p><p class="t3"></p></div></div>`;
- document.getElementById("wrap").appendChild(el);
- const map=new maplibregl.Map({container:el.querySelector(".map"),style:mapStyle(state.stil),center:[9.43,54.78],zoom:state.zoom,attributionControl:false,dragRotate:false,pitchWithRotate:false,touchZoomRotate:true,cooperativeGestures:('ontouchstart' in window),locale:{'CooperativeGesturesHandler.WindowsHelpText':'Strg + Scrollen zum Zoomen','CooperativeGesturesHandler.MacHelpText':'⌘ + Scrollen zum Zoomen','CooperativeGesturesHandler.MobileHelpText':'Mit zwei Fingern verschieben'}});
- map.touchZoomRotate.disableRotation();
- map.on("move",()=>{c.center=map.getCenter();render(c)});
- const c={el,map,cfg:{...cfg},center:null,city:""};
- el.querySelectorAll("input").forEach(inp=>{
-  if(inp.dataset.k==="q"){let t;inp.addEventListener("input",()=>{clearTimeout(t);t=setTimeout(()=>suggest(c,inp.value),260)});inp.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();geocode(c,inp.value)}});inp.addEventListener("blur",()=>setTimeout(()=>el.querySelector(".sugg").style.display="none",200))}
-  else{inp.addEventListener("input",()=>{c.cfg[inp.dataset.k]=inp.value;render(c)});if(inp.dataset.k==="n1"||inp.dataset.k==="n2")inp.addEventListener("blur",()=>{inp.value=sauber(inp.value);c.cfg[inp.dataset.k]=inp.value;render(c)})}
- });
- cards.push(c);render(c);map.once("load",()=>map.resize());setTimeout(()=>map.resize(),400);setTimeout(()=>map.resize(),1500);geocode(c,cfg.q);return c;
-}
-async function photon(q){const r=await fetch(`https://photon.komoot.io/api/?q=${encodeURIComponent(q)}&lang=de&limit=5&lat=51&lon=10`);const j=await r.json();return (j.features||[]).map(f=>{const p=f.properties;const name=[p.name||[p.street,p.housenumber].filter(Boolean).join(" "),p.postcode,p.city||p.town||p.village||p.county,p.country].filter(Boolean).join(", ");return{name,city:p.city||p.town||p.village||p.name||"",lon:f.geometry.coordinates[0],lat:f.geometry.coordinates[1],type:p.type}})}
-async function suggest(c,q){const box=c.el.querySelector(".sugg");if(q.trim().length<3){box.style.display="none";return}try{const res=await photon(q);box.innerHTML=res.map((r,i)=>`<div data-i="${i}">${esc(r.name)}</div>`).join("");box.style.display=res.length?"block":"none";box.querySelectorAll("div").forEach(d=>d.onmousedown=()=>{const r=res[+d.dataset.i];apply(c,r);c.el.querySelector('[data-k=q]').value=r.name;box.style.display="none"})}catch(e){box.style.display="none"}}
-async function geocode(c,q){try{const res=await photon(q);if(res[0])apply(c,res[0])}catch(e){}}
-function apply(c,r){c.city=r.city;const z=r.type==="house"||r.type==="street"?Math.max(state.zoom,14):state.zoom;c.map.jumpTo({center:[r.lon,r.lat],zoom:z});c.center=c.map.getCenter();render(c)}
-function render(c){const p=c.el.querySelector(".poster"),s=STYLES[state.stil];const papier=["sil","kreis","haus"].includes(state.design);p.style.setProperty("--pbg",papier?"#FFFFFF":s.bg);p.style.setProperty("--pink",papier?"#1A1A1A":s.ink);p.classList.toggle("d-sil",state.design==="sil");p.classList.toggle("d-haus",state.design==="haus");p.classList.remove("d-herz","d-zuhause","d-kreis");["f-script","f-maria","f-ringe"].forEach(k=>p.classList.remove(k));p.classList.add("f-"+state.schrift);p.classList.toggle("serif",state.schrift==="serif");p.classList.toggle("ringe",state.schrift==="ringe");p.classList.toggle("maria",state.schrift==="maria");p.classList.toggle("rahmen",state.rahmen);
- const mb=c.el.querySelector(".mapbox");mb.className="mapbox "+(state.design==="klassik"?state.form:"quadrat");mb.style.background=s.bg;const pin=c.el.querySelector(".pin");pin.style.display=state.pin?"":"none";pin.style.color=s.pin;pin.style.setProperty("--ink",s.ink);if(pin.dataset.m!==state.marker){pin.innerHTML=MARKER[state.marker];pin.dataset.m=state.marker}
- c.el.querySelector(".t1").textContent=c.cfg.t;const parts=[sauber(c.cfg.n1),sauber(c.cfg.n2)].filter(Boolean),nm=parts.join(' & '),e2=c.el.querySelector(".t2");const kopf=c.el.querySelector('.kopf'),koord=c.el.querySelector('.koord'),ringT=c.el.querySelector('.ring textPath');if(state.design==='haus'){const tt=sauber(c.cfg.t);if(state.schrift==='script'){const cp=HERZ[tt.slice(-1)];kopf.textContent=cp?tt.slice(0,-1)+String.fromCodePoint(cp):tt}else if(state.schrift==='maria')kopf.textContent=tt+'=';else kopf.textContent=tt}else kopf.textContent=c.cfg.t;const namenListe=parts.join('  ·  ');ringT.textContent=state.design==='kreis'?(namenListe+'  ·  ').repeat(1):'';const hz=state.design==='sil'?[namenListe,sauber(c.cfg.d)].filter(Boolean).join('  ·  '):(state.design==='kreis'?sauber(c.cfg.d):(parts.length===2&&state.schrift==='script'?herzNamen(parts[0],parts[1]):(parts.length===2&&state.schrift==='ringe'?parts[0]+'+'+parts[1]:(parts.length===2&&state.schrift==='maria'?parts[0]+'='+parts[1]:null))));if(hz!==null&&hz!==undefined&&hz!=='')e2.textContent=hz;else if(parts.length===2)e2.innerHTML=esc(parts[0])+'<svg class="hz" viewBox="0 0 24 24"><path d="M12 20 C8 17 3 13.5 3 9.5 A4.5 4.5 0 0 1 12 8 A4.5 4.5 0 0 1 21 9.5 C21 13.5 16 17 12 20 Z"/></svg>'+esc(parts[1]);else e2.textContent=nm;
- passend(e2);const ct=c.center;const co=ct?`${dms(ct.lat,true)} ${dms(ct.lng,false)}`:"";const m1=state.design==="sil"?(c.city||""):(state.design==="kreis"?"":[c.cfg.d,c.city].filter(Boolean).join("  ·  ")),m2=co;c.el.querySelector(".t3").innerHTML=esc(m1)+(m1&&m2?"<span class=\"sep\">  ·  </span>":"")+`<span class="z">${esc(m2)}</span>`;koord.innerHTML=(ct?`${esc(dms(ct.lat,true))}<br>${esc(dms(ct.lng,false))}`:"")+(sauber(c.cfg.d)?`<br><span class="kd">${esc(sauber(c.cfg.d))}</span>`:"");}
-function rebuild(){document.getElementById("wrap").innerHTML="";cards.forEach(c=>c.map.remove());cards.length=0;const w=document.getElementById("wrap");w.className="posterwrap "+state.modus;const list=state.modus==="set"?PRESETS[state.preset]:[PRESETS[state.preset][0]];list.forEach((cfg,i)=>makeCard(i,cfg));setTimeout(()=>cards.forEach(c=>c.map.resize()),50)}
-function seg(id,key,attr,cb){document.getElementById(id).querySelectorAll("button").forEach(b=>b.onclick=()=>{document.getElementById(id).querySelectorAll("button").forEach(x=>x.classList.remove("on"));b.classList.add("on");state[key]=b.dataset[attr];cb()})}
-seg("modus","modus","m",rebuild);seg("preset","preset","p",rebuild);
-seg("stil","stil","s",()=>cards.forEach(c=>{applyStyle(c.map,state.stil);render(c)}));
-seg("form","form","f",()=>{if(state.design!=="klassik"){document.querySelector("#design [data-d=klassik]").click()}else cards.forEach(render)});
-seg("design","design","d",()=>{document.getElementById("schriftrow").hidden=false;const V={klassik:{t:"Wo alles begann",d:"14.06.2019",s:"linie",f:"script",z:13},sil:{t:"Wo alles begann",d:"22.05.2025",s:"nacht",f:"maria",z:13.5},haus:{t:"Zuhause",d:"seit 2021",s:"grau",f:"maria",z:16}}[state.design];state.zoom=V.z;document.getElementById("zoom").value=V.z;document.getElementById("zv").textContent=V.z;cards.forEach(c=>c.map.setZoom(V.z));state.schrift=V.f;document.querySelectorAll("#schrift button").forEach(b=>b.classList.toggle("on",b.dataset.t===V.f));cards.forEach(c=>{c.cfg.t=V.t;c.cfg.d=V.d;c.el.querySelector("[data-k=t]").value=V.t;c.el.querySelector("[data-k=d]").value=V.d});state.stil=V.s;document.querySelectorAll("#stil button").forEach(b=>b.classList.toggle("on",b.dataset.s===V.s));cards.forEach(c=>{applyStyle(c.map,state.stil);render(c)});setTimeout(()=>cards.forEach(c=>c.map.resize()),60);setTimeout(()=>cards.forEach(c=>c.map.resize()),500)});seg("schrift","schrift","t",()=>cards.forEach(render));
-document.getElementById("zoom").oninput=e=>{state.zoom=+e.target.value;document.getElementById("zv").textContent=state.zoom;cards.forEach(c=>c.map.setZoom(state.zoom))};
-document.getElementById("pinbtn").onclick=e=>{state.pin=!state.pin;e.target.classList.toggle("on",state.pin);cards.forEach(render)};
-window.addEventListener("resize",()=>cards.forEach(c=>{c.map.resize();render(c)}));
-document.fonts.ready.then(()=>cards.forEach(render));document.fonts.addEventListener&&document.fonts.addEventListener("loadingdone",()=>cards.forEach(render));
-if(location.search.includes("set=1")){document.getElementById("setui").hidden=false}
-rebuild();
-</script>
-</body>
-</html>
+function herzNamen(a,b){const l=a.slice(-1),cp=HERZ[l];return cp?a.slice(0,-1)+String.fromCodePoint(cp)+b:null}
+document.querySelectorAll(".pin").forEach(p=>p.innerHTML=MARKER.flach);
+document.querySelectorAll(".t2[data-n1]").forEach(e=>{e.textContent=herzNamen(e.dataset.n1,e.dataset.n2)});
+document.querySelectorAll(".poster[data-lat]").forEach(p=>{
+ const lat=+p.dataset.lat,lon=+p.dataset.lon,z=+p.dataset.z,st=p.dataset.stil;
+ const el=p.querySelector(".map");
+ const map=new maplibregl.Map({container:el,style:mapStyle(st),center:[lon,lat],zoom:z,attributionControl:false,interactive:false});
+ map.once("load",()=>map.resize());setTimeout(()=>map.resize(),500);setTimeout(()=>map.resize(),1500);
+ const co=`${dms(lat,true)} ${dms(lon,false)}`;
+ const zz=p.querySelector(".z");if(zz)zz.textContent=co;
+ const k=p.querySelector(".koord");if(k&&k.dataset.d!==undefined)k.innerHTML=`${esc(dms(lat,true))}<br>${esc(dms(lon,false))}<br><span class="kd">${esc(k.dataset.d)}</span>`;
+});
+document.querySelectorAll("canvas.sky").forEach(cv=>{
+ const r=cv.parentElement.getBoundingClientRect();cv.width=r.width*2;cv.height=r.height*2;const x=cv.getContext("2d");
+ x.fillStyle="#141414";x.fillRect(0,0,cv.width,cv.height);
+ let s=7;const rnd=()=>{s=(s*16807)%2147483647;return s/2147483647};
+ for(let i=0;i<900;i++){const px=rnd()*cv.width,py=rnd()*cv.height*.78,rr=rnd();x.globalAlpha=.25+rr*.75;x.fillStyle="#F5F1EA";x.beginPath();x.arc(px,py,rr<.93?rr*1.3+.3:2.4+rnd()*1.6,0,7);x.fill()}
+ x.globalAlpha=1;x.strokeStyle="rgba(245,241,234,.35)";x.lineWidth=1;
+ const K=[[.22,.18],[.31,.25],[.42,.22],[.5,.3],[.6,.27],[.68,.36],[.77,.31]];x.beginPath();K.forEach(([a,b],i)=>{const X=a*cv.width,Y=b*cv.height;i?x.lineTo(X,Y):x.moveTo(X,Y)});x.stroke();
+ K.forEach(([a,b])=>{x.fillStyle="#F5F1EA";x.beginPath();x.arc(a*cv.width,b*cv.height,3.2,0,7);x.fill()});
+ x.strokeStyle="rgba(245,241,234,.5)";x.beginPath();x.arc(cv.width/2,cv.height*.36,cv.width*.36,0,7);x.stroke();
+});
+</script></body></html>
