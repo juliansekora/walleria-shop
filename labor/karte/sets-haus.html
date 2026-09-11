@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>3er-Sets Übersicht · Walleria Labor</title>
+<title>Haus · 5 Set-Varianten · Walleria Labor</title>
 <link rel="icon" href="/favicon-32.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Sacramento&family=Cormorant+Garamond:wght@500;600&family=Great+Vibes&display=swap" rel="stylesheet">
@@ -118,43 +118,74 @@ input[type=range]{width:100%}
 
 body{padding:0 0 60px}
 h1{font-size:22px;margin:26px 24px 4px;font-weight:600}
-.intro{margin:0 24px 10px;color:var(--muted);font-size:14px;max-width:760px}
+.intro{margin:0 24px 10px;color:var(--muted);font-size:14px;max-width:820px}
+.nav{margin:10px 24px 0;display:flex;gap:8px;flex-wrap:wrap}
+.nav a{font-size:13px;padding:7px 12px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--ink);text-decoration:none}
+.nav a.on{background:var(--ink);color:#fff;border-color:var(--ink)}
 section.set{margin:26px 24px 0;background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 22px 24px}
 section.set h2{font-size:17px;margin:0 0 2px;font-weight:600}
-section.set .sub{color:var(--muted);font-size:13px;margin:0 0 16px}
+section.set .sub{color:var(--muted);font-size:13px;margin:0 0 16px;max-width:900px}
 .row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;max-width:980px}
 .slot{container-type:inline-size}
-.slot .cap{font-size:12px;color:var(--muted);margin:10px 0 0;text-align:center;letter-spacing:.02em}
+.slot .cap{font-size:12px;color:var(--muted);margin:10px 0 0;text-align:center}
 .slot .cap b{color:var(--ink);font-weight:600}
 .poster{box-shadow:0 10px 26px rgba(0,0,0,.12)}
-.poster.txtonly{justify-content:center;text-align:center}
-.poster.txtonly .big{font-family:"Hi Maria",cursive;font-size:clamp(30px,13cqw,110px);line-height:1.05;margin:0;white-space:nowrap}
-.poster.txtonly .big.mila{font-family:"Mila Love",cursive;font-size:clamp(26px,11cqw,96px)}
-.poster.txtonly .sm{font-family:"Cormorant Garamond",serif;font-size:clamp(11px,3.4cqw,26px);letter-spacing:.24em;text-transform:uppercase;margin:6% 0 0}
-.poster.txtonly .xs{font-family:"DM Sans",sans-serif;font-size:clamp(8px,2.1cqw,15px);letter-spacing:.22em;text-transform:uppercase;opacity:.75;margin:3% 0 0;line-height:1.9}
-.poster.txtonly .namen{font-family:"Cormorant Garamond",serif;font-size:clamp(13px,4.4cqw,34px);letter-spacing:.2em;text-transform:uppercase;margin:7% 0 0;line-height:1.7}
-.poster.sterne{background:#141414;color:#F5F1EA;padding:0;overflow:hidden}
-.poster.sterne canvas{position:absolute;inset:0;width:100%;height:100%}
-.poster.sterne .txt{position:relative;padding:0 9% 9%;margin-top:auto}
-.poster.sterne .t1{font-family:"Hi Maria",cursive;text-transform:none;letter-spacing:0;font-size:clamp(26px,9cqw,76px);line-height:1;margin:0 0 4%}
-.poster.sterne .t3{font-family:"DM Sans",sans-serif;font-size:clamp(8px,2.1cqw,15px);letter-spacing:.22em;text-transform:uppercase;opacity:.8;margin:0;line-height:1.9}
-.poster.schild{background:#DCDCDC;color:#2B2622;justify-content:center;padding:9%}
-.poster.schild .map{position:absolute;inset:0;opacity:.55}
-.poster.schild .tafel{position:relative;background:#fff;padding:9% 7%;width:100%;text-align:center;box-shadow:0 8px 20px rgba(0,0,0,.12)}
-.poster.schild .str{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:clamp(16px,6.2cqw,50px);letter-spacing:.14em;text-transform:uppercase;line-height:1.15;margin:0}
-.poster.schild .ort{font-family:"DM Sans",sans-serif;font-size:clamp(8px,2.3cqw,16px);letter-spacing:.26em;text-transform:uppercase;opacity:.75;margin:5% 0 0}
-.poster.schild .kd{font-family:"Hi Maria",cursive;font-size:clamp(20px,7cqw,58px);margin:5% 0 0;line-height:1}
-.poster.d-haus.haus-mini .kopf{margin-left:3%}
+.mapbox .pin{width:8.5%}
+.poster.d-sil .mapbox .pin{width:6%}
+.poster.d-haus .mapbox .pin{width:7.5%}
+.P{justify-content:center;text-align:center;background:#fff;color:#1A1A1A}
+.P.dark{background:#141414;color:#F5F1EA}
+.P.grau{background:#DCDCDC;color:#2B2622}
+.P .hm{font-family:"Hi Maria",cursive;font-size:clamp(28px,12cqw,100px);line-height:1.05;margin:0;white-space:nowrap}
+.P .ml{font-family:"Mila Love",cursive;font-size:clamp(24px,10cqw,88px);line-height:1.1;margin:0;white-space:nowrap}
+.P .cg{font-family:"Cormorant Garamond",serif;font-size:clamp(11px,3.4cqw,26px);letter-spacing:.24em;text-transform:uppercase;margin:6% 0 0}
+.P .ds{font-family:"DM Sans",sans-serif;font-size:clamp(8px,2.1cqw,15px);letter-spacing:.22em;text-transform:uppercase;opacity:.75;margin:3% 0 0;line-height:1.9}
+.P .list{font-family:"Cormorant Garamond",serif;font-size:clamp(13px,4.4cqw,34px);letter-spacing:.2em;text-transform:uppercase;margin:7% 0 0;line-height:1.7}
+.P .mono{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:clamp(60px,30cqw,240px);line-height:.9;margin:0;letter-spacing:-.02em}
+.P .mono small{font-size:.42em;vertical-align:.35em;margin:0 .05em;font-weight:400;font-style:italic}
+.P .coord{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:clamp(18px,7.4cqw,60px);line-height:1.25;letter-spacing:.04em;margin:0}
+.P .coord .h{display:inline-block;width:.55em;color:#C4342D;vertical-align:-.05em;margin:0 .1em}
+.P .def-w{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:clamp(28px,11cqw,90px);line-height:1;margin:0;letter-spacing:-.01em}
+.P .def-p{font-family:"DM Sans",sans-serif;font-size:clamp(9px,2.6cqw,18px);opacity:.7;margin:3% 0 0}
+.P .def-t{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:clamp(12px,3.9cqw,30px);line-height:1.45;margin:6% 0 0;max-width:90%;display:inline-block}
+.P .num{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:clamp(50px,24cqw,190px);line-height:.95;margin:0;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.tl{position:relative;text-align:left;margin:0 auto;width:78%}
+.tl:before{content:"";position:absolute;left:0;top:.6em;bottom:.6em;border-left:1px solid currentColor;opacity:.5}
+.tl div{position:relative;padding:0 0 10% 9%}
+.tl div:last-child{padding-bottom:0}
+.tl div:before{content:"";position:absolute;left:-4px;top:.55em;width:9px;height:9px;border-radius:50%;background:#C4342D}
+.tl b{display:block;font-family:"Cormorant Garamond",serif;font-weight:600;font-size:clamp(12px,3.8cqw,30px);letter-spacing:.14em;text-transform:uppercase;line-height:1.2}
+.tl span{font-family:"DM Sans",sans-serif;font-size:clamp(8px,2.1cqw,15px);letter-spacing:.18em;text-transform:uppercase;opacity:.7}
+.cal{width:86%;margin:6% auto 0}
+.cal table{width:100%;border-collapse:collapse;font-family:"DM Sans",sans-serif;font-size:clamp(7px,2.4cqw,17px);letter-spacing:.04em}
+.cal th{font-weight:500;opacity:.55;padding:0 0 4%;font-size:.85em;letter-spacing:.14em}
+.cal td{text-align:center;padding:2.2% 0;position:relative;font-variant-numeric:tabular-nums}
+.cal td.x{color:#fff;font-weight:600}
+.cal td.x:before{content:"";position:absolute;left:50%;top:50%;width:1.9em;height:1.9em;transform:translate(-50%,-50%);background:#C4342D;border-radius:50%;z-index:-1}
+.cal td{z-index:0}
+.moonwrap{width:52%;aspect-ratio:1;margin:0 auto}
+.moonwrap canvas{width:100%;height:100%;display:block}
+.sky{position:absolute;inset:0;width:100%;height:100%}
+.P.dark .over{position:relative;margin-top:auto;width:100%}
+.P.dark{padding:9%}
+.icon{width:58%;aspect-ratio:1;margin:0 auto;background:#1A1A1A;-webkit-mask:url(sil.svg) center/contain no-repeat;mask:url(sil.svg) center/contain no-repeat}
+.hicon{width:56%;aspect-ratio:100/104;margin:0 auto;background:#2B2622}
+.dist{display:flex;align-items:center;justify-content:space-between;width:100%;margin:5% 0}
+.dist .c{font-family:"DM Sans",sans-serif;font-size:clamp(7px,2cqw,14px);letter-spacing:.14em;text-transform:uppercase;line-height:1.8;opacity:.8;width:34%}
+.dist .ln{flex:1;border-top:1px dashed currentColor;opacity:.5;margin:0 4%}
+.rules{font-family:"Cormorant Garamond",serif;font-size:clamp(11px,3.7cqw,28px);letter-spacing:.14em;text-transform:uppercase;line-height:2.1;margin:5% 0 0}
+.rules b{font-family:"Hi Maria",cursive;text-transform:none;letter-spacing:0;font-weight:400;font-size:1.9em;line-height:1}
+.schild{background:#DCDCDC;color:#2B2622;justify-content:center;padding:9%}
+.schild .map{position:absolute;inset:0;opacity:.55}
+.schild .tafel{position:relative;background:#fff;padding:9% 7%;width:100%;text-align:center;box-shadow:0 8px 20px rgba(0,0,0,.12)}
+.schild .str{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:clamp(16px,6.2cqw,50px);letter-spacing:.14em;text-transform:uppercase;line-height:1.15;margin:0}
+.schild .ort{font-family:"DM Sans",sans-serif;font-size:clamp(8px,2.3cqw,16px);letter-spacing:.26em;text-transform:uppercase;opacity:.75;margin:5% 0 0}
+.schild .kd{font-family:"Hi Maria",cursive;font-size:clamp(20px,7cqw,58px);margin:5% 0 0;line-height:1}
+.P .foot{margin-top:auto;width:100%}
+.P.top{justify-content:flex-start}
 </style></head>
-<body>
-<header><img src="/logo-wortmarke.png" alt="Walleria" onerror="this.replaceWith(Object.assign(document.createElement('b'),{textContent:'Walleria'}))"><span class="lab">Labor · 3er-Sets</span><span class="hint">Prototyp, nicht öffentlich verlinkt</span></header>
-<h1>So könnten die 3er-Sets aussehen</h1>
-<p class="intro">Jedes Set: ein Hauptposter mit Karte (Mitte) und zwei Nebenposter, die zur gleichen Geschichte gehören. Gleicher Kartenstil, gleiche Schrift, gleiches Papier, damit die drei nebeneinander an der Wand als Einheit wirken.</p>
-<section class="set"><h2>Set 1 · Klassik „Drei Orte“</h2><p class="sub">Für Paare. Drei Stationen der Beziehung: kennengelernt, Ja gesagt, Zuhause. Alle drei mit Karte, Hauptposter als Herz, die beiden Nebenposter als Kreis.</p><div class="row"><div class="slot"><div class="poster f-script" style="--pbg:#fff;--pink:#111" data-lat="54.7837" data-lon="9.436" data-z="13" data-stil="linie"><p class="kopf"></p><p class="koord"></p><div class="mapwrap"><div class="mapbox kreis" style="background:#fff"><div class="map"></div><div class="pin" style="color:#C4342D"></div></div></div><div class="txt"><p class="t1">Kennengelernt</p><p class="t2" data-n1="Anna" data-n2="Paul"></p><p class="t3">14.06.2019  ·  Flensburg  ·  <span class="z"></span></p></div></div><p class="cap"><b>Station 1</b> · Wo wir uns trafen</p></div><div class="slot"><div class="poster f-script" style="--pbg:#fff;--pink:#111" data-lat="53.0758" data-lon="8.8072" data-z="13" data-stil="linie"><p class="kopf"></p><p class="koord"></p><div class="mapwrap"><div class="mapbox herz" style="background:#fff"><div class="map"></div><div class="pin" style="color:#C4342D"></div></div></div><div class="txt"><p class="t1">Ja gesagt</p><p class="t2" data-n1="Anna" data-n2="Paul"></p><p class="t3">22.08.2024  ·  Bremen  ·  <span class="z"></span></p></div></div><p class="cap"><b>Hauptposter</b> · Wo wir Ja sagten</p></div><div class="slot"><div class="poster f-script" style="--pbg:#fff;--pink:#111" data-lat="53.5528" data-lon="9.925" data-z="14" data-stil="linie"><p class="kopf"></p><p class="koord"></p><div class="mapwrap"><div class="mapbox kreis" style="background:#fff"><div class="map"></div><div class="pin" style="color:#C4342D"></div></div></div><div class="txt"><p class="t1">Zuhause</p><p class="t2" data-n1="Anna" data-n2="Paul"></p><p class="t3">seit 2025  ·  Hamburg  ·  <span class="z"></span></p></div></div><p class="cap"><b>Station 3</b> · Wo wir heute leben</p></div></div></section>
-<section class="set"><h2>Set 2 · Silhouette „Unsere Nacht“</h2><p class="sub">Für Paare, auch gleichgeschlechtlich (zweite Silhouette Frau + Frau / Mann + Mann). Links Namen und Datum als reines Schriftposter, Mitte die Silhouette mit Karte, rechts der Sternenhimmel genau dieser Nacht über diesem Ort.</p><div class="row"><div class="slot"><div class="poster txtonly" style="--pbg:#fff;--pink:#1A1A1A;background:#fff;color:#1A1A1A"><p class="big">Anna=Paul</p><p class="sm">Wo alles begann</p><p class="xs">22.05.2025<br>53°04'33.0"N · 8°48'25.8"E</p></div><p class="cap"><b>Nebenposter 1</b> · Namen mit Herz, Datum, Koordinaten</p></div><div class="slot"><div class="poster d-sil maria f-maria" style="--pbg:#fff;--pink:#1A1A1A" data-lat="53.0758" data-lon="8.8072" data-z="13" data-stil="nacht"><p class="kopf"></p><p class="koord"></p><div class="mapwrap"><div class="mapbox quadrat" style="background:#141414"><div class="map"></div><div class="pin" style="color:#D9574C"></div></div></div><div class="txt"><p class="t1">Wo alles begann</p><p class="t2">Anna  ·  Paul  ·  22.05.2025</p><p class="t3">Bremen  ·  <span class="z"></span></p></div></div><p class="cap"><b>Hauptposter</b> · Silhouette mit Karte</p></div><div class="slot"><div class="poster sterne"><canvas class="sky"></canvas><div class="txt"><p class="t1">Unsere Nacht=</p><p class="t3">Sternenhimmel über Bremen<br>22.05.2025 · 23:30 Uhr</p></div></div><p class="cap"><b>Nebenposter 2</b> · Sternenhimmel der Nacht</p></div></div></section>
-<section class="set"><h2>Set 3 · Haus „Unser Zuhause“</h2><p class="sub">Für Familien und zum Einzug. Links alle Bewohner mit Namen, Mitte das Haus mit Karte, rechts die eigene Straße als Schild auf derselben grauen Karte.</p><div class="row"><div class="slot"><div class="poster txtonly" style="--pbg:#fff;--pink:#1A1A1A;background:#fff;color:#1A1A1A"><p class="big">Familie Schmidt=</p><p class="namen">Anna<br>Paul<br>Emma<br>Ben</p><p class="xs">Zuhause seit 2021</p></div><p class="cap"><b>Nebenposter 1</b> · Alle Bewohner mit Namen</p></div><div class="slot"><div class="poster d-haus maria f-maria haus-mini" style="--pbg:#fff;--pink:#1A1A1A" data-lat="54.797" data-lon="9.374" data-z="16" data-stil="grau"><p class="kopf">Zuhause=</p><p class="koord" data-d="seit 2021"></p><div class="mapwrap"><div class="mapbox quadrat" style="background:#DCDCDC"><div class="map"></div><div class="pin" style="color:#C4342D"></div></div></div><div class="txt"><p class="t1"></p><p class="t2"></p><p class="t3"></p></div></div><p class="cap"><b>Hauptposter</b> · Haus mit Karte</p></div><div class="slot"><div class="poster schild" data-lat="54.7970" data-lon="9.3740" data-z="15" data-stil="grau"><div class="map"></div><div class="tafel"><p class="str">Süderstraße 12</p><p class="ort">24955 Harrislee</p><p class="kd">seit 2021=</p></div></div><p class="cap"><b>Nebenposter 2</b> · Straße als Schild auf der Karte</p></div></div></section>
-<svg width="0" height="0" style="position:absolute"><defs><clipPath id="herzclip" clipPathUnits="objectBoundingBox"><path d="M0.5,0.95 C0.5,0.95 0.03,0.62 0.03,0.32 C0.03,0.14 0.17,0.03 0.3,0.03 C0.4,0.03 0.47,0.09 0.5,0.16 C0.53,0.09 0.6,0.03 0.7,0.03 C0.83,0.03 0.97,0.14 0.97,0.32 C0.97,0.62 0.5,0.95 0.5,0.95 Z"/></clipPath></defs></svg>
-<script>
+<body><header><img src="/logo-wortmarke.png" alt="Walleria" onerror="this.replaceWith(Object.assign(document.createElement('b'),{textContent:'Walleria'}))"><span class="lab">Labor · 3er-Sets</span><span class="hint">Prototyp, nicht öffentlich verlinkt</span></header>
+<h1>Haus · 5 Set-Varianten</h1><p class="intro">Haus mit Karte in der Mitte (Kartenstil Grau), Schrift Hi Maria. Für Familien, Einzug, Richtfest.</p><div class="nav"><a href="sets-klassik.html" class="">Klassik</a><a href="sets-silhouette.html" class="">Silhouette</a><a href="sets-haus.html" class="on">Haus</a><a href="index.html">← Konfigurator</a></div><section class="set"><h2>H1 · „Unser Zuhause“</h2><p class="sub">Alle Bewohner links, Haus mit Karte Mitte, Straßenschild rechts.</p><div class="row"><div class="slot"><div class="poster P "><p class="hm">Familie Schmidt=</p><p class="list">Anna<br>Paul<br>Emma<br>Ben</p><p class="ds">Zuhause seit 2021</p></div><p class="cap"><b>Bewohner</b></p></div><div class="slot"><div class="poster d-haus maria f-maria" style="--pbg:#fff;--pink:#1A1A1A" data-lat="54.797" data-lon="9.374" data-z="16" data-stil="grau"><p class="kopf">Zuhause=</p><p class="koord" data-d="seit 2021"></p><div class="mapwrap"><div class="mapbox quadrat" style="background:#DCDCDC"><div class="map"></div><div class="pin" style="color:#C4342D"></div></div></div><div class="txt"><p class="t1"></p><p class="t2"></p><p class="t3"></p></div></div><p class="cap"><b>Hauptposter</b> · Haus</p></div><div class="slot"><div class="poster schild" data-lat="54.797" data-lon="9.374" data-z="15" data-stil="grau"><div class="map"></div><div class="tafel"><p class="str">Süderstraße 12</p><p class="ort">24955 Harrislee</p><p class="kd">seit 2021=</p></div></div><p class="cap"><b>Straßenschild</b></p></div></div></section><section class="set"><h2>H2 · „Einzugstag“</h2><p class="sub">Kleines Haus-Symbol mit Familienname, Haus mit Karte, Kalender mit dem Einzugstag.</p><div class="row"><div class="slot"><div class="poster P "><div class="hicon" style="-webkit-mask:url(haus.svg) center/contain no-repeat;mask:url(haus.svg) center/contain no-repeat"></div><p class="hm" style="margin-top:8%">Familie Schmidt=</p><p class="ds">Süderstraße 12 · Harrislee</p></div><p class="cap"><b>Symbol</b> · Haus klein</p></div><div class="slot"><div class="poster d-haus maria f-maria" style="--pbg:#fff;--pink:#1A1A1A" data-lat="54.797" data-lon="9.374" data-z="16" data-stil="grau"><p class="kopf">Zuhause=</p><p class="koord" data-d="seit 2021"></p><div class="mapwrap"><div class="mapbox quadrat" style="background:#DCDCDC"><div class="map"></div><div class="pin" style="color:#C4342D"></div></div></div><div class="txt"><p class="t1"></p><p class="t2"></p><p class="t3"></p></div></div><p class="cap"><b>Hauptposter</b> · Haus</p></div><div class="slot"><div class="poster P "><p class="hm" style="font-size:clamp(22px,9cqw,76px)">Juli 2021</p><div class="cal" data-date="03.07.2021"></div></div><p class="cap"><b>Kalender</b> · Einzugstag</p></div></div></section><section class="set"><h2>H3 · „Zuhause, das“</h2><p class="sub">Definition links, Haus Mitte, Koordinaten rechts. Klassisch, ruhig, viel Weißraum.</p><div class="row"><div class="slot"><div class="poster P "><p class="def-w">Zuhause, das</p><p class="def-p">[ˈtsuːhaʊ̯zə] · Substantiv</p><p class="def-t">Der Ort, an dem man nicht perfekt sein muss. Wo die Tür immer offen ist und man einfach ankommt.</p></div><p class="cap"><b>Definition</b> · „Zuhause, das“</p></div><div class="slot"><div class="poster d-haus maria f-maria" style="--pbg:#fff;--pink:#1A1A1A" data-lat="54.797" data-lon="9.374" data-z="16" data-stil="grau"><p class="kopf">Zuhause=</p><p class="koord" data-d="seit 2021"></p><div class="mapwrap"><div class="mapbox quadrat" style="background:#DCDCDC"><div class="map"></div><div class="pin" style="color:#C4342D"></div></div></div><div class="txt"><p class="t1"></p><p class="t2"></p><p class="t3"></p></div></div><p class="cap"><b>Hauptposter</b> · Haus</p></div><div class="slot"><div class="poster P "><p class="coord"><span class="zl" data-lat="54.797" data-lon="9.374"></span></p><p class="cg" style="margin-top:9%">Unser Zuhause</p><p class="ds">Harrislee<br>seit 2021</p></div><p class="cap"><b>Koordinaten</b></p></div></div></section><section class="set"><h2>H4 · „Hausregeln“</h2><p class="sub">Familienregeln links („In diesem Haus …“), Haus Mitte, rechts die Bewohner mit ihren Geburtsorten.</p><div class="row"><div class="slot"><div class="poster P "><p class="rules"><b>In diesem Haus=</b><br>wird gelacht<br>wird laut gesungen<br>wird verziehen<br>wird geliebt</p></div><p class="cap"><b>Hausregeln</b></p></div><div class="slot"><div class="poster d-haus maria f-maria" style="--pbg:#fff;--pink:#1A1A1A" data-lat="54.797" data-lon="9.374" data-z="16" data-stil="grau"><p class="kopf">Zuhause=</p><p class="koord" data-d="seit 2021"></p><div class="mapwrap"><div class="mapbox quadrat" style="background:#DCDCDC"><div class="map"></div><div class="pin" style="color:#C4342D"></div></div></div><div class="txt"><p class="t1"></p><p class="t2"></p><p class="t3"></p></div></div><p class="cap"><b>Hauptposter</b> · Haus</p></div><div class="slot"><div class="poster P "><div class="tl"><div><b>Anna</b><span>geboren in Kiel · 1991</span></div><div><b>Paul</b><span>geboren in Lübeck · 1989</span></div><div><b>Emma</b><span>geboren in Flensburg · 2019</span></div><div><b>Ben</b><span>geboren in Flensburg · 2022</span></div></div></div><p class="cap"><b>Bewohner</b> · mit Geburtsorten</p></div></div></section><section class="set"><h2>H5 · „Damals & Heute“</h2><p class="sub">Die erste gemeinsame Wohnung als kleine Kreiskarte links, das Haus heute in der Mitte, rechts die Tage im Zuhause als Zähler.</p><div class="row"><div class="slot"><div class="poster f-script" style="--pbg:#fff;--pink:#111" data-lat="52.539" data-lon="13.413" data-z="14" data-stil="grau"><p class="kopf"></p><p class="koord"></p><div class="mapwrap"><div class="mapbox kreis" style="background:#fff"><div class="map"></div><div class="pin" style="color:#C4342D"></div></div></div><div class="txt"><p class="t1">Damals</p><p class="t2" style="font-family:'Hi Maria',cursive">Erste Wohnung=</p><p class="t3">2016  ·  Berlin  ·  <span class="z"></span></p></div></div><p class="cap"><b>Kreiskarte</b> · Erste Wohnung</p></div><div class="slot"><div class="poster d-haus maria f-maria" style="--pbg:#fff;--pink:#1A1A1A" data-lat="54.797" data-lon="9.374" data-z="16" data-stil="grau"><p class="kopf">Zuhause=</p><p class="koord" data-d="seit 2021"></p><div class="mapwrap"><div class="mapbox quadrat" style="background:#DCDCDC"><div class="map"></div><div class="pin" style="color:#C4342D"></div></div></div><div class="txt"><p class="t1"></p><p class="t2"></p><p class="t3"></p></div></div><p class="cap"><b>Hauptposter</b> · Haus</p></div><div class="slot"><div class="poster P "><p class="num days" data-date="03.07.2021"></p><p class="cg">Tage Zuhause</p><p class="ds">seit dem 03.07.2021 · Stand heute</p></div><p class="cap"><b>Zähler</b></p></div></div></section><svg width="0" height="0" style="position:absolute"><defs><clipPath id="herzclip" clipPathUnits="objectBoundingBox"><path d="M0.5,0.95 C0.5,0.95 0.03,0.62 0.03,0.32 C0.03,0.14 0.17,0.03 0.3,0.03 C0.4,0.03 0.47,0.09 0.5,0.16 C0.53,0.09 0.6,0.03 0.7,0.03 C0.83,0.03 0.97,0.14 0.97,0.32 C0.97,0.62 0.5,0.95 0.5,0.95 Z"/></clipPath></defs></svg><script>
 const STYLES={
  linie:{bg:"#FFFFFF",ink:"#111111",water:"#DCDCDC",road:"#111111",minor:"#3A3A3A",build:"#F1F1F1",park:"#F6F6F6",pin:"#C4342D"},
  sand:{bg:"#F4EEE4",ink:"#2B2622",water:"#D9D0C2",road:"#2B2622",minor:"#5A524A",build:"#EDE6DA",park:"#EEE8DD",pin:"#B5452F"},
@@ -187,24 +218,15 @@ function dms(v,lat){const a=Math.abs(v),d=Math.floor(a),m=Math.floor((a-d)*60),s
 function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
 function herzNamen(a,b){const l=a.slice(-1),cp=HERZ[l];return cp?a.slice(0,-1)+String.fromCodePoint(cp)+b:null}
 document.querySelectorAll(".pin").forEach(p=>p.innerHTML=MARKER.flach);
-document.querySelectorAll(".t2[data-n1]").forEach(e=>{e.textContent=herzNamen(e.dataset.n1,e.dataset.n2)});
-document.querySelectorAll(".poster[data-lat]").forEach(p=>{
- const lat=+p.dataset.lat,lon=+p.dataset.lon,z=+p.dataset.z,st=p.dataset.stil;
- const el=p.querySelector(".map");
- const map=new maplibregl.Map({container:el,style:mapStyle(st),center:[lon,lat],zoom:z,attributionControl:false,interactive:false,preserveDrawingBuffer:true});
- map.once("load",()=>map.resize());setTimeout(()=>map.resize(),500);setTimeout(()=>map.resize(),1500);
- const co=`${dms(lat,true)} ${dms(lon,false)}`;
- const zz=p.querySelector(".z");if(zz)zz.textContent=co;
- const k=p.querySelector(".koord");if(k&&k.dataset.d!==undefined)k.innerHTML=`${esc(dms(lat,true))}<br>${esc(dms(lon,false))}<br><span class="kd">${esc(k.dataset.d)}</span>`;
-});
-document.querySelectorAll("canvas.sky").forEach(cv=>{
- const r=cv.parentElement.getBoundingClientRect();cv.width=r.width*2;cv.height=r.height*2;const x=cv.getContext("2d");
- x.fillStyle="#141414";x.fillRect(0,0,cv.width,cv.height);
- let s=7;const rnd=()=>{s=(s*16807)%2147483647;return s/2147483647};
- for(let i=0;i<900;i++){const px=rnd()*cv.width,py=rnd()*cv.height*.78,rr=rnd();x.globalAlpha=.25+rr*.75;x.fillStyle="#F5F1EA";x.beginPath();x.arc(px,py,rr<.93?rr*1.3+.3:2.4+rnd()*1.6,0,7);x.fill()}
- x.globalAlpha=1;x.strokeStyle="rgba(245,241,234,.35)";x.lineWidth=1;
- const K=[[.22,.18],[.31,.25],[.42,.22],[.5,.3],[.6,.27],[.68,.36],[.77,.31]];x.beginPath();K.forEach(([a,b],i)=>{const X=a*cv.width,Y=b*cv.height;i?x.lineTo(X,Y):x.moveTo(X,Y)});x.stroke();
- K.forEach(([a,b])=>{x.fillStyle="#F5F1EA";x.beginPath();x.arc(a*cv.width,b*cv.height,3.2,0,7);x.fill()});
- x.strokeStyle="rgba(245,241,234,.5)";x.beginPath();x.arc(cv.width/2,cv.height*.36,cv.width*.36,0,7);x.stroke();
-});
+document.querySelectorAll(".hn").forEach(e=>{e.textContent=herzNamen(e.dataset.n1,e.dataset.n2)});
+document.querySelectorAll(".zc").forEach(e=>{e.textContent=dms(+e.dataset.lat,true)+" · "+dms(+e.dataset.lon,false)});
+document.querySelectorAll(".zl").forEach(e=>{e.innerHTML=esc(dms(+e.dataset.lat,true))+"<br>"+esc(dms(+e.dataset.lon,false))});
+const HEUTE=new Date(2026,8,11);
+function pd(s){const m=s.match(/(\d{2})\.(\d{2})\.(\d{4})/);return m?new Date(+m[3],+m[2]-1,+m[1]):null}
+document.querySelectorAll(".days").forEach(e=>{const d=pd(e.dataset.date);e.textContent=d?Math.round((HEUTE-d)/864e5).toLocaleString("de-DE"):""});
+document.querySelectorAll(".km").forEach(e=>{const[a1,o1]=e.dataset.a.split(",").map(Number),[a2,o2]=e.dataset.b.split(",").map(Number);const R=6371,t=x=>x*Math.PI/180,dA=t(a2-a1),dO=t(o2-o1),h=Math.sin(dA/2)**2+Math.cos(t(a1))*Math.cos(t(a2))*Math.sin(dO/2)**2;e.textContent=Math.round(2*R*Math.asin(Math.sqrt(h))).toLocaleString("de-DE")});
+document.querySelectorAll(".cal").forEach(c=>{const d=pd(c.dataset.date);const y=d.getFullYear(),m=d.getMonth();const first=new Date(y,m,1);let wd=(first.getDay()+6)%7;const n=new Date(y,m+1,0).getDate();let h='<table><tr>'+["Mo","Di","Mi","Do","Fr","Sa","So"].map(x=>`<th>${x}</th>`).join("")+'</tr><tr>';for(let i=0;i<wd;i++)h+='<td></td>';for(let t=1;t<=n;t++){h+=`<td${t===d.getDate()?' class="x"':''}>${t}</td>`;wd++;if(wd%7===0&&t<n)h+='</tr><tr>'}while(wd%7!==0){h+='<td></td>';wd++}c.innerHTML=h+'</tr></table>'});
+document.querySelectorAll("canvas.moon").forEach(cv=>{const d=pd(cv.dataset.date);const syn=29.530588853;const ref=Date.UTC(2000,0,6,18,14);const age=(((d-ref)/864e5)%syn+syn)%syn;const ph=age/syn;const S=600;cv.width=S;cv.height=S;const x=cv.getContext("2d");const r=S*.44,cx=S/2,cy=S/2;x.fillStyle="#2A2A2A";x.beginPath();x.arc(cx,cy,r,0,7);x.fill();x.fillStyle="#F5F1EA";x.beginPath();const lit=ph<.5;const k=Math.cos(ph*2*Math.PI);if(lit){x.arc(cx,cy,r,-Math.PI/2,Math.PI/2,false);x.ellipse(cx,cy,Math.abs(r*k),r,0,Math.PI/2,-Math.PI/2,k>0)}else{x.arc(cx,cy,r,Math.PI/2,-Math.PI/2,false);x.ellipse(cx,cy,Math.abs(r*k),r,0,-Math.PI/2,Math.PI/2,k<0)}x.closePath();x.fill();x.globalAlpha=.08;x.fillStyle="#000";for(const[a,b,rr]of[[.42,.38,.09],[.6,.55,.06],[.36,.62,.05],[.62,.32,.04]]){x.beginPath();x.arc(cx+(a-.5)*2*r,cy+(b-.5)*2*r,rr*r*2,0,7);x.fill()}});
+document.querySelectorAll("canvas.sky").forEach(cv=>{const r=cv.parentElement.getBoundingClientRect();cv.width=r.width*2;cv.height=r.height*2;const x=cv.getContext("2d");x.fillStyle="#141414";x.fillRect(0,0,cv.width,cv.height);let s=7;const rnd=()=>{s=(s*16807)%2147483647;return s/2147483647};for(let i=0;i<900;i++){const px=rnd()*cv.width,py=rnd()*cv.height*.78,rr=rnd();x.globalAlpha=.25+rr*.75;x.fillStyle="#F5F1EA";x.beginPath();x.arc(px,py,rr<.93?rr*1.3+.3:2.4+rnd()*1.6,0,7);x.fill()}x.globalAlpha=1;x.strokeStyle="rgba(245,241,234,.35)";x.lineWidth=1;const K=[[.22,.18],[.31,.25],[.42,.22],[.5,.3],[.6,.27],[.68,.36],[.77,.31]];x.beginPath();K.forEach(([a,b],i)=>{const X=a*cv.width,Y=b*cv.height;i?x.lineTo(X,Y):x.moveTo(X,Y)});x.stroke();K.forEach(([a,b])=>{x.fillStyle="#F5F1EA";x.beginPath();x.arc(a*cv.width,b*cv.height,3.2,0,7);x.fill()});x.strokeStyle="rgba(245,241,234,.5)";x.beginPath();x.arc(cv.width/2,cv.height*.36,cv.width*.36,0,7);x.stroke()});
+document.querySelectorAll(".poster[data-lat]").forEach(p=>{const lat=+p.dataset.lat,lon=+p.dataset.lon,z=+p.dataset.z,st=p.dataset.stil;const el=p.querySelector(".map");window.MAPS=window.MAPS||[];const map=new maplibregl.Map({container:el,style:mapStyle(st),center:[lon,lat],zoom:z,attributionControl:false,interactive:false,preserveDrawingBuffer:true});MAPS.push(map);map.once("load",()=>map.resize());setTimeout(()=>map.resize(),500);setTimeout(()=>map.resize(),1500);const co=`${dms(lat,true)} ${dms(lon,false)}`;const zz=p.querySelector(".z");if(zz)zz.textContent=co;const k=p.querySelector(".koord");if(k&&k.dataset.d!==undefined)k.innerHTML=`${esc(dms(lat,true))}<br>${esc(dms(lon,false))}<br><span class="kd">${esc(k.dataset.d)}</span>`});
 </script></body></html>
