@@ -3,6 +3,7 @@ Allow: /
 Disallow: /kasse
 Disallow: /danke
 Disallow: /statistik
+Disallow: /karte-druck
 
 # KI-Suchdienste ausdruecklich erlaubt
 User-agent: GPTBot
