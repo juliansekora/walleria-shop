@@ -472,7 +472,7 @@ window.karteStart=function(pdp){
   map.touchZoomRotate.disableRotation();
   const c={i,el:wrap,wrap,map,cfg:{q:"",t:"",n1:"",n2:"",d:""},center:map.getCenter(),city:bspOrt.q.split(",")[0],bsp,dirty:false,geo:false,kennung:"",stand:""};
   /* 21.09.2026: Beispielort steht wie die Beispielnamen sichtbar im Feld (Platzhalter), bis die Kundin tippt -
-     a visitor mistook the finished sample poster for their own and dropped off at the empty location field */
+     a visitor mistook the sample poster for their own and dropped off at the empty location field */
   bsp.q=bspOrt.q; { const eq=felder(i,"q"); if(eq&&!kpSauber(eq.value)) eq.placeholder=bspOrt.q; }
   map.on("move",()=>{ c.center=map.getCenter(); kpRender(c,stFuer(c),c.bsp); });
   map.on("moveend",()=>schreiben());
@@ -902,7 +902,7 @@ function werbeKennung(){
     const teile=["utm_source","utm_medium","utm_campaign","utm_content"]
       .map(k=>(q.get(k)||"").replace(/[^A-Za-z0-9_.-]/g,"").slice(0,40));
     /* Google-Ads-Klicks tragen kein utm, nur gclid/gbraid/wbraid (Performance Max aus dem Merchant Center) -
-       previously they ended up as "direkt" in der Statistik (21.09.2026). Kennung selbst wird NICHT gespeichert. */
+       until now, they ended up as "direkt" in der Statistik (21.09.2026). Kennung selbst wird NICHT gespeichert. */
     if(!teile[0] && (q.has("gclid")||q.has("gbraid")||q.has("wbraid"))) return "google/cpc/ads";
     if(!teile[0]) return null;
     return teile.join("/").replace(/\/+$/,"");
@@ -1310,7 +1310,7 @@ function initSeite(){ navSchwelle();
     /* Namensfelder je Tierzahl: 1 Tier = 1 Kasten, 2 = 2, 3 = 3 (Julian 18.09.) */
     const htNamenFelder=()=>{ const az=q("#kAnzahl"); const n=Math.min(3,Math.max(1,parseInt((az&&az.value)||"1",10)||1));
       [["#kName2",2],["#kName3",3]].forEach(([sel,ab])=>{ const e=q(sel); if(!e) return; const w=e.closest(".field")||e; const an=n>=ab; w.hidden=!an; if(an) e.setAttribute("data-pflicht","1"); else { e.removeAttribute("data-pflicht"); e.value=""; }
-        /* 21.09.2026 (Pruefrunde 3): Feld ist Pflicht, sobald das Tier gewaehlt ist - das "(freiwillig)" the label contradicted the error message */
+        /* 21.09.2026 (Pruefrunde 3): Feld ist Pflicht, sobald das Tier gewaehlt ist - das "(freiwillig)" the text contradicted the error message */
         const l=w.querySelector("label"); if(l&&an){ l.querySelectorAll("span,small,em").forEach(s=>{ if(/^\s*\((freiwillig|optional)\)\s*$/i.test(s.textContent)) s.remove(); }); if(!l.children.length) l.textContent=l.textContent.replace(/\s*\((freiwillig|optional)\)/i,""); } }); };
     const htNamen=()=>{ const t=[q("#kName"),q("#kName2"),q("#kName3")].map(e=>(e&&!(e.closest(".field")||e).hidden&&e.value.trim())||"").filter(Boolean);
       return t.length<=1?(t[0]||""):(t.slice(0,-1).join(", ")+" & "+t[t.length-1]); };
